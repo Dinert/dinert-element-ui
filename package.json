@@ -1,0 +1,33 @@
+{
+  "name": "@dinert/element-ui",
+  "version": "1.0.0",
+  "description": "基于vue2封装的element-ui包",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.esm.js",
+  "browser": "dist/bundle.umd.js",
+  "scripts": {
+    "dev": "rollup --config rollup.config.dev.js -w"
+  },
+  "author": "dinert",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@rollup/plugin-alias": "^3.1.9",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "autoprefixer": "8.0.0",
+    "element-ui": "^2.15.9",
+    "lodash": "^4.17.21",
+    "node-sass": "^7.0.1",
+    "postcss": "^8.4.14",
+    "rollup": "^2.75.6",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-serve": "^1.1.0",
+    "rollup-plugin-vue": "4.2.0",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "dependencies": {}
+}
