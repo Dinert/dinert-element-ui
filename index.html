@@ -39,12 +39,15 @@
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="./dist/bundle.umd.js"></script>
 <script>
-  Vue.use(window['dinert-element-ui'].DTable)
+
   const app = new Vue({
     el: '#app',
     data: {
       message: 'hello'
     },
+    components: {
+      DTable: window['dinert-element-ui'].DTable
+    }
   })
 </script>
 

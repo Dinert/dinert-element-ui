@@ -1,9 +1,25 @@
 <template>
-  <div class="d-table-header" v-if="showHeader">
-    <div class="d-table-header-left">
-      <slot name="header-left"></slot>
+  <div class="d-table">
+    <div class="d-table-header" v-if="showHeader">
+      <div class="d-table-header-left">
+        <slot name="header-left"></slot>
+      </div>
+      <div class="d-table-header-right"></div>
     </div>
-    <div class="d-table-header-right"></div>
+    <div class="d-table-body">
+      <el-table
+        v-bind="{
+          data: [],
+          height: '100%',
+          border: true,
+          showHeader: true,
+          ...table,
+        }"
+        v-on="{ ...table.on }"
+      >
+        
+      </el-table>
+    </div>
     <div class="d-table-footer" v-if="showFooter">
       <el-pagination
         v-bind="{
@@ -39,28 +55,32 @@ export default {
       type: Boolean,
       default: true,
     },
-
-    // 分页
-    pagination: {
+    table: {
       type: Object,
       default: () => {
         return {
           on: {}
         }
       }
-    }
+    },
+
+    // 分页
+    pagination: {
+      type: Object,
+      default: () => {
+        return {
+          on: {},
+        };
+      },
+    },
   },
   data() {
     return {};
   },
   computed: {},
   methods: {
-    sizeChange() {
-
-    },
-    currentChange() {
-
-    }
+    sizeChange() {},
+    currentChange() {},
   },
 };
 </script>
