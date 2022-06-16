@@ -20,6 +20,7 @@ export default {
       format: 'umd',
       name: 'dinert-element-ui',
       sourcemap: true,
+      inlineDynamicImports: true,
       globals: {
         vue: 'Vue'
       }
@@ -27,11 +28,13 @@ export default {
     {
       file: pkg.module,
       format: 'esm',
+      inlineDynamicImports: true,
       sourcemap: true
     },
     {
       file: pkg.main,
       format: 'cjs',
+      inlineDynamicImports: true,
       sourcemap: true
     }
   ],
