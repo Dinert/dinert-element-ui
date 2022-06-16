@@ -9,6 +9,11 @@
     "dev": "rollup --config rollup.config.dev.js -w",
     "build": "rollup --config rollup.config.build.js"
   },
+  "keywords": [
+    "@dinert/element-ui",
+    "element-ui",
+    "@dinert"
+  ],
   "author": "dinert",
   "license": "MIT",
   "devDependencies": {
