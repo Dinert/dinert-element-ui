@@ -197,7 +197,7 @@ export default {
 .d-table {
   background-color: var(--el-bg-color);
   border-radius: var(--el-bg-radius);
-  padding: 16px;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -235,7 +235,6 @@ export default {
   }
 
   .d-table-footer {
-    margin-top: 16px;
     display: flex;
 
     .el-pagination {
