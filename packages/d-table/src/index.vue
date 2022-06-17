@@ -195,13 +195,13 @@ export default {
 
 <style lang="scss" scoped>
 .d-table {
-  background-color: var(--el-bg-color);
-  border-radius: var(--el-bg-radius);
   padding: 0 16px;
   display: flex;
   flex-direction: column;
   overflow: auto;
   box-sizing: border-box;
+  height: 100%;
+  min-height: 375px;
 
   .d-table-header {
     text-align: right;
@@ -236,6 +236,7 @@ export default {
 
   .d-table-footer {
     display: flex;
+    margin-top: 16px;
 
     .el-pagination {
       display: flex;
