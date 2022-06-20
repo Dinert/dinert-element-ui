@@ -54,6 +54,7 @@ export default {
     alias({
       entries:[
         {find: '@', replacement: resolveDir('src')},
+        {find: '@packages', replacement: resolveDir('packages')},
       ]
     }),
     livereload(),

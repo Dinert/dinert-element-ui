@@ -10,94 +10,75 @@
     <el-row v-bind="{ gutter: 20, ...row }" class="el-form-left">
       <el-col
         v-bind="colLayout"
-        v-for="(item, key, index) in formItem"
+        v-for="(item, key) in formitem"
         :class="[item.type]"
+        :key="key"
       >
         <el-form-item
           v-bind="{
             key: key,
             prop: key,
             label: item.label,
-            ref: setForm,
           }"
+          :ref="key"
         >
           <template #label>
-            <el-tooltip
-              v-bind="{
-                content: item['label'],
-                placement: 'top',
-                disabled: isDisabledLabel(item.label),
-              }"
-            >
-              {{ item["label"] }}
-            </el-tooltip>
+            <d-overflow-tooltip :content="item['label']"></d-overflow-tooltip>
           </template>
-          <el-tooltip
-            v-bind="{
-              content: getTooltipValue(form.model[key], item),
-              placement: 'top',
-              disabled: !item.tooltip,
-            }"
-          >
-            <div @mouseenter="mouseEnter(index, item)">
-              <span class="temp-tooltip">{{
-                getTooltipValue(form.model[key], item)
-              }}</span>
-              <template v-if="['input'].includes(item.type)">
-                <el-input
-                  clearable
-                  v-model="form.model[key]"
-                  v-bind="item"
-                  v-on="{ ...item.on }"
-                ></el-input>
-              </template>
-              <template v-else-if="['select'].includes(item.type)">
-                <el-select
-                  clearable
-                  v-model="form.model[key]"
-                  v-bind="item"
-                  v-on="{ ...item.on }"
-                >
-                  <el-option
-                    v-for="options in item.options"
-                    v-bind="{
-                      value: options.value,
-                      label: options.label,
-                    }"
-                    v-on="{ ...item.on }"
-                  >
-                    <slot
-                      :name="item.type + firstUpperCase(key)"
-                      :options="options"
-                    ></slot>
-                  </el-option>
-                </el-select>
-              </template>
-              <template
-                v-else-if="
-                  [
-                    'datetime',
-                    'date',
-                    'week',
-                    'month',
-                    'year',
-                    'datetimerange',
-                    'daterange',
-                    'monthrange',
-                    'yearrange',
-                  ].includes(item.type)
-                "
+          <template v-if="['input'].includes(item.type)">
+            <el-input
+              clearable
+              v-model="form.model[key]"
+              v-bind="item"
+              v-on="{ ...item.on }"
+            ></el-input>
+          </template>
+          <template v-else-if="['select'].includes(item.type)">
+            <el-select
+              clearable
+              v-model="form.model[key]"
+              v-bind="item"
+              v-on="{ ...item.on }"
+            >
+              <el-option
+                v-for="options in item.options"
+                v-bind="{
+                  value: options.value,
+                  label: options.label,
+                }"
+                :key="options.value"
+                v-on="{ ...item.on }"
               >
-                <el-date-picker
-                  clearable
-                  v-model="form.model[key]"
-                  v-bind="item"
-                  v-on="{ ...item.on }"
-                >
-                </el-date-picker>
-              </template>
-            </div>
-          </el-tooltip>
+                <slot
+                  :name="item.type + firstUpperCase(key)"
+                  :options="options"
+                ></slot>
+              </el-option>
+            </el-select>
+          </template>
+          <template
+            v-else-if="
+              [
+                'datetime',
+                'date',
+                'week',
+                'month',
+                'year',
+                'datetimerange',
+                'daterange',
+                'monthrange',
+                'yearrange',
+              ].includes(item.type)
+            "
+          >
+            <el-date-picker
+              clearable
+              v-model="form.model[key]"
+              v-bind="item"
+              v-on="{ ...item.on }"
+            >
+            </el-date-picker>
+          </template>
         </el-form-item>
       </el-col>
     </el-row>
@@ -121,21 +102,23 @@
 </template>
 
 <script>
+import DOverflowTooltip from "@packages/d-overflow-tooltip";
+import { firstUpperCase, windowResize } from "@/utils/tools";
+
 export default {
-  name: "menuController",
+  name: "DForm",
   props: {
-    ref,
-    formItem: {
-      type: Object,
-      default: () => {},
-    },
-    model: {
+    formitem: {
       type: Object,
       default: () => {},
     },
     form: {
       type: Object,
-      default: () => {},
+      default: () => {
+        return {
+          model: {},
+        };
+      },
     },
     row: {
       type: Object,
@@ -158,16 +141,169 @@ export default {
       default: true,
     },
   },
-  components: {},
-  created() {},
-  mounted() {},
-  data() {
-    return {};
+  components: {
+    DOverflowTooltip,
   },
-  computed: {},
-  methods: {},
+  created() {},
+  mounted() {
+    windowResize(() => {
+      const elFormLeft = document.querySelector(".el-form-left");
+      const clientHeight = elFormLeft.clientHeight;
+      if (clientHeight > this.elFormHeight) {
+        this.isArrow = true;
+      } else {
+        if (!this.packUp) {
+          this.packUp = true;
+        }
+        this.isArrow = false;
+      }
+    });
+  },
+  data() {
+    return {
+      packUp: true,
+      isArrow: false,
+      elFormHeight: 60,
+    };
+  },
+  methods: {
+    firstUpperCase,
+    // 获取显示的tooltip值
+    getTooltipValue(value, form) {
+      const type = form.type;
+      const options = form.options;
+      if (["input"].includes(type)) {
+        return value;
+      } else if (["select"].includes(type)) {
+        let item = options.filter((item) => item.value === value)[0];
+        return item && item.label;
+      }
+    },
+
+    // 展开还是收起状态
+    unfold() {
+      if (this.packUp) {
+        this.packUp = false;
+      } else {
+        this.packUp = true;
+      }
+    },
+
+    isDisabledLabel(label) {
+      return !(label.length >= 5);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.el-form {
+  padding: 16px 16px 0;
+  background-color: #fff;
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  max-height: 300px;
+  min-height: 50px;
+
+  &.packUp {
+    max-height: 50px;
+  }
+
+  .el-form-left {
+    flex: 1;
+
+    .el-col {
+      &.datetimerange {
+        min-width: 450px;
+      }
+
+      &.date {
+        min-width: 210px;
+      }
+
+      &.month {
+        min-width: 190px;
+      }
+
+      &.select {
+        min-width: 230px;
+      }
+    }
+  }
+
+  .el-form-right {
+    margin-left: 20px;
+    min-width: 150px;
+    display: flex;
+    justify-content: flex-end;
+
+    .el-form-right-operation {
+      &.el-button.is-text {
+        background-color: unset;
+        padding-right: 0;
+      }
+    }
+    ::v-deep .el-button {
+      height: 40px;
+    }
+  }
+
+  .el-form-item {
+    width: 100%;
+    margin-bottom: 18px;
+    display: flex;
+    position: relative;
+
+    ::v-deep .el-form-item__content {
+      flex: 1;
+    }
+
+    ::v-deep .el-tooltip {
+      width: 100%;
+      position: relative;
+      .temp-tooltip {
+        display: block;
+        position: absolute;
+        z-index: -9999;
+        left: -999999999999px;
+      }
+    }
+
+    ::v-deep .el-tooltip__trigger {
+      width: 100%;
+    }
+
+    ::v-deep .el-date-editor {
+      width: 100%;
+
+      .el-input__wrapper {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    ::v-deep .el-input__inner {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    ::v-deep .el-form-item__label {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 80px
+    }
+  }
+
+  .el-select {
+    width: 100%;
+  }
+
+  .el-form-item__content {
+    margin-left: 0 !important;
+  }
+}
 </style>
