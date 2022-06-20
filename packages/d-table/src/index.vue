@@ -9,9 +9,9 @@
           <el-button :type="isAllData ? 'primary' : 'default'" @click="allShow"
             >全部显示
           </el-button>
-          <el-popover :teleported="false">
-            <template #reference>
-              <el-button :type="!isAllData ? 'primary' : undefined">
+          <el-popover trigger="hover">
+            <template>
+              <el-button :type="!isAllData ? 'primary' : undefined" slot="reference">
                 分类显示
                 <i class="el-icon-arrow-down"></i>
               </el-button>
