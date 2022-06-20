@@ -10,8 +10,8 @@
     <el-row v-bind="{ gutter: 20, ...row }" class="el-form-left">
       <el-col
         v-bind="colLayout"
-        v-for="(item, key) in formitem"
-        :class="[item.type]"
+        v-for="(item, key) in formItem"
+        :class="[item.type, key]"
         :key="key"
       >
         <el-form-item
@@ -19,19 +19,28 @@
             key: key,
             prop: key,
             label: item.label,
+            labelWidth: item.labelWidth
           }"
           :ref="key"
         >
           <template #label>
             <d-overflow-tooltip :content="item['label']"></d-overflow-tooltip>
           </template>
-          <template v-if="['input'].includes(item.type)">
+          <template v-if="['input', 'textarea'].includes(item.type)">
             <el-input
               clearable
               v-model="form.model[key]"
               v-bind="item"
               v-on="{ ...item.on }"
             ></el-input>
+          </template>
+          <template v-if="['input-number'].includes(item.type)">
+            <el-input-number
+              clearable
+              v-model="form.model[key]"
+              v-bind="item"
+              v-on="{ ...item.on }"
+            ></el-input-number>
           </template>
           <template v-else-if="['select'].includes(item.type)">
             <el-select
@@ -82,7 +91,7 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <el-row class="el-form-right">
+    <el-row class="el-form-right" v-if="isSearch">
       <el-button
         type="text"
         v-if="isArrow"
@@ -108,7 +117,7 @@ import { firstUpperCase, windowResize } from "@/utils/tools";
 export default {
   name: "DForm",
   props: {
-    formitem: {
+    formItem: {
       type: Object,
       default: () => {},
     },
@@ -228,6 +237,10 @@ export default {
       }
 
       &.select {
+        min-width: 230px;
+      }
+
+      &.input{
         min-width: 230px;
       }
     }
