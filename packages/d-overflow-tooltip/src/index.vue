@@ -2,9 +2,11 @@
   <el-tooltip :content="content" placement="top" :disabled="disabled">
     <span>
       <span class="text-tooltip">{{ content }}</span>
-      <span class="label-text" @mouseenter="labelMouseEnter($event)"> {{ content }} </span>
+      <span class="label-text" @mouseenter="labelMouseEnter($event)">
+        <slot>{{ content }}</slot>
+      </span>
     </span>
-  </el-tooltip> 
+  </el-tooltip>
 </template>
 
 <script>
@@ -13,36 +15,41 @@ export default {
   props: {
     content: {
       type: String,
-    }
+    },
+    disabled: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
-    return {
-      disabled: true
-    };
+    return {};
   },
   computed: {},
   methods: {
-    
     // 超出宽度显示tooltip
     labelMouseEnter(e) {
-      const el = e.target.parentElement.parentElement
-      const labelEl = window.getComputedStyle(el,null)
-      const labelWidth =  parseInt(labelEl.getPropertyValue('max-width')) - parseInt(labelEl.getPropertyValue('padding-right'))
-      const tooltipWidth = e.target.previousElementSibling.offsetWidth
-      console.log(labelWidth, tooltipWidth, 'tooltipWidth')
-      if(tooltipWidth > labelWidth) {
-        this.disabled = false
-      }else {
-        this.disabled = true
-      }
+      this.$emit("label-mouse-enter", e);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.text-tooltip{
-  position: absolute;
-  left: -999999999999px;
+.el-tooltip {
+  display: block;
+  height: 100%;
+
+  .text-tooltip {
+    position: absolute;
+    left: -999999999999px;
+  }
+  .label-text {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 100%;
+  }
 }
 </style>

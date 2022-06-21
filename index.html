@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.0/theme-chalk/index.css">
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.9/theme-chalk/index.css" rel="stylesheet">
   <title>Vue + elementui</title>
   <style>
     * {
@@ -42,17 +42,17 @@
 
 <body>
   <div id="app">
-    <d-table :table="table" @size-change="sizeChange"></d-table>
-    <!-- <d-form :formitem="formItem">
+    <!-- <d-table :table="table" @size-change="sizeChange"></d-table> -->
+    <d-form :form-item="formItem">
       <template #search>
         <el-button type="primary">查询</el-button>
         <el-button>重置</el-button>
       </template>
-    </d-form> -->
+    </d-form>
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.0/index.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.9/index.js"></script>
 <script src="https://at.alicdn.com/t/font_3370983_ozossfu4xp.js"></script>
 <script src="https://at.alicdn.com/t/font_3373809_s6055kmhlcp.js"></script>
 <script src="./dist/bundle.umd.js"></script>
@@ -68,6 +68,11 @@
       message: 'hello',
       table: {
         tableColumn: [
+          {
+            type: 'selection',
+            width: 55,
+            align: 'center'
+          },
           {
             prop: 'type',
             label: '窗口类型',
@@ -109,58 +114,7 @@
             label: '大屏显示'
           }
         ],
-        data: [{
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }],
+        data: []
       },
       formItem: {
         type: {
@@ -184,7 +138,7 @@
         },
         enable: {
           type: 'select',
-          label: '大屏显示哈',
+          label: '大屏显fdsfdasfasdfdas示哈',
           options: [
             { value: true, label: '显示' },
             { value: false, label: '隐藏' },
@@ -195,6 +149,9 @@
     methods: {
       sizeChange(size) {
         console.log(size, 'aaaaaaaaaa')
+      },
+      selectionChange(data) {
+        console.log(data)
       }
     },
     components: {

@@ -66,7 +66,7 @@
         </template>
       </el-table>
     </div>
-    <div class="d-table-footer" v-if="showFooter">
+    <div class="d-table-footer" v-if="showFooter && isTableData">
       <el-pagination
         v-bind="{
           currentPage: 1,
@@ -138,6 +138,9 @@ export default {
     isAllData() {
       return this.table.tableColumn.length === this.tableColumns.length;
     },
+    isTableData() {
+      return this.table.data && this.table.data.length
+    }
   },
   components: {
     RecuveTableColumn: () =>

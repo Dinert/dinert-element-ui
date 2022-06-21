@@ -19,75 +19,86 @@
             key: key,
             prop: key,
             label: item.label,
-            labelWidth: item.labelWidth
+            labelWidth: item.labelWidth,
           }"
           :ref="key"
         >
           <template #label>
-            <d-overflow-tooltip :content="item['label']"></d-overflow-tooltip>
-          </template>
-          <template v-if="['input', 'textarea'].includes(item.type)">
-            <el-input
-              clearable
-              v-model="form.model[key]"
-              v-bind="item"
-              v-on="{ ...item.on }"
-            ></el-input>
-          </template>
-          <template v-if="['input-number'].includes(item.type)">
-            <el-input-number
-              clearable
-              v-model="form.model[key]"
-              v-bind="item"
-              v-on="{ ...item.on }"
-            ></el-input-number>
-          </template>
-          <template v-else-if="['select'].includes(item.type)">
-            <el-select
-              clearable
-              v-model="form.model[key]"
-              v-bind="item"
-              v-on="{ ...item.on }"
+            <d-overflow-tooltip
+              :content="item['label']"
+              :disabled="labelDisabled"
+              @label-mouse-enter="labelMouseEnter"
             >
-              <el-option
-                v-for="options in item.options"
-                v-bind="{
-                  value: options.value,
-                  label: options.label,
-                }"
-                :key="options.value"
+            </d-overflow-tooltip>
+          </template>
+          <d-overflow-tooltip
+            :content="form.model[key]"
+            :disabled="valueDisabled"
+            @label-mouse-enter="valueMouseEnter"
+          >
+            <template v-if="['input', 'textarea'].includes(item.type)">
+              <el-input
+                clearable
+                v-model="form.model[key]"
+                v-bind="item"
+                v-on="{ ...item.on }"
+              ></el-input>
+            </template>
+            <template v-if="['input-number'].includes(item.type)">
+              <el-input-number
+                clearable
+                v-model="form.model[key]"
+                v-bind="item"
+                v-on="{ ...item.on }"
+              ></el-input-number>
+            </template>
+            <template v-else-if="['select'].includes(item.type)">
+              <el-select
+                clearable
+                v-model="form.model[key]"
+                v-bind="item"
                 v-on="{ ...item.on }"
               >
-                <slot
-                  :name="item.type + firstUpperCase(key)"
-                  :options="options"
-                ></slot>
-              </el-option>
-            </el-select>
-          </template>
-          <template
-            v-else-if="
-              [
-                'datetime',
-                'date',
-                'week',
-                'month',
-                'year',
-                'datetimerange',
-                'daterange',
-                'monthrange',
-                'yearrange',
-              ].includes(item.type)
-            "
-          >
-            <el-date-picker
-              clearable
-              v-model="form.model[key]"
-              v-bind="item"
-              v-on="{ ...item.on }"
+                <el-option
+                  v-for="options in item.options"
+                  v-bind="{
+                    value: options.value,
+                    label: options.label,
+                  }"
+                  :key="options.value"
+                  v-on="{ ...item.on }"
+                >
+                  <slot
+                    :name="item.type + firstUpperCase(key)"
+                    :options="options"
+                  ></slot>
+                </el-option>
+              </el-select>
+            </template>
+            <template
+              v-else-if="
+                [
+                  'datetime',
+                  'date',
+                  'week',
+                  'month',
+                  'year',
+                  'datetimerange',
+                  'daterange',
+                  'monthrange',
+                  'yearrange',
+                ].includes(item.type)
+              "
             >
-            </el-date-picker>
-          </template>
+              <el-date-picker
+                clearable
+                v-model="form.model[key]"
+                v-bind="item"
+                v-on="{ ...item.on }"
+              >
+              </el-date-picker>
+            </template>
+          </d-overflow-tooltip>
         </el-form-item>
       </el-col>
     </el-row>
@@ -173,6 +184,8 @@ export default {
       packUp: true,
       isArrow: false,
       elFormHeight: 60,
+      labelDisabled: true,
+      valueDisabled: true,
     };
   },
   methods: {
@@ -198,8 +211,33 @@ export default {
       }
     },
 
-    isDisabledLabel(label) {
-      return !(label.length >= 5);
+    // 是否显示标签
+    labelMouseEnter(e) {
+      const el = e.target.parentElement.parentElement;
+      const labelEl = window.getComputedStyle(el, null);
+      const labelWidth =
+        parseInt(labelEl.getPropertyValue("max-width")) -
+        parseInt(labelEl.getPropertyValue("padding-right"));
+      const tooltipWidth = e.target.previousElementSibling.offsetWidth;
+      console.log(labelWidth, tooltipWidth, "tooltipWidth");
+      if (tooltipWidth > labelWidth) {
+        this.labelDisabled = false;
+      } else {
+        this.labelDisabled = true;
+      }
+    },
+
+    // 是否显示值
+    valueMouseEnter(e) {
+      const inputEl = window.getComputedStyle(e.target.parentElement.querySelector('.el-input__inner'), null)
+      const textWidth = e.target.offsetWidth - parseInt(inputEl.getPropertyValue('padding-right')) - parseInt(inputEl.getPropertyValue('padding-left'))
+      const tooltipWidth = e.target.previousElementSibling.offsetWidth
+      console.log(tooltipWidth, textWidth)
+      if (tooltipWidth > textWidth) {
+        this.valueDisabled = false
+      }else {
+        this.valueDisabled = true
+      }
     },
   },
 };
@@ -240,7 +278,7 @@ export default {
         min-width: 230px;
       }
 
-      &.input{
+      &.input {
         min-width: 230px;
       }
     }
@@ -273,17 +311,6 @@ export default {
       flex: 1;
     }
 
-    ::v-deep .el-tooltip {
-      width: 100%;
-      position: relative;
-      .temp-tooltip {
-        display: block;
-        position: absolute;
-        z-index: -9999;
-        left: -999999999999px;
-      }
-    }
-
     ::v-deep .el-tooltip__trigger {
       width: 100%;
     }
@@ -307,7 +334,7 @@ export default {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      max-width: 80px
+      max-width: 80px;
     }
   }
 
