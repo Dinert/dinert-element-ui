@@ -11,7 +11,10 @@
           </el-button>
           <el-popover trigger="hover">
             <template>
-              <el-button :type="!isAllData ? 'primary' : undefined" slot="reference">
+              <el-button
+                :type="!isAllData ? 'primary' : undefined"
+                slot="reference"
+              >
                 分类显示
                 <i class="el-icon-arrow-down"></i>
               </el-button>
@@ -48,20 +51,36 @@
       >
         <template v-if="tableSlot">
           <template v-for="column in tableColumns">
-            <recuve-table-column :tableColumn="column" :key="column.prop">
-              <template slot-scope="scope">
-                <slot v-bind="scope"></slot>
-              </template>
-            </recuve-table-column>
+            <template v-if="column.type !== 'selection'">
+              <recuve-table-column :tableColumn="column" :key="column.prop">
+                <template slot-scope="scope">
+                  <slot v-bind="scope"></slot>
+                </template>
+              </recuve-table-column>
+            </template>
+            <template v-else>
+              <el-table-column
+                v-bind="column"
+                :key="column.type"
+              ></el-table-column>
+            </template>
           </template>
         </template>
         <template v-else>
           <template v-for="column in tableColumns">
-            <recuve-table-column :tableColumn="column" :key="column.prop">
-              <template slot-scope="scope">
-                <slot v-bind="scope" :name="columnProp(scope.prop)"></slot>
-              </template>
-            </recuve-table-column>
+            <template v-if="column.type !== 'selection'">
+              <recuve-table-column :tableColumn="column" :key="column.prop">
+                <template slot-scope="scope">
+                  <slot v-bind="scope" :name="columnProp(scope.prop)"></slot>
+                </template>
+              </recuve-table-column>
+            </template>
+            <template v-else>
+              <el-table-column
+                v-bind="column"
+                :key="column.type"
+              ></el-table-column>
+            </template>
           </template>
         </template>
       </el-table>
@@ -139,8 +158,8 @@ export default {
       return this.table.tableColumn.length === this.tableColumns.length;
     },
     isTableData() {
-      return this.table.data && this.table.data.length
-    }
+      return this.table.data && this.table.data.length;
+    },
   },
   components: {
     RecuveTableColumn: () =>
@@ -149,7 +168,6 @@ export default {
       ),
   },
   methods: {
-
     // sizeChange
     sizeChange(value) {
       this.$emit("size-change", value);
@@ -203,7 +221,6 @@ export default {
   flex-direction: column;
   overflow: auto;
   box-sizing: border-box;
-  height: 100%;
   min-height: 375px;
 
   .d-table-header {

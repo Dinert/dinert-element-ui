@@ -220,7 +220,7 @@ export default {
         parseInt(labelEl.getPropertyValue("padding-right"));
       const tooltipWidth = e.target.previousElementSibling.offsetWidth;
       console.log(labelWidth, tooltipWidth, "tooltipWidth");
-      if (tooltipWidth > labelWidth) {
+      if (tooltipWidth >= labelWidth) {
         this.labelDisabled = false;
       } else {
         this.labelDisabled = true;
@@ -233,7 +233,7 @@ export default {
       const textWidth = e.target.offsetWidth - parseInt(inputEl.getPropertyValue('padding-right')) - parseInt(inputEl.getPropertyValue('padding-left'))
       const tooltipWidth = e.target.previousElementSibling.offsetWidth
       console.log(tooltipWidth, textWidth)
-      if (tooltipWidth > textWidth) {
+      if (tooltipWidth >= textWidth) {
         this.valueDisabled = false
       }else {
         this.valueDisabled = true

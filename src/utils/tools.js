@@ -6,6 +6,7 @@ export const firstUpperCase = (str) => {
   return str.replace(/^\S/, s => s.toUpperCase())
 }
 
+// 过滤参数
 export const filterNullStrUndefind = (formValue) => {
   let tempObj = {}
   for (const prop in formValue) {

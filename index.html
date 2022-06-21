@@ -27,6 +27,7 @@
     }
 
     .d-table {
+      background-color: #FFF;
       padding: 16px !important;
     }
 
@@ -37,18 +38,22 @@
       fill: currentColor;
       overflow: hidden;
     }
+    .table-page{
+      height: 100%;
+    }
   </style>
 </head>
 
 <body>
   <div id="app">
     <!-- <d-table :table="table" @size-change="sizeChange"></d-table> -->
-    <d-form :form-item="formItem">
+    <!-- <d-form :form-item="formItem">
       <template #search>
         <el-button type="primary">查询</el-button>
         <el-button>重置</el-button>
       </template>
-    </d-form>
+    </d-form> -->
+    <d-table-page :table="table" :form-item="formItem" v-on="{search: search}"></d-table-page>
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -114,7 +119,58 @@
             label: '大屏显示'
           }
         ],
-        data: []
+        data: [{
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }, {
+          'name': 'pppppppppp',
+          'type-a': 'a3123123'
+        }]
       },
       formItem: {
         type: {
@@ -152,11 +208,15 @@
       },
       selectionChange(data) {
         console.log(data)
+      },
+      search(prop) {
+        console.log(prop)
       }
     },
     components: {
       DTable: window['dinert-element-ui'].DTable,
-      DForm: window['dinert-element-ui'].DForm
+      DForm: window['dinert-element-ui'].DForm,
+      DTablePage: window['dinert-element-ui'].DTablePage,
     }
   })
 </script>
