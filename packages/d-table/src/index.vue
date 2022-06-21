@@ -6,7 +6,7 @@
       </div>
       <div class="d-table-header-right">
         <el-button-group>
-          <el-button :type="isAllData ? 'primary' : 'default'" @click="allShow"
+          <el-button :type="isAllData ? 'primary' : 'default'" @click="allShow" :disabled="disabled"
             >全部显示
           </el-button>
           <el-popover trigger="hover">
@@ -14,6 +14,7 @@
               <el-button
                 :type="!isAllData ? 'primary' : undefined"
                 slot="reference"
+                :disabled="disabled"
               >
                 分类显示
                 <i class="el-icon-arrow-down"></i>
@@ -88,6 +89,7 @@
     <div class="d-table-footer" v-if="showFooter && isTableData">
       <el-pagination
         v-bind="{
+          disabled: disabled,
           currentPage: 1,
           pageSize: 15,
           pageSizes: [15, 30, 50, 70, 100],
@@ -130,6 +132,11 @@ export default {
       },
     },
     tableSlot: {
+      type: Boolean,
+    },
+
+
+    disabled: {
       type: Boolean,
     },
 

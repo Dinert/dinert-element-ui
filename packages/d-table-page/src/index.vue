@@ -5,22 +5,26 @@
       ref="searchForm"
       v-bind="{
         formItem,
+        disabled,
         form: {
           model: formValue,
+          ...form
         },
       }"
     >
       <template #search>
-        <el-button type="primary" @click="search(formValue)">查询</el-button>
-        <el-button
-          type="default"
-          @click="reset(formValue, defaultValue, search)"
-          >重置</el-button
+        <slot name="search">
+          <el-button type="primary" @click="search(formValue)">查询</el-button>
+          <el-button
+            type="default"
+            @click="reset(formValue, defaultValue, search)"
+            >重置</el-button
+          ></slot
         >
       </template>
     </d-form>
     <d-table
-      v-bind="{ table, pagination, tableSlot: true }"
+      v-bind="{ table, pagination, tableSlot: true, disabled }"
       v-on="{
         'size-change': sizeChange,
         'current-change': currentChange,
@@ -66,12 +70,6 @@ export default {
       type: Boolean,
     },
 
-    // 表格的列
-    tableColumn: {
-      type: Array,
-      default: () => [],
-    },
-
     // 是否显示操作
     isOperation: {
       type: Boolean,
@@ -83,6 +81,15 @@ export default {
       type: Object,
       default: () => {},
     },
+
+    // form表单
+    form: {
+      type: Object,
+      default: () => {},
+    },
+    disabled: {
+      type: Boolean,
+    }
   },
   components: {
     DForm,
@@ -114,10 +121,10 @@ export default {
     },
     reset(formValue, defaultValue, search) {
       for (const prop in defaultValue) {
-        formValue[prop] = defaultValue[prop]
+        formValue[prop] = defaultValue[prop];
       }
-      typeof search === 'function' && search(formValue)
-    }
+      typeof search === "function" && search(formValue);
+    },
   },
 };
 </script>

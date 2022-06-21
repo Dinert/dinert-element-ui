@@ -219,7 +219,6 @@ export default {
         parseInt(labelEl.getPropertyValue("max-width")) -
         parseInt(labelEl.getPropertyValue("padding-right"));
       const tooltipWidth = e.target.previousElementSibling.offsetWidth;
-      console.log(labelWidth, tooltipWidth, "tooltipWidth");
       if (tooltipWidth >= labelWidth) {
         this.labelDisabled = false;
       } else {
@@ -232,7 +231,6 @@ export default {
       const inputEl = window.getComputedStyle(e.target.parentElement.querySelector('.el-input__inner'), null)
       const textWidth = e.target.offsetWidth - parseInt(inputEl.getPropertyValue('padding-right')) - parseInt(inputEl.getPropertyValue('padding-left'))
       const tooltipWidth = e.target.previousElementSibling.offsetWidth
-      console.log(tooltipWidth, textWidth)
       if (tooltipWidth >= textWidth) {
         this.valueDisabled = false
       }else {
@@ -306,6 +304,13 @@ export default {
     margin-bottom: 18px;
     display: flex;
     position: relative;
+
+    ::v-deep .el-input-number{
+      width: 100%;
+      .el-input__inner{
+        text-align: left;
+      }
+    }
 
     ::v-deep .el-form-item__content {
       flex: 1;
