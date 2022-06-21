@@ -228,13 +228,19 @@ export default {
 
     // 是否显示值
     valueMouseEnter(e) {
-      const inputEl = window.getComputedStyle(e.target.parentElement.querySelector('.el-input__inner'), null)
-      const textWidth = e.target.offsetWidth - parseInt(inputEl.getPropertyValue('padding-right')) - parseInt(inputEl.getPropertyValue('padding-left'))
-      const tooltipWidth = e.target.previousElementSibling.offsetWidth
-      if (tooltipWidth >= textWidth) {
-        this.valueDisabled = false
-      }else {
-        this.valueDisabled = true
+      const el = e.target.parentElement.querySelector(".el-input__inner");
+      if (el) {
+        const inputEl = window.getComputedStyle(el, null);
+        const textWidth =
+          e.target.offsetWidth -
+          parseInt(inputEl.getPropertyValue("padding-right")) -
+          parseInt(inputEl.getPropertyValue("padding-left"));
+        const tooltipWidth = e.target.previousElementSibling.offsetWidth;
+        if (tooltipWidth >= textWidth) {
+          this.valueDisabled = false;
+        } else {
+          this.valueDisabled = true;
+        }
       }
     },
   },
@@ -305,9 +311,9 @@ export default {
     display: flex;
     position: relative;
 
-    ::v-deep .el-input-number{
+    ::v-deep .el-input-number {
       width: 100%;
-      .el-input__inner{
+      .el-input__inner {
         text-align: left;
       }
     }
