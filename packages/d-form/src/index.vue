@@ -18,8 +18,7 @@
           v-bind="{
             key: key,
             prop: key,
-            label: item.label,
-            labelWidth: item.labelWidth,
+            ...item
           }"
           :ref="key"
         >
@@ -32,15 +31,15 @@
             </d-overflow-tooltip>
           </template>
           <d-overflow-tooltip
-            :content="form.model[key]"
+            :content="String(form.model[key] || '')"
             :disabled="valueDisabled"
-            @label-mouse-enter="valueMouseEnter"
+            @label-mouse-enter="valueMouseEnter($event, item)"
           >
             <template v-if="['input', 'textarea'].includes(item.type)">
               <el-input
                 clearable
                 v-model="form.model[key]"
-                v-bind="item"
+                v-bind="{placeholder: '请输入' + item.label, ...item.options}"
                 v-on="{ ...item.on }"
               ></el-input>
             </template>
@@ -48,7 +47,7 @@
               <el-input-number
                 clearable
                 v-model="form.model[key]"
-                v-bind="item"
+                v-bind="{placeholder: '请输入' + item.label, ...item.options}"
                 v-on="{ ...item.on }"
               ></el-input-number>
             </template>
@@ -56,11 +55,11 @@
               <el-select
                 clearable
                 v-model="form.model[key]"
-                v-bind="item"
+                v-bind="{placeholder: '请输入' + item.label, ...item.options}"
                 v-on="{ ...item.on }"
               >
                 <el-option
-                  v-for="options in item.options"
+                  v-for="options in item.options.options"
                   v-bind="{
                     value: options.value,
                     label: options.label,
@@ -93,7 +92,7 @@
               <el-date-picker
                 clearable
                 v-model="form.model[key]"
-                v-bind="item"
+                v-bind="{placeholder: '请输入' + item.label, ...item.options}"
                 v-on="{ ...item.on }"
               >
               </el-date-picker>
@@ -201,6 +200,9 @@ export default {
         return item && item.label;
       }
     },
+    changeValue(obj, name, value) {
+      obj[name] = Number(value)
+    },
 
     // 展开还是收起状态
     unfold() {
@@ -227,9 +229,20 @@ export default {
     },
 
     // 是否显示值
-    valueMouseEnter(e) {
+    valueMouseEnter(e, item) {
       const el = e.target.parentElement.querySelector(".el-input__inner");
-      if (el) {
+      const timer = [
+                  'datetime',
+                  'date',
+                  'week',
+                  'month',
+                  'year',
+                  'datetimerange',
+                  'daterange',
+                  'monthrange',
+                  'yearrange',
+                ]
+      if (el && !timer.includes(item.type)) {
         const inputEl = window.getComputedStyle(el, null);
         const textWidth =
           e.target.offsetWidth -
@@ -272,6 +285,9 @@ export default {
 
       &.date {
         min-width: 210px;
+      }
+      &.year{
+        min-width: 160px; 
       }
 
       &.month {

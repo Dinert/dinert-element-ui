@@ -10,6 +10,7 @@
           model: formValue,
           ...form
         },
+        colLayout
       }"
       v-if="showSearch"
     >
@@ -88,6 +89,13 @@ export default {
       type: Object,
       default: () => {},
     },
+
+    // form表单
+    colLayout: {
+      type: Object,
+      default: () => {},
+    },
+
     disabled: {
       type: Boolean,
     },

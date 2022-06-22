@@ -228,7 +228,6 @@ export default {
   flex-direction: column;
   overflow: auto;
   box-sizing: border-box;
-  min-height: 375px;
 
   .d-table-header {
     text-align: right;

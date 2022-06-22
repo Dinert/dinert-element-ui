@@ -54,7 +54,7 @@
         <el-button>重置</el-button>
       </template>
     </d-form> -->
-    <d-table-page :table="table" :form-item="formItem" :form="form" v-on="{search: search}" :show-search="false" :show-header="false"></d-table-page>
+    <d-table-page :table="table" :form-item="formItem" :form="form" v-on="{search: search}"></d-table-page>
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -178,32 +178,46 @@
         type: {
           type: 'select',
           label: '窗口类型',
-          options: [
-            { value: '一口受理', label: '一口受理' },
-            { value: '综合窗口', label: '综合窗口' },
-            { value: '企业帮办', label: '企业帮办' },
-            { value: '专窗', label: '专窗' },
-            { value: '咨询台', label: '咨询台' },
-          ],
+          options: {
+            options: [
+              { value: '一口受理', label: '一口受理' },
+              { value: '综合窗口', label: '综合窗口' },
+              { value: '企业帮办', label: '企业帮办' },
+              { value: '专窗', label: '专窗' },
+              { value: '咨询台', label: '咨询台' },
+            ],
+          }
         },
         name: {
           type: 'input',
           label: '姓名',
+          options: {
+          }
+        },
+        date: {
+          type: 'date',
+          label: '时间'
         },
         department: {
-          type: 'textarea',
+          type: 'input-number',
           label: '部门',
         },
         enable: {
           type: 'select',
           label: '大屏显fdsfdasfasdfdas示哈',
-          options: [
-            { value: true, label: '显示' },
-            { value: false, label: '隐藏' },
-          ]
+          options: {
+            options: [
+              { value: true, label: '显示' },
+              { value: false, label: '隐藏' },
+            ]
+          }
         }
       },
-      form: { model: {} }
+      form: {
+        model: {
+          // department: 0
+        }
+      }
     },
     methods: {
       sizeChange(size) {
