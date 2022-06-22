@@ -11,6 +11,7 @@
           ...form
         },
       }"
+      v-if="showSearch"
     >
       <template #search>
         <slot name="search">
@@ -24,7 +25,7 @@
       </template>
     </d-form>
     <d-table
-      v-bind="{ table, pagination, tableSlot: true, disabled }"
+      v-bind="{ table, pagination, tableSlot: true, disabled, showHeader }"
       v-on="{
         'size-change': sizeChange,
         'current-change': currentChange,
@@ -89,6 +90,14 @@ export default {
     },
     disabled: {
       type: Boolean,
+    },
+    showHeader: {
+      type: Boolean,
+      default: true
+    },
+    showSearch: {
+      type: Boolean,
+      default: true
     }
   },
   components: {

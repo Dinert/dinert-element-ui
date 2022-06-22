@@ -13,8 +13,7 @@ export const getFormValue = (formItem) => {
 
 
 
-// 获取root的颜色值
-export function getPropertyValue(value) { 
-  const el = document.documentElement;
-  return getComputedStyle(el).getPropertyValue(`${value}`).trim();
+// 根据dom的元素获取数值
+export function getPropertyValue(el, value) {
+  return window.getComputedStyle(el, null).getPropertyValue(`${value}`).trim();
 }
