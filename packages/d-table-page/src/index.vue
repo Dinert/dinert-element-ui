@@ -1,6 +1,6 @@
 
 <template>
-  <section class="table-page">
+  <section class="d-table-page">
     <d-form
       ref="searchForm"
       v-bind="{
