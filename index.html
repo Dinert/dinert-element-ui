@@ -47,13 +47,7 @@
 
 <body>
   <div id="app">
-    <!-- <d-table :table="table" @size-change="sizeChange"></d-table> -->
-    <!-- <d-form :form-item="formItem">
-      <template #search>
-        <el-button type="primary">查询</el-button>
-        <el-button>重置</el-button>
-      </template>
-    </d-form> -->
+
     <d-table-page :table="table" :form-item="formItem" :form="form" v-on="{search: search}"></d-table-page>
   </div>
 </body>

@@ -135,7 +135,6 @@ export default {
       type: Boolean,
     },
 
-
     disabled: {
       type: Boolean,
     },

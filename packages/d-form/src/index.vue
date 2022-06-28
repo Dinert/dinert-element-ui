@@ -6,6 +6,7 @@
     }"
     ref="formRef"
     :class="{ packUp: !packUp }"
+    class="d-form"
   >
     <el-row v-bind="{ gutter: 20, ...row }" class="el-form-left">
       <el-col
@@ -268,7 +269,6 @@ export default {
   display: flex;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  max-height: 300px;
   min-height: 50px;
 
   &.packUp {

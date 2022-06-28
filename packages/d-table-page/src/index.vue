@@ -148,9 +148,12 @@ export default {
 
 
 <style lang="scss" scoped>
-.table-page {
+.d-table-page {
   display: flex;
   flex-direction: column;
+  .d-form{
+    max-height: 300px;
+  }
   .d-table {
     flex: 1;
     height: 0;
