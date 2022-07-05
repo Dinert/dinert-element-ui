@@ -4,7 +4,6 @@
       inline: true,
       ...form,
     }"
-    ref="formRef"
     :class="{ packUp: !packUp }"
     class="d-form"
   >
@@ -56,7 +55,7 @@
               <el-select
                 clearable
                 v-model="form.model[key]"
-                v-bind="{placeholder: '请输入' + item.label, ...item.options}"
+                v-bind="{placeholder: '请选择' + item.label, ...item.options}"
                 v-on="{ ...item.on }"
               >
                 <el-option
@@ -93,7 +92,7 @@
               <el-date-picker
                 clearable
                 v-model="form.model[key]"
-                v-bind="{placeholder: '请输入' + item.label, ...item.options}"
+                v-bind="{placeholder: '请选择' + datePickerPlaceholder(item.label, item), ...item.options}"
                 v-on="{ ...item.on }"
               >
               </el-date-picker>
@@ -257,6 +256,19 @@ export default {
         }
       }
     },
+
+    // 更改日期组件显示的placeholder
+    datePickerPlaceholder(label, item) {
+      const type = item.type
+      if(['week'].includes(type)) {
+        return '周'
+      }else if(['month', 'monthrange'].includes(type)) {
+        return '月份'
+      }else if(['year', 'yearrange'].includes(type)) {
+        return '年份'
+      }
+      return label
+    }
   },
 };
 </script>
@@ -362,6 +374,14 @@ export default {
       white-space: nowrap;
       text-overflow: ellipsis;
       max-width: 80px;
+
+      .el-tooltip {
+        display: inline;
+
+        .label-text{
+          display: inline;
+        }
+      }
     }
   }
 
