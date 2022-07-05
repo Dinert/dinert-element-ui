@@ -18,7 +18,7 @@
           v-bind="{
             key: key,
             prop: key,
-            ...item
+            ...item,
           }"
           :ref="key"
         >
@@ -39,7 +39,7 @@
               <el-input
                 clearable
                 v-model="form.model[key]"
-                v-bind="{placeholder: '请输入' + item.label, ...item.options}"
+                v-bind="{ placeholder: '请输入' + item.label, ...item.options }"
                 v-on="{ ...item.on }"
               ></el-input>
             </template>
@@ -47,7 +47,7 @@
               <el-input-number
                 clearable
                 v-model="form.model[key]"
-                v-bind="{placeholder: '请输入' + item.label, ...item.options}"
+                v-bind="{ placeholder: '请输入' + item.label, ...item.options }"
                 v-on="{ ...item.on }"
               ></el-input-number>
             </template>
@@ -55,7 +55,7 @@
               <el-select
                 clearable
                 v-model="form.model[key]"
-                v-bind="{placeholder: '请选择' + item.label, ...item.options}"
+                v-bind="{ placeholder: '请选择' + item.label, ...item.options }"
                 v-on="{ ...item.on }"
               >
                 <el-option
@@ -92,7 +92,15 @@
               <el-date-picker
                 clearable
                 v-model="form.model[key]"
-                v-bind="{placeholder: '请选择' + datePickerPlaceholder(item.label, item), ...item.options}"
+                v-bind="{
+                  placeholder:
+                    '请选择' + datePickerPlaceholder(item.label, item),
+                  startPlaceholder:
+                    '开始' + datePickerPlaceholder(item.label, item),
+                  endPlaceholder:
+                    '结束' + datePickerPlaceholder(item.label, item),
+                  ...item.options,
+                }"
                 v-on="{ ...item.on }"
               >
               </el-date-picker>
@@ -201,7 +209,7 @@ export default {
       }
     },
     changeValue(obj, name, value) {
-      obj[name] = Number(value)
+      obj[name] = Number(value);
     },
 
     // 展开还是收起状态
@@ -232,16 +240,16 @@ export default {
     valueMouseEnter(e, item) {
       const el = e.target.parentElement.querySelector(".el-input__inner");
       const timer = [
-                  'datetime',
-                  'date',
-                  'week',
-                  'month',
-                  'year',
-                  'datetimerange',
-                  'daterange',
-                  'monthrange',
-                  'yearrange',
-                ]
+        "datetime",
+        "date",
+        "week",
+        "month",
+        "year",
+        "datetimerange",
+        "daterange",
+        "monthrange",
+        "yearrange",
+      ];
       if (el && !timer.includes(item.type)) {
         const inputEl = window.getComputedStyle(el, null);
         const textWidth =
@@ -259,16 +267,16 @@ export default {
 
     // 更改日期组件显示的placeholder
     datePickerPlaceholder(label, item) {
-      const type = item.type
-      if(['week'].includes(type)) {
-        return '周'
-      }else if(['month', 'monthrange'].includes(type)) {
-        return '月份'
-      }else if(['year', 'yearrange'].includes(type)) {
-        return '年份'
+      const type = item.type;
+      if (["week"].includes(type)) {
+        return "周";
+      } else if (["month", "monthrange"].includes(type)) {
+        return "月份";
+      } else if (["year", "yearrange"].includes(type)) {
+        return "年份";
       }
-      return label
-    }
+      return "时间";
+    },
   },
 };
 </script>
@@ -298,8 +306,8 @@ export default {
       &.date {
         min-width: 210px;
       }
-      &.year{
-        min-width: 160px; 
+      &.year {
+        min-width: 160px;
       }
 
       &.month {
@@ -378,7 +386,7 @@ export default {
       .el-tooltip {
         display: inline;
 
-        .label-text{
+        .label-text {
           display: inline;
         }
       }
