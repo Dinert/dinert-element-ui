@@ -99,6 +99,7 @@
                     '开始' + datePickerPlaceholder(item.label, item),
                   endPlaceholder:
                     '结束' + datePickerPlaceholder(item.label, item),
+                  'unlink-panels': true,
                   ...item.options,
                 }"
                 v-on="{ ...item.on }"
