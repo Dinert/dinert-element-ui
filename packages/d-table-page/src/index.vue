@@ -15,14 +15,7 @@
       v-if="showSearch"
     >
       <template #search>
-        <slot name="search">
-          <el-button type="primary" @click="search(formValue)">查询</el-button>
-          <el-button
-            type="default"
-            @click="reset(formValue, defaultValue, search)"
-            >重置</el-button
-          ></slot
-        >
+        <slot name="search"></slot>
       </template>
     </d-form>
     <d-table
@@ -131,17 +124,7 @@ export default {
     },
     currentChange(value) {
       this.$emit("current-change", value);
-    },
-    search() {
-      let tempObj = filterNullStrUndefind(this.formValue);
-      this.$emit("search", tempObj);
-    },
-    reset(formValue, defaultValue, search) {
-      for (const prop in defaultValue) {
-        formValue[prop] = defaultValue[prop];
-      }
-      typeof search === "function" && search(formValue);
-    },
+    }
   },
 };
 </script>
