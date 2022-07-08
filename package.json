@@ -1,6 +1,6 @@
 {
   "name": "@dinert/element-ui",
-  "version": "1.0.41.bate.99",
+  "version": "1.0.42.bate.1",
   "description": "基于vue2封装的element-ui包",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",

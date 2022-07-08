@@ -40,7 +40,7 @@
                 clearable
                 v-model="form.model[key]"
                 v-bind="{ placeholder: '请输入' + item.label, ...item.options }"
-                v-on="{ ...item.on }"
+                v-on="item.options && { ...item.options.on }"
               ></el-input>
             </template>
             <template v-if="['input-number'].includes(item.type)">
@@ -48,7 +48,7 @@
                 clearable
                 v-model="form.model[key]"
                 v-bind="{ placeholder: '请输入' + item.label, ...item.options }"
-                v-on="{ ...item.on }"
+                v-on="item.options && { ...item.options.on }"
               ></el-input-number>
             </template>
             <template v-else-if="['select'].includes(item.type)">
@@ -56,7 +56,7 @@
                 clearable
                 v-model="form.model[key]"
                 v-bind="{ placeholder: '请选择' + item.label, ...item.options }"
-                v-on="{ ...item.on }"
+                v-on="item.options && { ...item.options.on }"
               >
                 <el-option
                   v-for="options in item.options.options"
@@ -65,7 +65,7 @@
                     label: options.label,
                   }"
                   :key="options.value"
-                  v-on="{ ...item.on }"
+                  v-on="item.options && { ...options.on }"
                 >
                   <slot
                     :name="item.type + firstUpperCase(key)"
@@ -102,7 +102,7 @@
                   'unlink-panels': true,
                   ...item.options,
                 }"
-                v-on="{ ...item.on }"
+                v-on="item.options && { ...item.options.on }"
               >
               </el-date-picker>
             </template>
@@ -220,6 +220,16 @@ export default {
       } else {
         this.packUp = true;
       }
+    },
+
+    // 添加options属性
+    addAttribute(formItem) {
+      if(!formItem.options) {
+        formItem.options = {
+          on: {}
+        }
+      }
+      return formItem
     },
 
     // 是否显示标签
