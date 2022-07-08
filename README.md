@@ -58,7 +58,7 @@
 ## 如何安装
 * 如果你使用npm
 ```shell
-npm i @dienrt/element-ui --save
+npm i @dinert/element-ui --save
 ```
 * 或者使用yarn
 ```shell
