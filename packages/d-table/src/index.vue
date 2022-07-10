@@ -22,21 +22,20 @@
             </template>
             <ul class="el-popover-classify">
               <li v-for="column in table.tableColumn" :key="column.prop">
-                <el-checkbox-group
-                  v-model="classfiyData"
-                  @change="checkboxGroupChange"
-                >
                   <el-checkbox
                     :label="column.label"
                     :name="column.prop"
-                    :disabled="column.disabled"
+                    :checked="true"
+                    v-bind="column.checkbox"
                   />
-                </el-checkbox-group>
               </li>
             </ul>
           </el-popover>
         </el-button-group>
       </div>
+    </div>
+    <div class="d-table-headerFooter">
+      <slot name="header-footer"></slot>
     </div>
     <div class="d-table-body">
       <el-table

@@ -44,7 +44,6 @@
 import DForm from "@packages/d-form";
 import DTable from "@packages/d-table";
 import { getFormValue } from "@/utils/getValue";
-import { filterNullStrUndefind } from "@/utils/tools";
 
 export default {
   name: "DTablePage",
