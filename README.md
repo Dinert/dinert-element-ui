@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/element--ui-2.15.8-blue" alt="vue">
 </a>
 
-## 文件目录
+## 目录
 ```
 
 │  .babelrc
