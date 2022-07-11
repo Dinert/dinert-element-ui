@@ -224,12 +224,12 @@ export default {
 
     // 添加options属性
     addAttribute(formItem) {
-      if(!formItem.options) {
+      if (!formItem.options) {
         formItem.options = {
-          on: {}
-        }
+          on: {},
+        };
       }
-      return formItem
+      return formItem;
     },
 
     // 是否显示标签
@@ -304,6 +304,18 @@ export default {
 
   &.packUp {
     max-height: 50px;
+  }
+
+  &.near {
+    .el-form-left {
+      flex: unset;
+      .el-col {
+        width: auto;
+      }
+    }
+    .el-form-right {
+      min-width: auto;
+    }
   }
 
   .el-form-left {

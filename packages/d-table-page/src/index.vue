@@ -7,7 +7,6 @@
         formItem,
         disabled,
         form: {
-          model: formValue,
           ...form
         },
         colLayout
@@ -43,7 +42,6 @@
 <script>
 import DForm from "@packages/d-form";
 import DTable from "@packages/d-table";
-import { getFormValue } from "@/utils/getValue";
 
 export default {
   name: "DTablePage",
@@ -62,12 +60,6 @@ export default {
 
     tableSlot: {
       type: Boolean,
-    },
-
-    // 是否显示操作
-    isOperation: {
-      type: Boolean,
-      default: true,
     },
 
     // 分页
@@ -91,10 +83,12 @@ export default {
     disabled: {
       type: Boolean,
     },
+    
     showHeader: {
       type: Boolean,
       default: true
     },
+    
     showSearch: {
       type: Boolean,
       default: true
@@ -103,10 +97,6 @@ export default {
   components: {
     DForm,
     DTable,
-  },
-  created() {
-    this.formValue = getFormValue(this.formItem);
-    this.defaultValue = getFormValue(this.formItem);
   },
   data() {
     return {
@@ -133,6 +123,19 @@ export default {
 .d-table-page {
   display: flex;
   flex-direction: column;
+  &.near{
+    ::v-deep{
+      .el-form-left {
+        flex: unset;
+        .el-col{
+          width: auto;
+        }
+      }
+      .el-form-right{
+        min-width: auto;
+      }
+    }
+  }
   .d-form{
     max-height: 300px;
   }
