@@ -25,8 +25,9 @@
                   <el-checkbox
                     :label="column.label"
                     :name="column.prop"
-                    :checked="true"
+                    v-model="column.checkbox.checked"
                     v-bind="column.checkbox"
+                    @change="checkboxChange"
                   />
               </li>
             </ul>
@@ -149,12 +150,11 @@ export default {
     },
   },
   created() {
-    this.getClassfiyData();
-    this.filterTableColumns();
+    this.initCheckedbox();
+    this.filterTableColumns(); 
   },
   data() {
     return {
-      classfiyData: [],
       tableColumns: [],
     };
   },
@@ -191,27 +191,35 @@ export default {
     // 过滤表格的数据
     filterTableColumns() {
       this.tableColumns = this.table.tableColumn.filter((item) => {
-        if (this.classfiyData.includes(item.label)) {
+        if (item.checkbox && item.checkbox.checked) {
           return item;
         }
       });
       this.table.key = !this.table.key;
     },
 
-    // 过滤显示
-    checkboxGroupChange() {
-      this.filterTableColumns();
+    // 选中变化的值
+    checkboxChange() {
+      this.filterTableColumns()
     },
 
     // 全部显示
     allShow() {
-      this.classfiyData = [];
-      this.getClassfiyData();
+      for(let i = 0; i < this.table.tableColumn.length; i ++) {
+        this.table.tableColumn[i]['checkbox'].checked = true
+      }
+      this.filterTableColumns()
     },
+
     // 分类显示
-    getClassfiyData() {
-      for (const prop of this.table.tableColumn) {
-        this.classfiyData.push(prop.label);
+    initCheckedbox() {
+      for(let i = 0; i < this.table.tableColumn.length; i ++) {
+        let item = this.table.tableColumn[i]
+        if(item.checkbox === undefined) {
+          this.table.tableColumn[i]['checkbox'] = {
+            checked: true
+          }
+        }
       }
       this.table.key = !this.table.key;
     },
