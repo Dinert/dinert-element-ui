@@ -48,14 +48,16 @@
 <body>
   <div id="app">
 
-    <d-table-page :table="table" :form-item="formItem" :form="form" v-on="{search: search}" class="near">
+    <!-- <d-table-page :table="table" :form-item="formItem" :form="form" v-on="{search: search}" class="near">
       <template #search>
         <el-button type="primary" @click="search"
           >查询</el-button
         >
         <el-button @click="reset">重置</el-button>
       </template>
-    </d-table-page>
+    </d-table-page> -->
+    <d-dialog :dialog="dialog">
+    </d-dialog>
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -71,156 +73,167 @@
   // }
   const app = new Vue({
     el: '#app',
-    data: {
-      message: 'hello',
-      table: {
-        tableColumn: [
-          {
-            type: 'selection',
-            width: 55,
-            align: 'center',
-            label: '选择'
-          },
-          {
-            prop: 'type',
-            label: '窗口类型',
-            children: [
-              {
-                prop: 'type1',
-                label: '类型A',
-                children: [
-                  {
-                    prop: 'type-a',
-                    label: '类型AB'
-                  },
-                  {
-                    prop: 'type4',
-                    label: '类型AC'
-                  },
-                ]
-              },
-              {
-                prop: 'type2',
-                label: '类型B'
-              }
-            ]
-          },
-          {
-            prop: 'name',
-            label: '姓名',
-          },
-          {
-            prop: 'code',
-            label: '工号'
-          },
-          {
-            prop: 'department',
-            label: '部门'
-          },
-          {
-            prop: 'enable',
-            label: '大屏显示'
-          },
-          {
-            prop: 'operations',
-            label: '操作'
-          }
-        ],
-        data: [{
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }, {
-          'name': 'pppppppppp',
-          'type-a': 'a3123123'
-        }]
-      },
-      formItem: {
-        type: {
-          type: 'select',
-          label: '窗口类型',
-          options: {
-            options: [
-              { value: '一口受理', label: '一口受理' },
-              { value: '综合窗口', label: '综合窗口' },
-              { value: '企业帮办', label: '企业帮办' },
-              { value: '专窗', label: '专窗' },
-              { value: '咨询台', label: '咨询台' },
-            ],
-          },
+    data() {
+      return {
+        message: 'hello',
+        table: {
+          tableColumn: [
+            {
+              type: 'selection',
+              width: 55,
+              align: 'center',
+              label: '选择'
+            },
+            {
+              prop: 'type',
+              label: '窗口类型',
+              children: [
+                {
+                  prop: 'type1',
+                  label: '类型A',
+                  children: [
+                    {
+                      prop: 'type-a',
+                      label: '类型AB'
+                    },
+                    {
+                      prop: 'type4',
+                      label: '类型AC'
+                    },
+                  ]
+                },
+                {
+                  prop: 'type2',
+                  label: '类型B'
+                }
+              ]
+            },
+            {
+              prop: 'name',
+              label: '姓名',
+            },
+            {
+              prop: 'code',
+              label: '工号'
+            },
+            {
+              prop: 'department',
+              label: '部门'
+            },
+            {
+              prop: 'enable',
+              label: '大屏显示'
+            },
+            {
+              prop: 'operations',
+              label: '操作'
+            }
+          ],
+          data: [{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }]
         },
-        // name: {
-        //   type: 'input',
-        //   label: '姓名',
-        //   options: {
-        //   }
-        // },
-        // date: {
-        //   type: 'year',
-        //   label: '时间'
-        // },
-        // department: {
-        //   type: 'input-number',
-        //   label: '部门',
-        // },
-        // enable: {
-        //   type: 'select',
-        //   label: '大屏显fdsfdasfasdfdas示哈',
-        //   options: {
-        //     options: [
-        //       { value: true, label: '显示' },
-        //       { value: false, label: '隐藏' },
-        //     ]
-        //   }
-        // }
-      },
-      form: {
-        model: {
-          // department: 0
+        formItem: {
+          type: {
+            type: 'select',
+            label: '窗口类型',
+            options: {
+              options: [
+                { value: '一口受理', label: '一口受理' },
+                { value: '综合窗口', label: '综合窗口' },
+                { value: '企业帮办', label: '企业帮办' },
+                { value: '专窗', label: '专窗' },
+                { value: '咨询台', label: '咨询台' },
+              ],
+            },
+          },
+          // name: {
+          //   type: 'input',
+          //   label: '姓名',
+          //   options: {
+          //   }
+          // },
+          // date: {
+          //   type: 'year',
+          //   label: '时间'
+          // },
+          // department: {
+          //   type: 'input-number',
+          //   label: '部门',
+          // },
+          // enable: {
+          //   type: 'select',
+          //   label: '大屏显fdsfdasfasdfdas示哈',
+          //   options: {
+          //     options: [
+          //       { value: true, label: '显示' },
+          //       { value: false, label: '隐藏' },
+          //     ]
+          //   }
+          // }
+        },
+        form: {
+          model: {
+            // department: 0
+          }
+        },
+        dialog: {
+          title: '哈哈哈',
+          visible: true,
+          on: {
+            close(){
+              console.log('aa', this)
+            }
+          }
         }
       }
     },
@@ -242,6 +255,7 @@
       DTable: window['dinert-element-ui'].DTable,
       DForm: window['dinert-element-ui'].DForm,
       DTablePage: window['dinert-element-ui'].DTablePage,
+      DDialog: window['dinert-element-ui'].DDialog,
     }
   })
 </script>

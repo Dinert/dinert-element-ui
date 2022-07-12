@@ -73,7 +73,7 @@ yarn add @dinert/element-ui
 #### [form-item](https://element.eleme.io/#/zh-CN/component/form#form-item-attributes) 属性 — Object
 * `form-item`属性，如下代码第一层为对象，type和name代表的是element-ui框架中`form-item`属性的prop。第二层也是对象，对象中type代表的是组件类型，对象中其它属性为element-ui框架中的[form-item]的属性，第三层为options对象，这个对象下的属性代表的是每个组件中的属性。
 * 第二层对象中的属性是[form-item]，那么方法就在第二层属性加上一个on对象，on对象指的就是当前组件属性的方法
-* 那么第三层对象中组件的方法该怎么去绑定呢，比如下面的type为[select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)的组件，options代表[select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)组件中所有的属性，options.on就是绑定了[select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)e组件的所有方法，当[select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)变化时会触发change事件。
+* 那么第三层对象中组件的方法该怎么去绑定呢，比如下面的type为[el-select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)的组件，options代表[el-select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)组件中所有的属性，options.on就是绑定了[el-select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)e组件的所有方法，当[el-select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)变化时会触发change事件。
 ```js
 formItem: {
   type: {
@@ -124,9 +124,11 @@ formItem: {
 #### showFooter 属性 — Boolean
 * 是否显示表格下方的分页，默认为true
 #### [table](https://element.eleme.io/#/zh-CN/component/table#table-attributes) 属性 — Object
-* table下的属性为[table](https://element.eleme.io/#/zh-CN/component/table#table-attributes)中所有的属性
-* table.on为[table](https://element.eleme.io/#/zh-CN/component/table#table-events)的方法和事件
-* table.tableColumn为[table-column](https://element.eleme.io/#/zh-CN/component/table#table-column-attributes)的所有属性
+* table下的属性为[el-table](https://element.eleme.io/#/zh-CN/component/table#table-attributes)中所有的属性
+* table.on为[el-table](https://element.eleme.io/#/zh-CN/component/table#table-events)的方法和事件
+* table.tableColumn为[el-table-column](https://element.eleme.io/#/zh-CN/component/table#table-column-attributes)的所有属性
+* table.checkbox为[el-checkbox](https://element.eleme.io/#/zh-CN/component/checkbox#checkbox-attributes)的所有属性
+* table.checkbox.on为[el-checkbox事件](https://element.eleme.io/#/zh-CN/component/checkbox#checkbox-events)的所有属性
 ```js      
 table: {
   tableColumn: [
@@ -198,8 +200,8 @@ table: {
 * 是否禁用所有的操作，默认为false
 
 #### [pagination](https://element.eleme.io/#/zh-CN/component/pagination#attributes) 属性 — Object
-* pagination下的属性为[pagination](https://element.eleme.io/#/zh-CN/component/pagination#attributes)中所有的属性
-* pagination.on对象为[pagination](https://element.eleme.io/#/zh-CN/component/pagination#events)的方法和事件
+* pagination下的属性为[el-pagination](https://element.eleme.io/#/zh-CN/component/pagination#attributes)中所有的属性
+* pagination.on对象为[el-pagination](https://element.eleme.io/#/zh-CN/component/pagination#events)的方法和事件
 
 #### tableSlot 属性 — Boolean
 * tableSlot是表格插槽属性，默认为false
@@ -218,3 +220,8 @@ table: {
 #### disabled 属性 — Boolean
 #### showHeader 属性 — Boolean
 #### showSearch 属性 — Boolean
+
+### d-dialog组件
+#### [dialog](https://element.eleme.io/#/zh-CN/component/dialog#attributes) 属性 — Object
+* dialog下的属性为[el-dialog](https://element.eleme.io/#/zh-CN/component/dialog#attributes)中所有的属性
+* dialog.on对象为[el-dialog](https://element.eleme.io/#/zh-CN/component/dialog#events)的方法和事件
