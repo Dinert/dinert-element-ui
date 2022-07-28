@@ -1,6 +1,6 @@
 {
   "name": "@dinert/element-ui",
-  "version": "1.0.42.bate.13",
+  "version": "1.0.4-21",
   "description": "基于vue2封装的element-ui包",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
@@ -23,7 +23,7 @@
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "autoprefixer": "8.0.0",
-    "element-ui": "^2.15.9",
+    "element-ui": "^2.15.8",
     "lodash": "^4.17.21",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.14",
@@ -37,5 +37,12 @@
     "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {},
-  "repository": "git@github.com:Dinert/element-ui.git"
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Dinert/element-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dinert/element-ui/issues"
+  },
+  "homepage": "https://github.com/Dinert/element-ui#readme"
 }
