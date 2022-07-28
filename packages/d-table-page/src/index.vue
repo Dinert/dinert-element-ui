@@ -136,6 +136,13 @@ export default {
       }
     }
   }
+  &.maxWidthAuto{
+    ::v-deep{
+      .el-form .el-form-item .el-form-item__label{
+        max-width: unset;
+      }
+    }
+  }
   .d-form{
     max-height: 300px;
   }

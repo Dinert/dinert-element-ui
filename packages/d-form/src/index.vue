@@ -175,9 +175,11 @@ export default {
   created() {},
   mounted() {
     windowResize(() => {
-      const elFormLeft = document.querySelector(".el-form-left");
-      const clientHeight = elFormLeft.clientHeight;
-      if (clientHeight > this.elFormHeight) {
+      const elFormLeft = document.querySelectorAll(".el-form-left > div");
+      const firstTop = elFormLeft[0].getBoundingClientRect().top
+      const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
+      const isHeight = firstTop !== lastTop
+      if (isHeight) {
         this.isArrow = true;
       } else {
         if (!this.packUp) {

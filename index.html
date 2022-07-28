@@ -48,7 +48,7 @@
 <body>
   <div id="app">
 
-    <d-table-page :table="table" :form-item="formItem" :form="form" v-on="{search: search}" class="near">
+    <d-table-page :table="table" :form-item="formItem" :form="form" v-on="{search: search}" class="near maxWidthAuto">
       <template #search>
         <el-button type="primary" @click="search"
           >查询</el-button
@@ -185,7 +185,7 @@
         formItem: {
           type: {
             type: 'select',
-            label: '窗口类型',
+            label: '窗口类型aaaaaaaaa',
             options: {
               options: [
                 { value: '一口受理', label: '一口受理' },
@@ -196,30 +196,30 @@
               ],
             },
           },
-          // name: {
-          //   type: 'input',
-          //   label: '姓名',
-          //   options: {
-          //   }
-          // },
-          // date: {
-          //   type: 'year',
-          //   label: '时间'
-          // },
-          // department: {
-          //   type: 'input-number',
-          //   label: '部门',
-          // },
-          // enable: {
-          //   type: 'select',
-          //   label: '大屏显fdsfdasfasdfdas示哈',
-          //   options: {
-          //     options: [
-          //       { value: true, label: '显示' },
-          //       { value: false, label: '隐藏' },
-          //     ]
-          //   }
-          // }
+          name: {
+            type: 'input',
+            label: '姓名',
+            options: {
+            }
+          },
+          date: {
+            type: 'year',
+            label: '时间'
+          },
+          department: {
+            type: 'input-number',
+            label: '部门',
+          },
+          enable: {
+            type: 'select',
+            label: '大屏显fdsfdasfasdfdas示哈',
+            options: {
+              options: [
+                { value: true, label: '显示' },
+                { value: false, label: '隐藏' },
+              ]
+            }
+          }
         },
         form: {
           model: {
