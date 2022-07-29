@@ -4,7 +4,7 @@
       <div class="d-table-header-left">
         <slot name="header-left"></slot>
       </div>
-      <div class="d-table-header-right">
+      <div class="d-table-header-right" v-if="table.children">
         <el-button-group>
           <el-button :type="isAllData ? 'primary' : 'default'" @click="allShow" :disabled="disabled"
             >全部显示
@@ -22,13 +22,15 @@
             </template>
             <ul class="el-popover-classify">
               <li v-for="column in table.tableColumn" :key="column.prop">
-                  <el-checkbox
-                    :label="column.label"
-                    :name="column.prop"
-                    v-model="column.checkbox.checked"
-                    v-bind="column.checkbox"
-                    @change="checkboxChange"
-                  />
+                  <template v-if="column.prop !== 'operations' && column.type !== 'selection' && column.type !== 'index'">
+                    <el-checkbox
+                      :label="column.label"
+                      :name="column.prop"
+                      v-model="column.checkbox.checked"
+                      v-bind="column.checkbox"
+                      @change="checkboxChange"
+                    />
+                  </template>
               </li>
             </ul>
           </el-popover>
@@ -53,7 +55,7 @@
         <template v-if="tableSlot">
           <template v-for="column in tableColumns">
             <template v-if="column.type !== 'selection'">
-              <recuve-table-column :tableColumn="column" :key="column.prop">
+              <recuve-table-column :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange">
                 <template slot-scope="scope">
                   <slot v-bind="scope"></slot>
                 </template>
@@ -70,7 +72,7 @@
         <template v-else>
           <template v-for="column in tableColumns">
             <template v-if="column.type !== 'selection'">
-              <recuve-table-column :tableColumn="column" :key="column.prop">
+              <recuve-table-column :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange">
                 <template slot-scope="scope">
                   <slot v-bind="scope" :name="columnProp(scope.prop)"></slot>
                 </template>
@@ -195,7 +197,13 @@ export default {
           return item;
         }
       });
-      this.table.key = !this.table.key;
+      if(this.table.children) {
+        this.table.key = !this.table.key;
+      }
+      this.table.height = 'auto';
+      this.$nextTick(() => {
+        this.table.height = '100%';
+      })
     },
 
     // 选中变化的值
@@ -221,7 +229,13 @@ export default {
           }
         }
       }
-      this.table.key = !this.table.key;
+      if(this.table.children) {
+        this.table.key = !this.table.key;
+      }
+      this.table.height = 'auto';
+      this.$nextTick(() => {
+        this.table.height = '100%';
+      })
     },
   },
 };

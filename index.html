@@ -84,33 +84,36 @@
               align: 'center',
               label: '选择'
             },
-            {
-              prop: 'type',
-              label: '窗口类型',
-              children: [
-                {
-                  prop: 'type1',
-                  label: '类型A',
-                  children: [
-                    {
-                      prop: 'type-a',
-                      label: '类型AB'
-                    },
-                    {
-                      prop: 'type4',
-                      label: '类型AC'
-                    },
-                  ]
-                },
-                {
-                  prop: 'type2',
-                  label: '类型B'
-                }
-              ]
-            },
+            // {
+            //   prop: 'type',
+            //   label: '窗口类型',
+            //   children: [
+            //     {
+            //       prop: 'type1',
+            //       label: '类型A',
+            //       children: [
+            //         {
+            //           prop: 'type-a',
+            //           label: '类型AB'
+            //         },
+            //         {
+            //           prop: 'type4',
+            //           label: '类型AC'
+            //         },
+            //       ]
+            //     },
+            //     {
+            //       prop: 'type2',
+            //       label: '类型B'
+            //     }
+            //   ]
+            // },
             {
               prop: 'name',
               label: '姓名',
+              formatter: (scope, column, value) =>  {
+                return value
+              }
             },
             {
               prop: 'code',
