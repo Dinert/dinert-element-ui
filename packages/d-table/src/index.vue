@@ -55,7 +55,7 @@
         <template v-if="tableSlot">
           <template v-for="column in tableColumns">
             <template v-if="column.type !== 'selection'">
-              <recuve-table-column :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange">
+              <recuve-table-column :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow">
                 <template slot-scope="scope">
                   <slot v-bind="scope"></slot>
                 </template>
@@ -72,7 +72,7 @@
         <template v-else>
           <template v-for="column in tableColumns">
             <template v-if="column.type !== 'selection'">
-              <recuve-table-column :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange">
+              <recuve-table-column :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow">
                 <template slot-scope="scope">
                   <slot v-bind="scope" :name="columnProp(scope.prop)"></slot>
                 </template>
@@ -197,13 +197,7 @@ export default {
           return item;
         }
       });
-      if(this.table.children) {
-        this.table.key = !this.table.key;
-      }
-      this.table.height = 'auto';
-      this.$nextTick(() => {
-        this.table.height = '100%';
-      })
+      this.table.key = !this.table.key;
     },
 
     // 选中变化的值
@@ -229,13 +223,6 @@ export default {
           }
         }
       }
-      if(this.table.children) {
-        this.table.key = !this.table.key;
-      }
-      this.table.height = 'auto';
-      this.$nextTick(() => {
-        this.table.height = '100%';
-      })
     },
   },
 };
@@ -290,4 +277,14 @@ export default {
     }
   }
 }
+
+    .el-popover-classify li{
+      line-height: 22px;
+      label{
+        display: block;
+      }
+      &:hover{
+        background-color: rgba(#409EFF, .1);
+      }
+    }
 </style>

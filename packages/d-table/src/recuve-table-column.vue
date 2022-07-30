@@ -9,11 +9,12 @@
         <span>{{header(scope)}}</span>
         <span v-if="scope.column.property === 'operations' && !table.children">
           <el-popover trigger="hover" placement="bottom-end">
-            <svg slot="reference" class="ali-icon" aria-hidden="true" style="position: absolute; right: 19px; top: 4px; cursor: pointer;">
+            <svg slot="reference" class="ali-icon icon-setting" aria-hidden="true">
               <use
                 :xlink:href="`#icon-setting`"
               ></use>
             </svg>
+            <el-link class="allSelect" :underline="false" type="primary" @click="allShow">全选</el-link>
             <ul class="el-popover-classify">
               <li v-for="column in table.tableColumn" :key="column.prop">
                 <template v-if="column.prop !== 'operations' && column.type !== 'selection' && column.type !== 'index'">
@@ -57,7 +58,6 @@ export default {
   },
   data() {
     return {
-      popoverModel: false
     };
   },
   computed: {},
@@ -74,29 +74,43 @@ export default {
     header(scope){
       return scope.column.label;
     },
+
+    // 分类选择
    checkboxChange() {
     this.$emit('checkbox-change')
+   },
+
+   // 全选
+   allShow() {
+    this.$emit('all-show')
    }
-  },
-  watch: {
-    'table.key': {
-      handler() {
-        console.log('aa')
-      },
-      deep: true
-    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-    .el-popover-classify li{
-      line-height: 22px;
-      label{
-        display: block;
-      }
-      &:hover{
-        background-color: rgba(#409EFF, .1);
-      }
-    }
+.icon-setting{
+  position: absolute; 
+  right: 19px; 
+  top: 4px; 
+  cursor: pointer;
+}
+.allSelect{
+  display: block; 
+  border-bottom: 1px solid #dee0e7;
+  line-height: 31px; 
+  margin-bottom: 8px;
+}
+.el-popover-classify{
+  min-width: 120px;
+  li{
+        line-height: 22px;
+        label{
+          display: block;
+        }
+        &:hover{
+          background-color: rgba(#409EFF, .1);
+        }
+  }
+}
 </style>
