@@ -7,17 +7,17 @@
     </template>
       <template slot="header" slot-scope="scope">
         <span>{{header(scope)}}</span>
-        <span v-if="scope.column.property === 'operations' && !table.children">
+        <span v-if="showSetting(tableColumn.setting)">
           <el-popover trigger="hover" placement="bottom-end">
             <svg slot="reference" class="ali-icon icon-setting" aria-hidden="true">
               <use
                 :xlink:href="`#icon-setting`"
               ></use>
             </svg>
-            <el-link class="allSelect" :underline="false" type="primary" @click="allShow">全选</el-link>
-            <ul class="el-popover-classify">
+            <ul class="el-popover-classify" @mouseleave="classifyMouseleave">
+              <li><el-link class="allSelect" :underline="false" type="primary" @click="allShow">全选</el-link></li>
               <li v-for="column in table.tableColumn" :key="column.prop">
-                <template v-if="column.prop !== 'operations' && column.type !== 'selection' && column.type !== 'index'">
+                <template v-if="!column.setting && column.type !== 'selection' && column.type !== 'index'">
                     <el-checkbox
                       :label="column.label"
                       :name="column.prop"
@@ -54,10 +54,11 @@ export default {
     table: {
       type: Object,
       default: () => {},
-    },
+    }
   },
   data() {
     return {
+      settingValue: false
     };
   },
   computed: {},
@@ -83,6 +84,17 @@ export default {
    // 全选
    allShow() {
     this.$emit('all-show')
+   },
+
+   // 是否显示操作按钮
+   showSetting(setting) {
+      return setting && !this.table.children
+   },
+
+   // 设置弹窗移出
+   classifyMouseleave() {
+    this.$emit('checkbox-change')
+    this.table.key = !this.table.key
    }
   }
 };
@@ -105,6 +117,11 @@ export default {
   min-width: 120px;
   li{
         line-height: 22px;
+        &:first-child{
+          &:hover{
+            background-color: unset;
+          }
+        }
         label{
           display: block;
         }

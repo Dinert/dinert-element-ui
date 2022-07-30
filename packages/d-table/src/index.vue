@@ -197,7 +197,6 @@ export default {
           return item;
         }
       });
-      this.table.key = !this.table.key;
     },
 
     // 选中变化的值
