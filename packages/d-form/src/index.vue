@@ -26,7 +26,7 @@
             <d-overflow-tooltip
               :content="item['label']"
               :disabled="labelDisabled"
-              @label-mouse-enter="labelMouseEnter"
+              @label-mouse-enter="labelMouseEnter($event, item)"
             >
             </d-overflow-tooltip>
           </template>
@@ -235,11 +235,12 @@ export default {
     },
 
     // 是否显示标签
-    labelMouseEnter(e) {
+    labelMouseEnter(e, item) {
       const el = e.target.parentElement.parentElement;
       const labelEl = window.getComputedStyle(el, null);
-      const labelWidth =
-        parseInt(labelEl.getPropertyValue("max-width")) -
+      const isRequried = item.rules ? 12 : item.beforeWidth || 0;
+      const labelWidth = 
+        parseInt(labelEl.getPropertyValue("max-width"))  - isRequried -
         parseInt(labelEl.getPropertyValue("padding-right"));
       const tooltipWidth = e.target.previousElementSibling.offsetWidth;
       if (tooltipWidth >= labelWidth) {
