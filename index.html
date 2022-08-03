@@ -127,11 +127,11 @@
             {
               prop: 'enable',
               label: '大屏显示',
-              setting: true
             },
             {
               prop: 'operations',
               label: '操作',
+              setting: true
             }
           ],
           data: [{
@@ -185,12 +185,52 @@
           }, {
             'name': 'pppppppppp',
             'type-a': 'a3123123'
+          }],
+          data2: [{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
+          }, {
+            'name': 'pppppppppp',
+            'type-a': 'a3123123'
           }]
         },
         formItem: {
           type: {
             type: 'select',
-            label: '窗口类型aaaaaaaaa',
+            label: '窗口类型aa',
             options: {
               options: [
                 { value: '一口受理', label: '一口受理' },
@@ -240,7 +280,6 @@
           visible: true,
           on: {
             close(){
-              console.log('aa', this)
             }
           }
         }
@@ -255,6 +294,7 @@
       },
       search(prop) {
         console.log(prop)
+        this.table.data = this.table.data2
       },
       reset() {
 

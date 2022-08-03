@@ -1,6 +1,6 @@
 <template>
   <div class="d-table">
-    <div class="d-table-header" v-if="showHeader">
+    <div class="d-table-header" ref="header" v-if="showHeader">
       <div class="d-table-header-left">
         <slot name="header-left"></slot>
       </div>
@@ -37,17 +37,17 @@
         </el-button-group>
       </div>
     </div>
-    <div class="d-table-headerFooter">
+    <div class="d-table-headerFooter" ref="headerFooter">
       <slot name="header-footer"></slot>
     </div>
-    <div class="d-table-body">
+    <div class="d-table-body" ref="body">
       <el-table
         v-bind="{
           data: [],
-          height: '100%',
           border: true,
           showHeader: true,
           key: false,
+          height: '100%',
           ...table,
         }"
         v-on="{ ...table.on }"
@@ -88,7 +88,7 @@
         </template>
       </el-table>
     </div>
-    <div class="d-table-footer" v-if="showFooter && isTableData">
+    <div class="d-table-footer" v-if="showFooter && isTableData" ref="footer">
       <el-pagination
         v-bind="{
           disabled: disabled,
@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import {windowResize} from '@/utils/tools.js'
 export default {
   name: "DTable",
   props: {
@@ -152,8 +153,19 @@ export default {
     },
   },
   created() {
+
     this.initCheckedbox();
     this.filterTableColumns(); 
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      this.resize()
+
+      windowResize(() => {
+        this.resize()
+      })
+    })
   },
   data() {
     return {
@@ -223,7 +235,35 @@ export default {
         }
       }
     },
+    resize() {
+      const body = this.$refs.body
+
+      const header = this.$refs.header
+      const headerH = (header && header.offsetHeight) || 0
+
+      const headerFooter = this.$refs.headerFooter
+      const headerFooterH = (headerFooter && headerFooter.offsetHeight) || 0
+
+
+      const footer = this.$refs.footer
+      const footerH = (footer && footer.offsetHeight) || 0
+      const footerMT = (footer && parseInt(window.getComputedStyle(footer, null).marginTop)) || 0
+      const bodyCurrentH = body.parentElement.offsetHeight - headerH - headerFooterH - footerH - footerMT - 32 - 12
+      console.log(body.parentElement.offsetHeight, 'body.parentElement.offsetHeight')
+
+      const tableHeaderH = body.querySelector('.el-table__header-wrapper table').offsetHeight
+      const tableBodyH = body.querySelector('.el-table__body-wrapper table').offsetHeight
+      if(body.offsetHeight > body.parentElement.offsetHeight || (tableHeaderH + tableBodyH) >  body.parentElement.offsetHeight) {
+        body.style.height = bodyCurrentH + 'px'
+      }else {
+        body.style.height = (tableBodyH + tableHeaderH) + 'px'
+      }
+    }
+
   },
+  watch: {
+
+  }
 };
 </script>
 
@@ -254,8 +294,7 @@ export default {
   }
 
   .d-table-body {
-    flex: 1;
-    height: 0;
+
 
     .el-table {
       ::v-deep(.cell > div) {
