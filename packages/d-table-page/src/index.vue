@@ -11,6 +11,9 @@
         },
         colLayout
       }"
+      v-on="{
+        'un-fold': unFold
+      }"
       v-if="showSearch"
     >
       <template #search>
@@ -18,6 +21,7 @@
       </template>
     </d-form>
     <d-table
+      ref="table"
       v-bind="{ table, pagination, tableSlot: true, disabled, showHeader }"
       v-on="{
         'size-change': sizeChange,
@@ -113,6 +117,13 @@ export default {
     },
     currentChange(value) {
       this.$emit("current-change", value);
+    },
+
+    // 展开收起的回调
+    unFold(value) {
+      setTimeout(() => {
+        this.$refs.table.resize()
+      }, 100)
     }
   },
 };

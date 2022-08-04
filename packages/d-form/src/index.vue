@@ -222,6 +222,8 @@ export default {
       } else {
         this.packUp = true;
       }
+
+      this.$emit('un-fold', this.packUp)
     },
 
     // 添加options属性
