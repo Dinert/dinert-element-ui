@@ -24,6 +24,7 @@
               <li v-for="column in table.tableColumn" :key="column.prop">
                   <template v-if="column.prop !== 'operations' && column.type !== 'selection' && column.type !== 'index'">
                     <el-checkbox
+                      :class="['el-popover-classify-li', column.prop]"
                       :label="column.label"
                       :name="column.prop"
                       v-model="column.checkbox.checked"
@@ -274,6 +275,10 @@ export default {
       this.$nextTick(() => {
         this.resize()
       })
+    },
+    'table.tableColumn'() {
+      this.initCheckedbox();
+      this.filterTableColumns(); 
     }
   }
 };
