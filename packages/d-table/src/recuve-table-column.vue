@@ -9,7 +9,7 @@
         <span>{{header(scope)}}</span>
         <span v-if="showSetting(tableColumn.setting)">
           <el-popover trigger="hover" placement="bottom-end">
-            <svg slot="reference" class="ali-icon icon-setting" aria-hidden="true">
+            <svg slot="reference" class="ali-icon operations icon-setting" aria-hidden="true">
               <use
                 :xlink:href="`#icon-setting`"
               ></use>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   name: "RecuveTableColumn",
   props: {
@@ -61,7 +62,6 @@ export default {
       settingValue: false
     };
   },
-  computed: {},
   methods: {
     filterColumn(column) {
       const obj = {};
@@ -80,7 +80,7 @@ export default {
    async checkboxChange() {
       await this.$emit('checkbox-change')
       // 手动触发mouseenter事件
-      document.querySelector('.icon-setting').dispatchEvent(new Event( 'mouseenter' ));
+      document.querySelector('.ali-icon.operations.icon-setting').dispatchEvent(new Event( 'mouseenter' ));
    },
 
    // 全选

@@ -160,7 +160,14 @@ export default {
   },
 
   async mounted() {
-      await this.resize()
+      this.$nextTick(() => {
+        this.resize()
+
+        setTimeout(() => {
+          this.resize()
+        }, 100)
+      })
+ 
 
       windowResize(() => {
         this.resize()
@@ -258,7 +265,7 @@ export default {
       const tableHeaderH = body.querySelector('.el-table__header-wrapper table').offsetHeight
       const tableBodyH = body.querySelector('.el-table__body-wrapper table').offsetHeight
 
-
+      console.log(tableHeaderH, 'aaaaaaaaa')
       // 当表格头和表格内容大于
       if((tableHeaderH + tableBodyH) >  bodyCurrentH || this.table.data && this.table.data.length === 0) {
         body.style.height = '0px'
@@ -271,9 +278,12 @@ export default {
 
   },
   watch: {
-    'table.data'() {
-      console.log('aaaaaaaaaaaaaaa')
+    'table.data': {
+      handler() {
+        console.log('aaaaaaaaaa')
         this.resize()
+      },
+      deep: true
     },
     'table.tableColumn'() {
       this.initCheckedbox();
