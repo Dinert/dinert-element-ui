@@ -14,7 +14,7 @@
                 :xlink:href="`#icon-setting`"
               ></use>
             </svg>
-            <ul class="el-popover-classify" @mouseleave="classifyMouseleave">
+            <ul class="el-popover-classify">
               <li><el-link class="allSelect" :underline="false" type="primary" @click="allShow">全选</el-link></li>
               <li v-for="column in table.tableColumn" :key="column.prop">
                 <template v-if="!column.setting && column.type !== 'selection' && column.type !== 'index'">
@@ -77,8 +77,10 @@ export default {
     },
 
     // 分类选择
-   checkboxChange() {
-    this.$emit('checkbox-change')
+   async checkboxChange() {
+      await this.$emit('checkbox-change')
+      // 手动触发mouseenter事件
+      document.querySelector('.icon-setting').dispatchEvent(new Event( 'mouseenter' ));
    },
 
    // 全选
@@ -90,12 +92,6 @@ export default {
    showSetting(setting) {
       return setting && !this.table.children
    },
-
-   // 设置弹窗移出
-   classifyMouseleave() {
-    this.$emit('checkbox-change')
-    this.table.key = !this.table.key
-   }
   }
 };
 </script>

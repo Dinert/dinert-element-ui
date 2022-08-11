@@ -95,7 +95,7 @@
           disabled: disabled,
           currentPage: 1,
           pageSize: 15,
-          pageSizes: [15, 30, 50, 70, 100],
+          pageSizes: [10, 30, 50, 70, 100],
           background: true,
           layout: 'total, sizes, prev, pager, next, jumper',
           total: 100,
@@ -159,14 +159,12 @@ export default {
     this.filterTableColumns(); 
   },
 
-  mounted() {
-    this.$nextTick(() => {
-      this.resize()
+  async mounted() {
+      await this.resize()
 
       windowResize(() => {
         this.resize()
       })
-    })
   },
   data() {
     return {
@@ -215,6 +213,7 @@ export default {
     // 选中变化的值
     checkboxChange() {
       this.filterTableColumns()
+      this.table.key = !this.table.key
     },
 
     // 全部显示
@@ -273,9 +272,8 @@ export default {
   },
   watch: {
     'table.data'() {
-      this.$nextTick(() => {
+      console.log('aaaaaaaaaaaaaaa')
         this.resize()
-      })
     },
     'table.tableColumn'() {
       this.initCheckedbox();
