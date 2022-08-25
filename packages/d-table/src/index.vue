@@ -265,7 +265,6 @@ export default {
       const tableHeaderH = body.querySelector('.el-table__header-wrapper table').offsetHeight
       const tableBodyH = body.querySelector('.el-table__body-wrapper table').offsetHeight
 
-      console.log(tableHeaderH, 'aaaaaaaaa')
       // 当表格头和表格内容大于
       if((tableHeaderH + tableBodyH) >  bodyCurrentH || this.table.data && this.table.data.length === 0) {
         body.style.height = '0px'
@@ -280,7 +279,6 @@ export default {
   watch: {
     'table.data': {
       handler() {
-        console.log('aaaaaaaaaa')
         this.resize()
       },
       deep: true

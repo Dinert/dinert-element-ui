@@ -240,8 +240,7 @@
       },
       search(prop) {
         console.log(prop)
-        this.table.data = this.table.data2
-        this.table.tableColumn.pop()
+        this.table.tableColumn.splice(2, 1)
       },
       reset() {
 

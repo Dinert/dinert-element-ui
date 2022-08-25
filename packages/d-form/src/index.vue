@@ -51,6 +51,12 @@
                 v-on="item.options && { ...item.options.on }"
               ></el-input-number>
             </template>
+            <template v-else-if="['input-autocomplete'].includes(item.type)">
+                <el-autocomplete v-model="form.model[key]" clearable
+                    v-bind="{placeholder: '请输入' + item.label, ...item.options}"
+                    v-on="item.options && {...item.options.on}"
+                />
+            </template>
             <template v-else-if="['select'].includes(item.type)">
               <el-select
                 clearable
@@ -306,6 +312,8 @@ export default {
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   min-height: 50px;
+  box-sizing: content-box;
+
 
   &.packUp {
     max-height: 50px;
