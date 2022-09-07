@@ -162,10 +162,6 @@ export default {
   async mounted() {
       this.$nextTick(() => {
         this.resize()
-
-        setTimeout(() => {
-          this.resize()
-        }, 100)
       })
  
 
@@ -279,7 +275,10 @@ export default {
   watch: {
     'table.data': {
       handler() {
-        this.resize()
+        console.log('数据更新')
+        setTimeout(() => {
+          this.resize()
+        })
       },
       deep: true
     },
