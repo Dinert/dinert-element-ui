@@ -167,7 +167,7 @@ export default {
 
       windowResize(() => {
         this.resize()
-      })
+      }, 100)
   },
   data() {
     return {
