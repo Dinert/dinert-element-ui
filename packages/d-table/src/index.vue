@@ -1,6 +1,6 @@
 <template>
   <div class="d-table">
-    <div class="d-table-header" ref="header" v-if="showHeader && table.children">
+    <div class="d-table-header" ref="header" v-if="showHeader">
       <div class="d-table-header-left">
         <slot name="header-left"></slot>
       </div>
@@ -275,7 +275,6 @@ export default {
   watch: {
     'table.data': {
       handler() {
-        console.log('数据更新')
         setTimeout(() => {
           this.resize()
         })
