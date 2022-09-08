@@ -35,83 +35,85 @@
             :disabled="valueDisabled"
             @label-mouse-enter="valueMouseEnter($event, item)"
           >
-            <template v-if="['input', 'textarea'].includes(item.type)">
-              <el-input
-                clearable
-                v-model="form.model[key]"
-                v-bind="{ placeholder: '请输入' + item.label, ...item.options }"
-                v-on="item.options && { ...item.options.on }"
-              ></el-input>
-            </template>
-            <template v-if="['input-number'].includes(item.type)">
-              <el-input-number
-                clearable
-                v-model="form.model[key]"
-                v-bind="{ placeholder: '请输入' + item.label, ...item.options }"
-                v-on="item.options && { ...item.options.on }"
-              ></el-input-number>
-            </template>
-            <template v-else-if="['input-autocomplete'].includes(item.type)">
-                <el-autocomplete v-model="form.model[key]" clearable
-                    v-bind="{placeholder: '请输入' + item.label, ...item.options}"
-                    v-on="item.options && {...item.options.on}"
-                />
-            </template>
-            <template v-else-if="['select'].includes(item.type)">
-              <el-select
-                clearable
-                v-model="form.model[key]"
-                v-bind="{ placeholder: '请选择' + item.label, ...item.options }"
-                v-on="item.options && { ...item.options.on }"
-              >
-                <el-option
-                  v-for="options in item.options.options"
-                  v-bind="{
-                    value: options.value,
-                    label: options.label,
-                  }"
-                  :key="options.value"
-                  v-on="item.options && { ...options.on }"
+            <slot :name="key" :formItem="{options: item, key: key}">
+              <template v-if="['input', 'textarea'].includes(item.type)">
+                <el-input
+                  clearable
+                  v-model="form.model[key]"
+                  v-bind="{ placeholder: '请输入' + item.label, ...item.options }"
+                  v-on="item.options && { ...item.options.on }"
+                ></el-input>
+              </template>
+              <template v-if="['input-number'].includes(item.type)">
+                <el-input-number
+                  clearable
+                  v-model="form.model[key]"
+                  v-bind="{ placeholder: '请输入' + item.label, ...item.options }"
+                  v-on="item.options && { ...item.options.on }"
+                ></el-input-number>
+              </template>
+              <template v-else-if="['input-autocomplete'].includes(item.type)">
+                  <el-autocomplete v-model="form.model[key]" clearable
+                      v-bind="{placeholder: '请输入' + item.label, ...item.options}"
+                      v-on="item.options && {...item.options.on}"
+                  />
+              </template>
+              <template v-else-if="['select'].includes(item.type)">
+                <el-select
+                  clearable
+                  v-model="form.model[key]"
+                  v-bind="{ placeholder: '请选择' + item.label, ...item.options }"
+                  v-on="item.options && { ...item.options.on }"
                 >
-                  <slot
-                    :name="item.type + firstUpperCase(key)"
-                    :options="options"
-                  ></slot>
-                </el-option>
-              </el-select>
-            </template>
-            <template
-              v-else-if="
-                [
-                  'datetime',
-                  'date',
-                  'week',
-                  'month',
-                  'year',
-                  'datetimerange',
-                  'daterange',
-                  'monthrange',
-                  'yearrange',
-                ].includes(item.type)
-              "
-            >
-              <el-date-picker
-                clearable
-                v-model="form.model[key]"
-                v-bind="{
-                  placeholder:
-                    '请选择' + datePickerPlaceholder(item.label, item),
-                  startPlaceholder:
-                    '开始' + datePickerPlaceholder(item.label, item),
-                  endPlaceholder:
-                    '结束' + datePickerPlaceholder(item.label, item),
-                  'unlink-panels': true,
-                  ...item.options,
-                }"
-                v-on="item.options && { ...item.options.on }"
+                  <el-option
+                    v-for="options in item.options.options"
+                    v-bind="{
+                      value: options.value,
+                      label: options.label,
+                    }"
+                    :key="options.value"
+                    v-on="item.options && { ...options.on }"
+                  >
+                    <slot
+                      :name="item.type + firstUpperCase(key)"
+                      :options="options"
+                    ></slot>
+                  </el-option>
+                </el-select>
+              </template>
+              <template
+                v-else-if="
+                  [
+                    'datetime',
+                    'date',
+                    'week',
+                    'month',
+                    'year',
+                    'datetimerange',
+                    'daterange',
+                    'monthrange',
+                    'yearrange',
+                  ].includes(item.type)
+                "
               >
-              </el-date-picker>
-            </template>
+                <el-date-picker
+                  clearable
+                  v-model="form.model[key]"
+                  v-bind="{
+                    placeholder:
+                      '请选择' + datePickerPlaceholder(item.label, item),
+                    startPlaceholder:
+                      '开始' + datePickerPlaceholder(item.label, item),
+                    endPlaceholder:
+                      '结束' + datePickerPlaceholder(item.label, item),
+                    'unlink-panels': true,
+                    ...item.options,
+                  }"
+                  v-on="item.options && { ...item.options.on }"
+                >
+                </el-date-picker>
+              </template>
+            </slot>
           </d-overflow-tooltip>
         </el-form-item>
       </el-col>

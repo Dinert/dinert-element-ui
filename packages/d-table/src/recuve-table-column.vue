@@ -44,10 +44,12 @@
 </template>
 
 <script>
-import _ from 'lodash'
 export default {
   name: "RecuveTableColumn",
   props: {
+    onlyClass: {
+      type: String
+    },
     tableColumn: {
       type: Object,
       default: () => {},
@@ -80,7 +82,8 @@ export default {
    async checkboxChange() {
       await this.$emit('checkbox-change')
       // 手动触发mouseenter事件
-      document.querySelector('.ali-icon.operations.icon-setting').dispatchEvent(new Event( 'mouseenter' ));
+      const dom = document.querySelector('.' + this.onlyClass + ' .ali-icon.operations.icon-setting')
+      dom.dispatchEvent(new Event( 'mouseenter' ));
    },
 
    // 全选

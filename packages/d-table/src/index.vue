@@ -1,5 +1,5 @@
 <template>
-  <div class="d-table">
+  <div class="d-table" :class="onlyClass">
     <div class="d-table-header" ref="header" v-if="showHeader">
       <div class="d-table-header-left">
         <slot name="header-left"></slot>
@@ -56,7 +56,7 @@
         <template v-if="tableSlot">
           <template v-for="column in tableColumns">
             <template v-if="column.type !== 'selection'">
-              <recuve-table-column :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow">
+              <recuve-table-column :onlyClass="onlyClass" :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow">
                 <template slot-scope="scope">
                   <slot v-bind="scope"></slot>
                 </template>
@@ -73,7 +73,7 @@
         <template v-else>
           <template v-for="column in tableColumns">
             <template v-if="column.type !== 'selection'">
-              <recuve-table-column :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow">
+              <recuve-table-column :onlyClass="onlyClass" :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow">
                 <template slot-scope="scope">
                   <slot v-bind="scope" :name="columnProp(scope.prop)"></slot>
                 </template>
@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import {windowResize} from '@/utils/tools.js'
+import {windowResize, getUuid} from '@/utils/tools.js'
 export default {
   name: "DTable",
   props: {
@@ -154,6 +154,7 @@ export default {
     },
   },
   created() {
+    this.onlyClass = 'table_' + getUuid()
 
     this.initCheckedbox();
     this.filterTableColumns(); 
@@ -172,6 +173,7 @@ export default {
   data() {
     return {
       tableColumns: [],
+      onlyClass: ''
     };
   },
   computed: {
