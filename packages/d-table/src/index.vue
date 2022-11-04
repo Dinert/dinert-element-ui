@@ -160,16 +160,18 @@ export default {
     this.filterTableColumns(); 
   },
 
-  async mounted() {
-      this.$nextTick(() => {
+  async mounted(){
+     let timer = setTimeout(() => {
         this.resize()
-      })
- 
+        clearTimeout(timer)
+     }, 100)
 
       windowResize(() => {
         this.resize()
       }, 100)
   },
+
+
   data() {
     return {
       tableColumns: [],
@@ -268,6 +270,7 @@ export default {
         body.style.height = '0px'
         body.style.flex = '1'
       }else {
+        console.log('aaaaa')
         body.style.height = (tableBodyH + tableHeaderH + 1) + 'px'
         body.style.flex = 'unset'
       }
@@ -281,7 +284,7 @@ export default {
           this.resize()
         })
       },
-      deep: true
+      deep: true,
     },
     'table.tableColumn'() {
       this.initCheckedbox();
