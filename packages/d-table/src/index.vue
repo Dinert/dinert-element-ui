@@ -161,10 +161,13 @@ export default {
   },
 
   async mounted(){
+    this.$nextTick(() => {
      let timer = setTimeout(() => {
         this.resize()
         clearTimeout(timer)
      }, 100)
+    })
+
 
       windowResize(() => {
         this.resize()
@@ -260,7 +263,7 @@ export default {
       const footer = this.$refs.footer
       const footerH = (footer && footer.offsetHeight) || 0
       const footerMT = (footer && parseInt(window.getComputedStyle(footer, null).marginTop)) || 0
-      const bodyCurrentH = body.parentElement.offsetHeight - headerH - headerFooterH - footerH - footerMT - headerMT - bodyPPT - bodyPPB
+      const bodyCurrentH = body.parentElement && (body.parentElement.offsetHeight - headerH - headerFooterH - footerH - footerMT - headerMT - bodyPPT - bodyPPB)
 
       const tableHeaderH = body.querySelector('.el-table__header-wrapper table').offsetHeight
       const tableBodyH = body.querySelector('.el-table__body-wrapper table').offsetHeight
@@ -270,7 +273,6 @@ export default {
         body.style.height = '0px'
         body.style.flex = '1'
       }else {
-        console.log('aaaaa')
         body.style.height = (tableBodyH + tableHeaderH + 1) + 'px'
         body.style.flex = 'unset'
       }
