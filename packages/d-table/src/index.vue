@@ -269,13 +269,16 @@ export default {
       const tableBodyH = (body && body.querySelector('.el-table__body-wrapper table').offsetHeight) || 0
 
       // 当表格头和表格内容大于
-      if((tableHeaderH + tableBodyH) >  bodyCurrentH || (this.table.data && this.table.data.length === 0 && body)) {
-        body.style.height = '0px'
-        body.style.flex = '1'
-      }else {
-        body.style.height = (tableBodyH + tableHeaderH + 1) + 'px'
-        body.style.flex = 'unset'
+      if(body) {
+        if((tableHeaderH + tableBodyH) >  bodyCurrentH || (this.table.data && this.table.data.length === 0)) {
+          body.style.height = '0px'
+          body.style.flex = '1'
+        }else {
+          body.style.height = (tableBodyH + tableHeaderH + 1) + 'px'
+          body.style.flex = 'unset'
+        }
       }
+
     }
 
   },
