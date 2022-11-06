@@ -269,7 +269,7 @@ export default {
       const tableBodyH = (body && body.querySelector('.el-table__body-wrapper table').offsetHeight) || 0
 
       // 当表格头和表格内容大于
-      if((tableHeaderH + tableBodyH) >  bodyCurrentH || this.table.data && this.table.data.length === 0) {
+      if((tableHeaderH + tableBodyH) >  bodyCurrentH || (this.table.data && this.table.data.length === 0 && body)) {
         body.style.height = '0px'
         body.style.flex = '1'
       }else {
