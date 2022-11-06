@@ -263,10 +263,10 @@ export default {
       const footer = this.$refs.footer
       const footerH = (footer && footer.offsetHeight) || 0
       const footerMT = (footer && parseInt(window.getComputedStyle(footer, null).marginTop)) || 0
-      const bodyCurrentH = body.parentElement && (body.parentElement.offsetHeight - headerH - headerFooterH - footerH - footerMT - headerMT - bodyPPT - bodyPPB)
+      const bodyCurrentH = body && body.parentElement && (body.parentElement.offsetHeight - headerH - headerFooterH - footerH - footerMT - headerMT - bodyPPT - bodyPPB)
 
-      const tableHeaderH = body.querySelector('.el-table__header-wrapper table').offsetHeight
-      const tableBodyH = body.querySelector('.el-table__body-wrapper table').offsetHeight
+      const tableHeaderH = (body && body.querySelector('.el-table__header-wrapper table').offsetHeight) || 0
+      const tableBodyH = (body && body.querySelector('.el-table__body-wrapper table').offsetHeight) || 0
 
       // 当表格头和表格内容大于
       if((tableHeaderH + tableBodyH) >  bodyCurrentH || this.table.data && this.table.data.length === 0) {
