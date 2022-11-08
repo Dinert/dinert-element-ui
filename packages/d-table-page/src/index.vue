@@ -121,9 +121,10 @@ export default {
 
     // 展开收起的回调
     unFold(value) {
-      setTimeout(() => {
+      let timer = setTimeout(() => {
         this.$refs.table.resize()
-      }, 100)
+        clearTimeout(timer)
+      }, 300)
     }
   },
 };

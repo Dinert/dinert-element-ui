@@ -47,7 +47,7 @@
 
 <body>
   <div id="app"> 
-    <d-table-page :table="table" :form-item="formItem" :form="form" :table-slot="true" v-on="{search: search}" class="near">
+    <d-table-page :table="table" :form-item="formItem" :form="form" :table-slot="true" :pagination="pagination" v-on="{search: search}" class="near">
       <template #search>
         <el-button type="primary" @click="search"
           >查询</el-button
@@ -80,6 +80,12 @@
     data() {
       return {
         message: 'hello',
+        pagination: {
+          total: 0,
+                pageSize: 10,
+                pageSizes: [10, 20, 30, 50, 100],
+                currentPage: 1,
+        },
         table: {
           // children: true,
           tableColumn: [
@@ -96,26 +102,7 @@
             {
               prop: 'type',
               label: '窗口类型',
-              children: [
-                {
-                  prop: 'type1',
-                  label: '类型A',
-                  children: [
-                    {
-                      prop: 'type-a',
-                      label: '类型AB'
-                    },
-                    {
-                      prop: 'type4',
-                      label: '类型AC'
-                    },
-                  ]
-                },
-                {
-                  prop: 'type2',
-                  label: '类型B'
-                }
-              ]
+            
             },
             {
               prop: 'name',
@@ -126,11 +113,28 @@
             },
             {
               prop: 'code',
-              label: '工号'
+              label: '工号',
+              width: 300,
+            },
+            {
+              prop: 'code2',
+              label: '工号',
+              width: 300,
+            },
+            {
+              prop: 'code3',
+              label: '工号',
+              width: 300
+            },
+            {
+              prop: 'code4',
+              label: '工号',
+              width: 300
             },
             {
               prop: 'department',
-              label: '部门'
+              label: '部门',
+              width: 300
             },
             {
               prop: 'enable',
@@ -144,6 +148,78 @@
           ],
           data2: [],
           data: [{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
+            'name': 'pppppppppp',
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
+          },{
             'name': 'pppppppppp',
             'type-a': 'a3123123',
             'base': {
@@ -184,6 +260,66 @@
             label: '部门',
           },
           enable: {
+            type: 'select',
+            label: '大屏显fdsfdasfasdfdas示哈',
+            options: {
+              options: [
+                { value: true, label: '显示' },
+                { value: false, label: '隐藏' },
+              ]
+            }
+          },
+          enable2: {
+            type: 'select',
+            label: '大屏显fdsfdasfasdfdas示哈',
+            options: {
+              options: [
+                { value: true, label: '显示' },
+                { value: false, label: '隐藏' },
+              ]
+            }
+          },
+          enable3: {
+            type: 'select',
+            label: '大屏显fdsfdasfasdfdas示哈',
+            options: {
+              options: [
+                { value: true, label: '显示' },
+                { value: false, label: '隐藏' },
+              ]
+            }
+          },
+          enable4: {
+            type: 'select',
+            label: '大屏显fdsfdasfasdfdas示哈',
+            options: {
+              options: [
+                { value: true, label: '显示' },
+                { value: false, label: '隐藏' },
+              ]
+            }
+          },
+          enable5: {
+            type: 'select',
+            label: '大屏显fdsfdasfasdfdas示哈',
+            options: {
+              options: [
+                { value: true, label: '显示' },
+                { value: false, label: '隐藏' },
+              ]
+            }
+          },
+          enable6: {
+            type: 'select',
+            label: '大屏显fdsfdasfasdfdas示哈',
+            options: {
+              options: [
+                { value: true, label: '显示' },
+                { value: false, label: '隐藏' },
+              ]
+            }
+          },
+          enable7: {
             type: 'select',
             label: '大屏显fdsfdasfasdfdas示哈',
             options: {
