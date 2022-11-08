@@ -2,7 +2,7 @@
   <el-table-column v-bind="filterColumn(tableColumn)">
     <template slot-scope="scope">
       <slot v-bind="scope" :data="tableColumn" :prop="tableColumn.prop">{{
-        (tableColumn.formatter && tableColumn.formatter(scope, tableColumn, scope.row[tableColumn.prop])) || scope.row[tableColumn.prop]
+        (tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop))) || getPropByPath(scope.row, tableColumn.prop)
       }}</slot>
     </template>
       <template slot="header" slot-scope="scope">
@@ -95,6 +95,26 @@ export default {
    showSetting(setting) {
       return setting && !this.table.children
    },
+
+   getPropByPath(obj, path) {
+      let tempObj = obj;
+      path = path.replace(/\[(\w+)\]/g, '.$1');
+      path = path.replace(/^\./, '');
+
+      let keyArr = path.split('.');
+      let i = 0;
+      for (let len = keyArr.length; i < len - 1; ++i) {
+          if (!tempObj) break;
+          let key = keyArr[i];
+          if (key in tempObj) {
+              tempObj = tempObj[key];
+          } else {
+              return null
+              //break;
+          }
+      }
+      return tempObj ? tempObj[keyArr[i]] : null
+  }
   }
 };
 </script>

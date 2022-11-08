@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     columnProp(prop) {
-      return "column_" + prop;
+      return "column_" + prop.split('.').join('_');
     },
     sizeChange(value) {
       this.$emit("size-change", value);

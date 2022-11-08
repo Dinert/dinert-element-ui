@@ -47,12 +47,17 @@
 
 <body>
   <div id="app"> 
-    <d-table-page :table="table" :form-item="formItem" :form="form" v-on="{search: search}" class="near">
+    <d-table-page :table="table" :form-item="formItem" :form="form" :table-slot="true" v-on="{search: search}" class="near">
       <template #search>
         <el-button type="primary" @click="search"
           >查询</el-button
         >
         <el-button @click="reset">重置</el-button>
+      </template>
+
+
+      <template #column_name="scope">
+        {{'哈哈哈'}}
       </template>
     </d-table-page>
     <!-- <d-dialog :dialog="dialog">
@@ -83,6 +88,10 @@
               width: 55,
               align: 'center',
               label: '选择'
+            },
+            {
+              prop: 'base.name',
+              label: '名字',
             },
             {
               prop: 'type',
@@ -136,7 +145,10 @@
           data2: [],
           data: [{
             'name': 'pppppppppp',
-            'type-a': 'a3123123'
+            'type-a': 'a3123123',
+            'base': {
+              name: 'aaaa'
+            }
           }]
         },
         formItem: {

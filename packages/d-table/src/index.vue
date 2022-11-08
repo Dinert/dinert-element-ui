@@ -208,7 +208,7 @@ export default {
 
     // column的prop
     columnProp(prop) {
-      return "column_" + prop;
+      return "column_" + prop.split('.').join('_');
     },
 
     // 过滤表格的数据
