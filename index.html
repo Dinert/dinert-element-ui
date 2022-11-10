@@ -60,12 +60,15 @@
         {{'哈哈哈'}}
       </template>
     </d-table-page>
+
     <!-- <d-dialog :dialog="dialog">
     </d-dialog> -->
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.8/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.24.3/vuedraggable.umd.js"></script>
 <script src="https://at.alicdn.com/t/font_3370983_ozossfu4xp.js"></script>
 <script src="https://at.alicdn.com/t/font_3373809_s6055kmhlcp.js"></script>
 <script src="./dist/bundle.umd.js"></script>
@@ -75,6 +78,7 @@
   //   size: 'small',
   //   zIndex: 3000
   // }
+
   const app = new Vue({
     el: '#app',
     data() {
@@ -291,7 +295,7 @@
       DTable: window['dinert-element-ui'].DTable,
       DForm: window['dinert-element-ui'].DForm,
       DTablePage: window['dinert-element-ui'].DTablePage,
-      DDialog: window['dinert-element-ui'].DDialog,
+      DDialog: window['dinert-element-ui'].DDialog
     }
   })
 </script>
