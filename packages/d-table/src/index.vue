@@ -278,39 +278,42 @@ export default {
 
     // 通过计算去自适应表格的高度
     resize() {
-      const body = this.$refs.body
-      const bodyPPT = (body && parseInt(window.getComputedStyle(body.parentElement, null).paddingTop))
-      const bodyPPB = (body && parseInt(window.getComputedStyle(body.parentElement, null).paddingBottom))
+      if(!this.table.height) {
+          const body = this.$refs.body
+          const bodyPPT = (body && parseInt(window.getComputedStyle(body.parentElement, null).paddingTop))
+          const bodyPPB = (body && parseInt(window.getComputedStyle(body.parentElement, null).paddingBottom))
 
-      const header = this.$refs.header
-      const headerH = (header && header.offsetHeight) || 0
-      const headerMT = (header && parseInt(window.getComputedStyle(header, null).marginTop)) || 0
+          const header = this.$refs.header
+          const headerH = (header && header.offsetHeight) || 0
+          const headerMT = (header && parseInt(window.getComputedStyle(header, null).marginTop)) || 0
 
-      const headerFooter = this.$refs.headerFooter
-      const headerFooterH = (headerFooter && headerFooter.offsetHeight) || 0
+          const headerFooter = this.$refs.headerFooter
+          const headerFooterH = (headerFooter && headerFooter.offsetHeight) || 0
 
 
-      const footer = this.$refs.footer
-      const footerH = (footer && footer.offsetHeight) || 0
-      const footerMT = (footer && parseInt(window.getComputedStyle(footer, null).marginTop)) || 0
-      const bodyCurrentH = body && body.parentElement && (body.parentElement.offsetHeight - headerH - headerFooterH - footerH - footerMT - headerMT - bodyPPT - bodyPPB)
+          const footer = this.$refs.footer
+          const footerH = (footer && footer.offsetHeight) || 0
+          const footerMT = (footer && parseInt(window.getComputedStyle(footer, null).marginTop)) || 0
+          const bodyCurrentH = body && body.parentElement && (body.parentElement.offsetHeight - headerH - headerFooterH - footerH - footerMT - headerMT - bodyPPT - bodyPPB)
 
-      const tableHeaderH = (body && body.querySelector('.el-table__header-wrapper table').offsetHeight) || 0
-      const tableBodyH = (body && body.querySelector('.el-table__body-wrapper table').offsetHeight) || 0
+          const tableHeaderH = (body && body.querySelector('.el-table__header-wrapper table').offsetHeight) || 0
+          const tableBodyH = (body && body.querySelector('.el-table__body-wrapper table').offsetHeight) || 0
 
-      const isXOverflow = (body && body.querySelector('.el-table__body-wrapper.is-scrolling-left'))
-      const xOverflowH = isXOverflow ? 17 : 0
+          const isXOverflow = (body && body.querySelector('.el-table__body-wrapper.is-scrolling-left'))
+          const xOverflowH = isXOverflow ? 17 : 0
 
-      // 当表格头和表格内容大于
-      if(body) {
-        if((tableHeaderH + tableBodyH) >  bodyCurrentH || (this.table.data && this.table.data.length === 0)) {
-          body.style.height = '0px'
-          body.style.flex = '1'
-        }else {
-          body.style.height = (tableBodyH + tableHeaderH + 1 + xOverflowH) + 'px'
-          body.style.flex = 'unset'
-        }
+          // 当表格头和表格内容大于
+          if(body) {
+            if((tableHeaderH + tableBodyH) >  bodyCurrentH || (this.table.data && this.table.data.length === 0)) {
+              body.style.height = '0px'
+              body.style.flex = '1'
+            }else {
+              body.style.height = (tableBodyH + tableHeaderH + 1 + xOverflowH) + 'px'
+              body.style.flex = 'unset'
+            }
+          }
       }
+   
     }
 
   },
