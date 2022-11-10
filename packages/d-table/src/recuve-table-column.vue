@@ -47,12 +47,8 @@
 
 <script>
 import _ from 'lodash'
-import draggable from 'vuedraggable'
 export default {
   name: "RecuveTableColumn",
-  components: {
-    draggable
-  },
   props: {
     onlyClass: {
       type: String
