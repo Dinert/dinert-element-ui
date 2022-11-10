@@ -21,18 +21,20 @@
               </el-button>
             </template>
             <ul class="el-popover-classify">
-              <li v-for="column in table.tableColumn" :key="column.prop">
-                  <template v-if="column.prop !== 'operations' && column.type !== 'selection' && column.type !== 'index'">
-                    <el-checkbox
-                      :class="['el-popover-classify-li', column.prop]"
-                      :label="column.label"
-                      :name="column.prop"
-                      v-model="column.checkbox.checked"
-                      v-bind="column.checkbox"
-                      @change="checkboxChange"
-                    />
-                  </template>
-              </li>
+              <draggable v-model="copyTableColumn" @end="dragEnd($event, copyTableColumn)">
+                <li v-for="column in copyTableColumn" :key="column.prop">
+                    <template v-if="column.prop !== 'operations' && column.type !== 'selection' && column.type !== 'index'">
+                        <el-checkbox
+                        :class="['el-popover-classify-li', column.prop]"
+                        :label="column.label"
+                        :name="column.prop"
+                        v-model="column.checkbox.checked"
+                        v-bind="column.checkbox"
+                        @change="checkboxChange($event, column, copyTableColumn)"
+                        />
+                    </template>
+                </li>
+              </draggable>
             </ul>
           </el-popover>
         </el-button-group>
@@ -56,7 +58,7 @@
         <template v-if="tableSlot">
           <template v-for="column in tableColumns">
             <template v-if="column.type !== 'selection'">
-              <recuve-table-column :onlyClass="onlyClass" :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow">
+              <recuve-table-column :popoverValue="popoverValue" :onlyClass="onlyClass" :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow" @drag-end="dragEnd">
                 <template slot-scope="scope">
                   <slot v-bind="scope"></slot>
                 </template>
@@ -73,7 +75,7 @@
         <template v-else>
           <template v-for="column in tableColumns">
             <template v-if="column.type !== 'selection'">
-              <recuve-table-column :onlyClass="onlyClass" :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow">
+              <recuve-table-column :popoverValue="popoverValue"  :onlyClass="onlyClass" :tableColumn="column" :key="column.prop" :table="table" @checkbox-change="checkboxChange" @all-show="allShow" @drag-end="dragEnd">
                 <template slot-scope="scope">
                   <slot v-bind="scope" :name="columnProp(scope.prop)"></slot>
                 </template>
@@ -113,6 +115,8 @@
 
 <script>
 import {windowResize, getUuid} from '@/utils/tools.js'
+import _ from 'lodash'
+
 export default {
   name: "DTable",
   props: {
@@ -155,8 +159,9 @@ export default {
   },
   created() {
     this.onlyClass = 'table_' + getUuid()
-
+    
     this.initCheckedbox();
+    this.copyTableColumn = _.cloneDeep(this.table.tableColumn) 
     this.filterTableColumns(); 
   },
 
@@ -178,7 +183,9 @@ export default {
   data() {
     return {
       tableColumns: [],
-      onlyClass: ''
+      onlyClass: '',
+      copyTableColumn: [],
+      popoverValue: false
     };
   },
   computed: {
@@ -221,17 +228,21 @@ export default {
     },
 
     // 选中变化的值
-    checkboxChange() {
+    checkboxChange(item, column, copyTableColumn) {
+      this.table.tableColumn = copyTableColumn
       this.filterTableColumns()
-      this.table.key = !this.table.key
+      this.$emit('checkbox-change', item, column)
+      this.showPoperValue()
     },
 
     // 全部显示
     allShow() {
-      for(let i = 0; i < this.table.tableColumn.length; i ++) {
-        this.table.tableColumn[i]['checkbox'].checked = true
+      for(let i = 0; i < this.copyTableColumn.length; i ++) {
+        this.copyTableColumn[i]['checkbox'].checked = true
       }
+      this.table.tableColumn = this.copyTableColumn
       this.filterTableColumns()
+      this.showPoperValue()
     },
 
     // 分类显示
@@ -245,6 +256,25 @@ export default {
         }
       }
     },
+
+    dragEnd(event, copyTableColumn) {
+      this.table.tableColumn = copyTableColumn
+      this.showPoperValue()
+      this.$emit('drag-end', event, copyTableColumn)
+    },
+
+    // 重新显示弹窗
+    showPoperValue() {
+        this.popoverValue = false
+        this.table.key = !this.table.key
+        
+        // 手动触发mouseenter事件
+        let timer = setTimeout(() => {
+            this.popoverValue = true
+            clearTimeout(timer)
+        })
+    },
+    
 
     // 通过计算去自适应表格的高度
     resize() {
@@ -281,7 +311,6 @@ export default {
           body.style.flex = 'unset'
         }
       }
-
     }
 
   },
@@ -295,7 +324,9 @@ export default {
       deep: true,
     },
     'table.tableColumn'() {
+
       this.initCheckedbox();
+      this.copyTableColumn = _.cloneDeep(this.table.tableColumn) 
       this.filterTableColumns(); 
     }
   }

@@ -8,7 +8,7 @@
       <template slot="header" slot-scope="scope">
         <span>{{header(scope)}}</span>
         <span v-if="showSetting(tableColumn.setting)">
-          <el-popover trigger="hover" placement="bottom-end">
+          <el-popover placement="bottom-end" :value="popoverValue">
             <svg slot="reference" class="ali-icon operations icon-setting" aria-hidden="true">
               <use
                 :xlink:href="`#icon-setting`"
@@ -16,17 +16,19 @@
             </svg>
             <ul class="el-popover-classify">
               <li><el-link class="allSelect" :underline="false" type="primary" @click="allShow">全选</el-link></li>
-              <li v-for="column in table.tableColumn" :key="column.prop">
-                <template v-if="!column.setting && column.type !== 'selection' && column.type !== 'index'">
-                    <el-checkbox
-                      :label="column.label"
-                      :name="column.prop"
-                      v-model="column.checkbox.checked"
-                      v-bind="column.checkbox"
-                      @change="checkboxChange"
-                    />
-                </template>
-              </li>
+              <draggable v-model="copyTableColumn" @end="dragEnd">
+                <li v-for="column in copyTableColumn" :key="column.prop">
+                    <template v-if="!column.setting && column.type !== 'selection' && column.type !== 'index'">
+                        <el-checkbox
+                        :label="column.label"
+                        :name="column.prop"
+                        v-model="column.checkbox.checked"
+                        v-bind="column.checkbox"
+                        @change="checkboxChange($event, column)"
+                        />
+                    </template>
+                </li>
+              </draggable>
             </ul>
           </el-popover>
         </span>
@@ -44,8 +46,13 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import draggable from 'vuedraggable'
 export default {
   name: "RecuveTableColumn",
+  components: {
+    draggable
+  },
   props: {
     onlyClass: {
       type: String
@@ -57,11 +64,18 @@ export default {
     table: {
       type: Object,
       default: () => {},
+    },
+    popoverValue: {
+      type: Boolean,
     }
+  },
+  created() {
+    this.copyTableColumn = _.cloneDeep(this.table.tableColumn) 
   },
   data() {
     return {
-      settingValue: false
+      settingValue: false,
+      copyTableColumn: []
     };
   },
   methods: {
@@ -79,8 +93,9 @@ export default {
     },
 
     // 分类选择
-   async checkboxChange() {
-      await this.$emit('checkbox-change')
+   async checkboxChange(checked, column) {
+      await this.$emit('checkbox-change', checked, column, this.copyTableColumn)
+
       // 手动触发mouseenter事件
       const dom = document.querySelector('.' + this.onlyClass + ' .ali-icon.operations.icon-setting')
       dom.dispatchEvent(new Event( 'mouseenter' ));
@@ -114,7 +129,11 @@ export default {
           }
       }
       return tempObj ? tempObj[keyArr[i]] : null
-  }
+   },
+
+   dragEnd(event) { // 拖拽完成排序
+    this.$emit('drag-end', event, this.copyTableColumn)
+   }
   }
 };
 </script>

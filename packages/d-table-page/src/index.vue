@@ -26,6 +26,8 @@
       v-on="{
         'size-change': sizeChange,
         'current-change': currentChange,
+        'checkbox-change': checkboxChange,
+        'drag-end': dragEnd
       }"
     >
       <template #header-left>
@@ -117,6 +119,14 @@ export default {
     },
     currentChange(value) {
       this.$emit("current-change", value);
+    },
+
+    checkboxChange(checked, column, copyTableColumn) {
+      this.$emit('checkbox-change', checked, column, copyTableColumn)
+    },
+ 
+    dragEnd(event, copyTableColumn) {
+      this.$emit('drag-end', event, copyTableColumn)
     },
 
     // 展开收起的回调
