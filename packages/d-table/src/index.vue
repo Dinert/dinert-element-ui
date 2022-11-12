@@ -231,7 +231,7 @@ export default {
     checkboxChange(item, column, copyTableColumn) {
       this.table.tableColumn = copyTableColumn
       this.filterTableColumns()
-      this.$emit('checkbox-change', item, column)
+      this.$emit('checkbox-change', item, column, copyTableColumn)
       this.showPoperValue()
     },
 
