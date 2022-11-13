@@ -15,6 +15,10 @@
                 :type="!isAllData ? 'primary' : undefined"
                 slot="reference"
                 :disabled="disabled"
+                :style="{
+                      'border-top-left-radius': 0,
+                      'border-bottom-left-radius': 0
+                }"
               >
                 分类显示
                 <i class="el-icon-arrow-down"></i>
