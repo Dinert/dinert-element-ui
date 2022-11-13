@@ -19,6 +19,10 @@
       <template #search>
         <slot name="search"></slot>
       </template>
+      
+      <template #[key] v-for="(item, key) in formItem">
+        <slot :name="key"></slot>
+      </template>
     </d-form>
     <d-table
       ref="table"
@@ -33,6 +37,7 @@
       <template #header-left>
         <slot name="header-left"></slot>
       </template>
+
 
       <template #default="scope">
         <template v-if="tableSlot">
