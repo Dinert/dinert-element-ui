@@ -20,8 +20,8 @@
         <slot name="search"></slot>
       </template>
       
-      <template #[key] v-for="(item, key) in formItem">
-        <slot :name="key"></slot>
+      <template #[key]="scope" v-for="(item, key) in formItem">
+        <slot :name="key" v-bind="scope"></slot>
       </template>
     </d-form>
     <d-table

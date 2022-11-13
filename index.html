@@ -55,6 +55,10 @@
         <el-button @click="reset">重置</el-button>
       </template>
 
+      <template #name="scope">
+        {{scope}}
+      </template>
+
 
       <template #column_name="scope">
         {{'哈哈哈'}}
