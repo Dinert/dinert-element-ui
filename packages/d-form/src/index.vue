@@ -81,6 +81,9 @@
                   </el-option>
                 </el-select>
               </template>
+              <template v-else-if="['switch'].includes(item.type)">
+                <el-switch v-model="form.model[key]" v-bind="item.options" v-on="item.on"></el-switch>
+              </template>
               <template
                 v-else-if="
                   [
