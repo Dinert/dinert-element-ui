@@ -26,7 +26,7 @@
     </d-form>
     <d-table
       ref="table"
-      v-bind="{ table, pagination, tableSlot: true, disabled, showHeader }"
+      v-bind="{ table, pagination, tableSlot: true, disabled, showHeader, showFooter }"
       v-on="{
         'size-change': sizeChange,
         'current-change': currentChange,
@@ -101,6 +101,11 @@ export default {
     },
     
     showSearch: {
+      type: Boolean,
+      default: true
+    },
+
+    showFooter: {
       type: Boolean,
       default: true
     }
