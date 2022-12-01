@@ -55,8 +55,8 @@
         <el-button @click="reset">重置</el-button>
       </template>
 
-      <template #name="scope">
-        {{scope}}
+      <template #name>
+        {{'sa'}}
       </template>
 
 
@@ -64,6 +64,16 @@
         {{'哈哈哈'}}
       </template>
     </d-table-page>
+
+    <d-form :form-item="formItem" :form="form">
+      <template #project_projectname="scope">
+          aa
+      </template>
+
+      <template #name>
+        {{'sa'}}
+      </template>
+    </d-form>
 
     <!-- <d-dialog :dialog="dialog">
     </d-dialog> -->
@@ -266,6 +276,11 @@
           }]
         },
         formItem: {
+          'project.projectName': {
+            type: 'select',
+            label: '我是最前面的',
+            options: {}
+          },
           type: {
             type: 'select',
             label: '窗口类型aa',
@@ -311,6 +326,9 @@
         form: {
           model: {
             // department: 0
+            project: {
+              projectName: ''
+            }
           }
         },
         dialog: {

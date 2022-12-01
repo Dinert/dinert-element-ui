@@ -229,7 +229,7 @@ export default {
     },
 
     newKey(key) {
-      return typeof key === 'string' ? '' : key.split('.').join('_')
+      return typeof key === 'string' ? key.split('.').join('_') : ''
     },
 
     // 展开还是收起状态
