@@ -39,3 +39,29 @@ export const getUuid = () => {
   const uuid = s.join('')
   return uuid
 }
+
+/**
+ * 
+ * @param {Object} obj 
+ * @param {String} path 
+ * @returns 
+ */
+export const getPropByPath = (obj, path) => {
+  let tempObj = obj;
+  path = path.replace(/\[(\w+)\]/g, '.$1');
+  path = path.replace(/^\./, '');
+
+  let keyArr = path.split('.');
+  let i = 0;
+  for (let len = keyArr.length; i < len - 1; ++i) {
+      if (!tempObj) break;
+      let key = keyArr[i];
+      if (key in tempObj) {
+          tempObj = tempObj[key];
+      } else {
+          return null
+          //break;
+      }
+  }
+  return tempObj ? tempObj[keyArr[i]] : null
+}

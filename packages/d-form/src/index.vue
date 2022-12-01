@@ -35,7 +35,7 @@
             :disabled="valueDisabled"
             @label-mouse-enter="valueMouseEnter($event, item)"
           >
-            <slot :name="key" :formItem="{options: item, key: key}">
+            <slot :name="newKey(key)" :formItem="{options: item, key: key}">
               <template v-if="['input', 'textarea'].includes(item.type)">
                 <el-input
                   clearable
@@ -142,7 +142,8 @@
 
 <script>
 import DOverflowTooltip from "@packages/d-overflow-tooltip";
-import { firstUpperCase, windowResize } from "@/utils/tools";
+
+import { firstUpperCase, windowResize, getPropByPath } from "@/utils/tools";
 
 export default {
   name: "DForm",
@@ -210,6 +211,7 @@ export default {
     };
   },
   methods: {
+    getPropByPath,
     firstUpperCase,
     // 获取显示的tooltip值
     getTooltipValue(value, form) {
@@ -224,6 +226,10 @@ export default {
     },
     changeValue(obj, name, value) {
       obj[name] = Number(value);
+    },
+
+    newKey(key) {
+      return typeof key === 'string' ? '' : key.split('.').join('_')
     },
 
     // 展开还是收起状态

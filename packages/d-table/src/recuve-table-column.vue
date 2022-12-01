@@ -47,6 +47,7 @@
 
 <script>
 import _ from 'lodash'
+import {getPropByPath} from '@/utils/tools.js'
 export default {
   name: "RecuveTableColumn",
   props: {
@@ -75,6 +76,8 @@ export default {
     };
   },
   methods: {
+   getPropByPath,
+
     filterColumn(column) {
       const obj = {};
       for (const prop in column) {
@@ -107,25 +110,6 @@ export default {
       return setting && !this.table.children
    },
 
-   getPropByPath(obj, path) {
-      let tempObj = obj;
-      path = path.replace(/\[(\w+)\]/g, '.$1');
-      path = path.replace(/^\./, '');
-
-      let keyArr = path.split('.');
-      let i = 0;
-      for (let len = keyArr.length; i < len - 1; ++i) {
-          if (!tempObj) break;
-          let key = keyArr[i];
-          if (key in tempObj) {
-              tempObj = tempObj[key];
-          } else {
-              return null
-              //break;
-          }
-      }
-      return tempObj ? tempObj[keyArr[i]] : null
-   },
 
    dragEnd(event) { // 拖拽完成排序
     this.$emit('drag-end', event, this.copyTableColumn)
