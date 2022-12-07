@@ -45,9 +45,7 @@
               return options[index].label
             }
           }
-          
         }
-
         return content
         
       }

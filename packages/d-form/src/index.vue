@@ -31,10 +31,10 @@
             </d-overflow-tooltip>
           </template>
           <d-overflow-tooltip
-            :content="String(form.model[key] || '')"
+            :content="getTooltipValue(String(form.model[key] || ''), item)"
             :disabled="valueDisabled"
             :item="item"
-            @label-mouse-enter="valueMouseEnter($event, item)"
+            @label-mouse-enter="valueMouseEnter($event, item, String(form.model[key] || ''))"
           >
             <slot :name="newKey(key)" :formItem="{options: item, key: key}">
               <template v-if="['input', 'textarea'].includes(item.type)">
@@ -215,14 +215,17 @@ export default {
     getPropByPath,
     firstUpperCase,
     // 获取显示的tooltip值
-    getTooltipValue(value, form) {
-      const type = form.type;
-      const options = form.options;
+    getTooltipValue(value, item) {
+      const type = item.type;
+      const options = item.options;
       if (["input"].includes(type)) {
         return value;
       } else if (["select"].includes(type)) {
-        let item = options.filter((item) => item.value === value)[0];
-        return item && item.label;
+        if(options && options.options && options.options.length) {
+          let item = options.options.filter((item) => item.value === value)[0];
+          return item && item.label;
+        }
+    
       }
     },
     changeValue(obj, name, value) {
@@ -271,7 +274,12 @@ export default {
     },
 
     // 是否显示值
-    valueMouseEnter(e, item) {
+    valueMouseEnter(e, item, value) {
+      if(!value) {
+        this.valueDisabled = true
+        return 
+      }
+
       const el = e.target.parentElement.querySelector(".el-input__inner");
       const timer = [
         "datetime",
