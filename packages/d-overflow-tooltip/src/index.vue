@@ -39,9 +39,11 @@
       getValue(content) {
         if(this.item.type === 'select') {
           const options = this.item.options.options
-          let index = options.findIndex(item => item.value === content)
-          if(index !== -1) {
-            return options[index].label
+          if(options && options.length) {
+            let index = options.findIndex(item => item.value === content)
+            if(index !== -1) {
+              return options[index].label
+            }
           }
           
         }
