@@ -33,6 +33,7 @@
           <d-overflow-tooltip
             :content="String(form.model[key] || '')"
             :disabled="valueDisabled"
+            :item="item"
             @label-mouse-enter="valueMouseEnter($event, item)"
           >
             <slot :name="newKey(key)" :formItem="{options: item, key: key}">

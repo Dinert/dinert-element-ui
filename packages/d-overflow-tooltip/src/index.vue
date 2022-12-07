@@ -1,7 +1,7 @@
   <template>
     <el-tooltip :content="content" placement="top" :disabled="disabled">
       <span>
-        <span class="text-tooltip">{{ content }}</span>
+        <span class="text-tooltip">{{getValue(content)}}</span>
         <span class="label-text" @mouseenter="labelMouseEnter($event)">
           <slot>{{ content }}</slot>
         </span>
@@ -20,16 +20,35 @@
         type: Boolean,
         default: true,
       },
+      item: {
+        type: Object,
+        default: () => ({})
+      }
     },
     data() {
       return {};
     },
     computed: {},
     methods: {
+
       // 超出宽度显示tooltip
       labelMouseEnter(e) {
         this.$emit("label-mouse-enter", e);
       },
+
+      getValue(content) {
+        if(this.item.type === 'select') {
+          const options = this.item.options.options
+          let index = options.findIndex(item => item.value === content)
+          if(index !== -1) {
+            return options[index].label
+          }
+          
+        }
+
+        return content
+        
+      }
     },
   };
   </script>

@@ -65,16 +65,6 @@
       </template>
     </d-table-page>
 
-    <d-form :form-item="formItem" :form="form">
-      <template #project_projectname="scope">
-          aa
-      </template>
-
-      <template #name>
-        {{'sa'}}
-      </template>
-    </d-form>
-
     <!-- <d-dialog :dialog="dialog">
     </d-dialog> -->
   </div>
@@ -106,7 +96,6 @@
         },
         table: {
           children: true,
-          height: 'auto',
           tableColumn: [
             {
               type: 'selection',
@@ -276,8 +265,8 @@
           }]
         },
         formItem: {
-          'project.projectName': {
-            type: 'select',
+          'project.name': {
+            type: 'input',
             label: '我是最前面的',
             options: {}
           },
@@ -286,7 +275,7 @@
             label: '窗口类型aa',
             options: {
               options: [
-                { value: '一口受理', label: '一口受理' },
+                { value: '一口受理一口受理一口受理一口受理一口受理', label: '一口受理一口受理一口受一口受理' },
                 { value: '综合窗口', label: '综合窗口' },
                 { value: '企业帮办', label: '企业帮办' },
                 { value: '专窗', label: '专窗' },
@@ -327,7 +316,7 @@
           model: {
             // department: 0
             project: {
-              projectName: ''
+              name: ''
             }
           }
         },
