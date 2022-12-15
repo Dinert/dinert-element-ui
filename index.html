@@ -65,6 +65,8 @@
       </template>
     </d-table-page>
 
+    <el-button type="primary" @click="setData">创建</el-button>
+
     <!-- <d-dialog :dialog="dialog">
     </d-dialog> -->
   </div>
@@ -275,11 +277,6 @@
             label: '窗口类型aa',
             options: {
               options: [
-                { value: 'aaaaa', label: '一口受理一口受理一口一口受理一口受理一口' },
-                { value: '综合窗口', label: '综合窗口' },
-                { value: '企业帮办', label: '企业帮办' },
-                { value: '专窗', label: '专窗' },
-                { value: '咨询台', label: '咨询台' }
               ],
             },
           },
@@ -331,6 +328,15 @@
       }
     },
     methods: {
+      setData() {
+        this.$set(this.formItem.type.options, 'options', [
+                { value: 'aaaaa', label: '一口受理一口受理一口一口受理一口受理一口' },
+                { value: '综合窗口', label: '综合窗口' },
+                { value: '企业帮办', label: '企业帮办' },
+                { value: '专窗', label: '专窗' },
+                { value: '咨询台', label: '咨询台' }
+              ])
+      },
       sizeChange(size) {
         console.log(size, 'aaaaaaaaaa')
       },

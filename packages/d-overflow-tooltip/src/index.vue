@@ -1,5 +1,5 @@
   <template>
-    <el-tooltip :content="content" placement="top" :disabled="disabled">
+    <el-tooltip :content="content" placement="top" :disabled="disabled" v-bind="options">
       <span>
         <span class="text-tooltip">{{getValue(content)}}</span>
         <span class="label-text" @mouseenter="labelMouseEnter($event)">
@@ -21,6 +21,10 @@
         default: true,
       },
       item: {
+        type: Object,
+        default: () => ({})
+      },
+      options: {
         type: Object,
         default: () => ({})
       }
