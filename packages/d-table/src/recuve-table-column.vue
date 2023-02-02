@@ -1,5 +1,5 @@
 <template>
-  <el-table-column v-bind="filterColumn(tableColumn)">
+  <el-table-column v-bind="filterColumn(tableColumn)" v-if="!tableColumn.hide">
     <template slot-scope="scope">
       <slot v-bind="scope" :data="tableColumn" :prop="tableColumn.prop">{{
         (tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop))) || getPropByPath(scope.row, tableColumn.prop)
