@@ -3,7 +3,7 @@
     <template slot-scope="scope">
       <slot v-bind="scope" :data="tableColumn" :prop="tableColumn.prop">
         <div class="cell-item" v-if="(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))" v-html="(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))"></div>
-        <div class="cell-item">
+        <div class="cell-item" v-else>
           {{getPropByPath(scope.row, tableColumn.prop)}}
         </div>
       </slot>
