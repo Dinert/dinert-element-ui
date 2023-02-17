@@ -1,9 +1,12 @@
 <template>
   <el-table-column v-bind="filterColumn(tableColumn)" v-if="!tableColumn.hide">
     <template slot-scope="scope">
-      <slot v-bind="scope" :data="tableColumn" :prop="tableColumn.prop">{{
-        (tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop))) || getPropByPath(scope.row, tableColumn.prop)
-      }}</slot>
+      <slot v-bind="scope" :data="tableColumn" :prop="tableColumn.prop">
+        <div class="cell-item" v-if="(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))" v-html="(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))"></div>
+        <div class="cell-item">
+          {{getPropByPath(scope.row, tableColumn.prop)}}
+        </div>
+      </slot>
     </template>
       <template slot="header" slot-scope="scope">
         <span>{{header(scope)}}</span>
