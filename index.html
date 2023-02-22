@@ -7,46 +7,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.8/theme-chalk/index.css" rel="stylesheet">
   <title>Vue + elementui</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
+  <style lang="scss">
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-    html,
-    body,
-    #app {
-      height: 100%;
-      width: 100%;
-      background-color: #f5f5f5;
-    }
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+        }
 
+        ul li {
+            list-style: none;
+        }
 
-    ul li {
-      list-style: none;
-    }
+        .d-table {
+            padding: 16px !important;
+            background-color: #fff;
+        }
 
-    .d-table {
-      background-color: #FFF;
-      padding: 16px !important;
-    }
+        .ali-icon {
+            overflow: hidden;
+            width: 1em;
+            height: 1em;
+            vertical-align: -.15em;
+            fill: currentcolor;
+        }
 
-    .ali-icon {
-      width: 1em;
-      height: 1em;
-      vertical-align: -0.15em;
-      fill: currentColor;
-      overflow: hidden;
-    }
-
-    .d-table-page {
-      height: 100%;
-    }
+        .d-table-page {
+            height: 100%;
+        }
   </style>
 </head>
 
 <body>
-  <div id="app"> 
+  <div id="app">
     <d-table-page :table="table" :form-item="formItem" :form="form" :table-slot="true" :pagination="pagination" v-on="{search: search}" class="near">
       <template #search>
         <el-button type="primary" @click="search"
@@ -54,21 +53,7 @@
         >
         <el-button @click="reset">重置</el-button>
       </template>
-
-      <template #name>
-        {{'sa'}}
-      </template>
-
-
-      <template #column_name="scope">
-        {{'哈哈哈'}}
-      </template>
     </d-table-page>
-
-    <el-button type="primary" @click="setData">创建</el-button>
-
-    <!-- <d-dialog :dialog="dialog">
-    </d-dialog> -->
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
@@ -112,7 +97,7 @@
             {
               prop: 'type',
               label: '窗口类型',
-            
+
             },
             {
               prop: 'name',
@@ -344,7 +329,7 @@
         console.log(data)
       },
       search(prop) {
-        console.log(prop)
+        console.log(prop, this.form.model)
         this.table.tableColumn.splice(2, 1)
       },
       reset() {

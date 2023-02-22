@@ -41,10 +41,10 @@ export const getUuid = () => {
 }
 
 /**
- * 
- * @param {Object} obj 
- * @param {String} path 
- * @returns 
+ *
+ * @param {Object} obj
+ * @param {String} path
+ * @returns
  */
 export const getPropByPath = (obj, path) => {
   let tempObj = obj;
@@ -65,3 +65,7 @@ export const getPropByPath = (obj, path) => {
   }
   return tempObj ? tempObj[keyArr[i]] : null
 }
+
+/**
+ *
+ */

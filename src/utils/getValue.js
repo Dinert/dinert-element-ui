@@ -9,7 +9,7 @@ export const getFormValue = (formItem) => {
      }
   }
   return result
-} 
+}
 
 
 

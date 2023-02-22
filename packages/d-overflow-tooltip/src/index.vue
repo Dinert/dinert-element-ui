@@ -1,60 +1,62 @@
-  <template>
-    <el-tooltip :content="content" placement="top" :disabled="disabled" v-bind="options">
-      <span>
-        <span class="text-tooltip">{{getValue(content)}}</span>
-        <span class="label-text" @mouseenter="labelMouseEnter($event)">
-          <slot>{{ content }}</slot>
+<template>
+    <el-tooltip :content="content" placement="top"
+        :disabled="disabled" v-bind="options"
+    >
+        <span>
+            <span class="text-tooltip">{{ getValue(content) }}</span>
+            <span class="label-text" @mouseenter="labelMouseEnter($event)">
+                <slot>{{ content }}</slot>
+            </span>
         </span>
-      </span>
     </el-tooltip>
-  </template>
+</template>
 
   <script>
-  export default {
+export default {
     name: "DOverflowTooltip",
     props: {
-      content: {
-        type: String,
-      },
-      disabled: {
-        type: Boolean,
-        default: true,
-      },
-      item: {
-        type: Object,
-        default: () => ({})
-      },
-      options: {
-        type: Object,
-        default: () => ({})
-      }
+        content: {
+            type: String,
+        },
+        disabled: {
+            type: Boolean,
+            default: true,
+        },
+        item: {
+            type: Object,
+            default: () => ({})
+        },
+        options: {
+            type: Object,
+            default: () => ({})
+        }
     },
     data() {
-      return {};
+        return {};
     },
     computed: {},
     methods: {
 
-      // 超出宽度显示tooltip
-      labelMouseEnter(e) {
-        this.$emit("label-mouse-enter", e);
-      },
+        // 超出宽度显示tooltip
+        labelMouseEnter(e) {
+            this.$emit("label-mouse-enter", e);
+        },
 
-      getValue(content) {
-        if(this.item.type === 'select') {
-          const options = this.item.options.options
-          if(options && options.length) {
-            let index = options.findIndex(item => item.value === content)
-            if(index !== -1) {
-              return options[index].label
+        getValue(content) {
+            if(this.item.type === 'select') {
+                const options = this.item.options.options
+                if(options && options.length) {
+                    let index = options.findIndex(item => item.value === content)
+                    if(index !== -1) {
+                        return options[index].label
+                    }
+                }
             }
-          }
+            return content
+
         }
-        return content
-        
-      }
     },
-  };
+};
   </script>
 
   <style lang="scss" scoped>
