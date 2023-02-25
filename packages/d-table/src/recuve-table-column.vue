@@ -4,7 +4,7 @@
             <slot v-bind="scope" :data="tableColumn"
                 :prop="tableColumn.prop"
             >
-                <div v-if="(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))" class="cell-item"
+                <div v-if="(tableColumn.formatter && typeof tableColumn.formatter === 'function')" class="cell-item"
                     v-html="(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))"
                 ></div>
                 <div v-else class="cell-item">

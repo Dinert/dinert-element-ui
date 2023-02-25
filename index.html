@@ -52,6 +52,7 @@
           >查询</el-button
         >
         <el-button @click="reset">重置</el-button>
+        <div v-html="a"></div>
       </template>
     </d-table-page>
   </div>
@@ -75,6 +76,7 @@
     data() {
       return {
         message: 'hello',
+        a: 0,
         pagination: {
           total: 0,
                 pageSize: 10,
