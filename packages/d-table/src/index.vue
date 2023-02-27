@@ -270,6 +270,8 @@ export default {
                     this.table.tableColumn[i]['checkbox'] = {
                         checked: true
                     }
+                }else if(item.checkbox.checked === undefined) {
+                    this.table.tableColumn[i]['checkbox'].checked = true
                 }
             }
         },
