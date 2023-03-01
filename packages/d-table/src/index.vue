@@ -337,6 +337,14 @@ export default {
 
     },
     watch: {
+        'table.key': {
+            handler() {
+                setTimeout(() => {
+                    this.resize()
+                })
+            },
+            deep: true,
+        },
         'table.data': {
             handler() {
                 setTimeout(() => {
