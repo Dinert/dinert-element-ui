@@ -189,19 +189,9 @@ export default {
         DOverflowTooltip,
     },
     mounted() {
+        this.resize()
         this.windowResize = _.debounce(() => {
-            const elFormLeft = document.querySelectorAll(".el-form-left > div");
-            const firstTop = elFormLeft[0].getBoundingClientRect().top
-            const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
-            const isHeight = firstTop !== lastTop
-            if (isHeight) {
-                this.isArrow = true;
-            } else {
-                if (!this.packUp) {
-                    this.packUp = true;
-                }
-                this.isArrow = false;
-            }
+            this.resize()
         })
         window.addEventListener('resize', this.windowResize, true)
     },
@@ -221,6 +211,21 @@ export default {
     methods: {
         getPropByPath,
         firstUpperCase,
+        resize() {
+            const elFormLeft = document.querySelectorAll(".el-form-left > div");
+            const firstTop = elFormLeft[0].getBoundingClientRect().top
+            const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
+            const isHeight = firstTop !== lastTop
+            if (isHeight) {
+                this.isArrow = true;
+            } else {
+                if (!this.packUp) {
+                    this.packUp = true;
+                }
+                this.isArrow = false;
+            }
+        },
+
         // 获取显示的tooltip值
         getTooltipValue(value, item) {
             const type = item.type;
