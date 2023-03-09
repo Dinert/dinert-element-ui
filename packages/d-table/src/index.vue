@@ -131,7 +131,7 @@
 </template>
 
 <script>
-import {windowResize, getUuid} from '@/utils/tools.js'
+import {getUuid} from '@/utils/tools.js'
 import _ from 'lodash'
 
 export default {
@@ -190,12 +190,16 @@ export default {
             }, 100)
         })
 
-
-        windowResize(() => {
+        this.windowResize = _.debounce(() => {
             this.resize()
         }, 100)
+        window.addEventListener('resize', this.windowResize, true)
+
     },
 
+    destroyed() {
+        window.removeEventListener('resize', this.windowResize, true)
+    },
 
     data() {
         return {

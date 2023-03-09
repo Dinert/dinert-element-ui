@@ -147,8 +147,8 @@
 <script>
 import DOverflowTooltip from "@packages/d-overflow-tooltip";
 
-import { firstUpperCase, windowResize, getPropByPath } from "@/utils/tools";
-
+import { firstUpperCase, getPropByPath } from "@/utils/tools";
+import _ from 'lodash'
 export default {
     name: "DForm",
     props: {
@@ -188,9 +188,8 @@ export default {
     components: {
         DOverflowTooltip,
     },
-    created() {},
     mounted() {
-        windowResize(() => {
+        this.windowResize = _.debounce(() => {
             const elFormLeft = document.querySelectorAll(".el-form-left > div");
             const firstTop = elFormLeft[0].getBoundingClientRect().top
             const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
@@ -203,7 +202,12 @@ export default {
                 }
                 this.isArrow = false;
             }
-        });
+        })
+        window.addEventListener('resize', this.windowResize, true)
+    },
+
+    destroyed() {
+        window.removeEventListener('resize', this.windowResize, true)
     },
     data() {
         return {

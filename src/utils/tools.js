@@ -18,14 +18,6 @@ export const filterNullStrUndefind = (formValue) => {
   return tempObj
 }
 
-// 监听浏览器的缩放事件
-export const windowResize = (resize, delay = 0, immediate = true) => {
-  if(typeof resize === 'function') {
-    window.addEventListener('resize', _.debounce(resize, delay, immediate))
-    resize()
-  }
-}
-
 // 生成唯一ID
 export const getUuid = () => {
   const s = []
