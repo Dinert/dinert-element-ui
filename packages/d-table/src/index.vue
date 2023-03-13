@@ -174,8 +174,10 @@ export default {
             },
         },
     },
-    created() {
+    beforeCreate() {
         this.onlyClass = 'table_' + getUuid()
+    },
+    created() {
         this.table.onlyClass = this.onlyClass
 
         this.initCheckedbox()
