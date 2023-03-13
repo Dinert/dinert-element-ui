@@ -135,7 +135,7 @@ import {getUuid} from '@/utils/tools.js'
 import _ from 'lodash'
 
 export default {
-    name: "DTable",
+    name: 'DTable',
     props: {
         // 表格头控制栏
         showHeader: {
@@ -153,7 +153,7 @@ export default {
                 return {
                     on: {},
                     tableColumn: [],
-                };
+                }
             },
         },
         tableSlot: {
@@ -170,21 +170,22 @@ export default {
             default: () => {
                 return {
                     on: {},
-                };
+                }
             },
         },
     },
     created() {
         this.onlyClass = 'table_' + getUuid()
+        this.table.onlyClass = this.onlyClass
 
-        this.initCheckedbox();
+        this.initCheckedbox()
         this.copyTableColumn = _.cloneDeep(this.table.tableColumn)
-        this.filterTableColumns();
+        this.filterTableColumns()
     },
 
-    async mounted(){
+    async mounted() {
         this.$nextTick(() => {
-            let timer = setTimeout(() => {
+            const timer = setTimeout(() => {
                 this.resize()
                 clearTimeout(timer)
             }, 100)
@@ -207,45 +208,46 @@ export default {
             onlyClass: '',
             copyTableColumn: [],
             popoverValue: false
-        };
+        }
     },
     computed: {
         isAllData() {
-            return this.table.tableColumn.length === this.tableColumns.length;
+            return this.table.tableColumn.length === this.tableColumns.length
         },
         isTableData() {
-            return this.table.data && this.table.data.length;
+            return this.table.data && this.table.data.length
         },
     },
     components: {
         RecuveTableColumn: () =>
-            import("./recuve-table-column.vue").then(
-                (component) => component.default
+            import('./recuve-table-column.vue').then(
+                component => component.default
             ),
     },
     methods: {
         // sizeChange
         sizeChange(value) {
-            this.$emit("size-change", value);
+            this.$emit('size-change', value)
         },
 
         // currentChange
         currentChange(value) {
-            this.$emit("current-change", value);
+            this.$emit('current-change', value)
         },
 
         // column的prop
         columnProp(prop) {
-            return "column_" + prop.split('.').join('_');
+            return 'column_' + prop.split('.').join('_')
         },
 
         // 过滤表格的数据
         filterTableColumns() {
-            this.tableColumns = this.table.tableColumn.filter((item) => {
+            // eslint-disable-next-line array-callback-return, consistent-return
+            this.tableColumns = this.table.tableColumn.filter(item => {
                 if (item.checkbox && item.checkbox.checked) {
-                    return item;
+                    return item
                 }
-            });
+            })
         },
 
         // 选中变化的值
@@ -258,8 +260,8 @@ export default {
 
         // 全部显示
         allShow() {
-            for(let i = 0; i < this.copyTableColumn.length; i ++) {
-                this.copyTableColumn[i]['checkbox'].checked = true
+            for (let i = 0; i < this.copyTableColumn.length; i++) {
+                this.copyTableColumn[i].checkbox.checked = true
             }
             this.table.tableColumn = this.copyTableColumn
             this.filterTableColumns()
@@ -268,14 +270,14 @@ export default {
 
         // 分类显示
         initCheckedbox() {
-            for(let i = 0; i < this.table.tableColumn.length; i ++) {
-                let item = this.table.tableColumn[i]
-                if(item.checkbox === undefined) {
-                    this.table.tableColumn[i]['checkbox'] = {
+            for (let i = 0; i < this.table.tableColumn.length; i++) {
+                const item = this.table.tableColumn[i]
+                if (item.checkbox === undefined) {
+                    this.table.tableColumn[i].checkbox = {
                         checked: true
                     }
-                }else if(item.checkbox.checked === undefined) {
-                    this.table.tableColumn[i]['checkbox'].checked = true
+                } else if (item.checkbox.checked === undefined) {
+                    this.table.tableColumn[i].checkbox.checked = true
                 }
             }
         },
@@ -292,7 +294,7 @@ export default {
             this.table.key = !this.table.key
 
             // 手动触发mouseenter事件
-            let timer = setTimeout(() => {
+            const timer = setTimeout(() => {
                 this.popoverValue = true
                 clearTimeout(timer)
             })
@@ -301,7 +303,7 @@ export default {
 
         // 通过计算去自适应表格的高度
         resize() {
-            if(!this.table.height) {
+            if (!this.table.height) {
                 const body = this.$refs.body
                 const bodyPPT = (body && parseInt(window.getComputedStyle(body.parentElement, null).paddingTop))
                 const bodyPPB = (body && parseInt(window.getComputedStyle(body.parentElement, null).paddingBottom))
@@ -326,11 +328,11 @@ export default {
                 const xOverflowH = isXOverflow ? 17 : 0
 
                 // 当表格头和表格内容大于
-                if(body) {
-                    if((tableHeaderH + tableBodyH) >  bodyCurrentH || (this.table.data && this.table.data.length === 0)) {
+                if (body) {
+                    if ((tableHeaderH + tableBodyH) > bodyCurrentH || (this.table.data && this.table.data.length === 0)) {
                         body.style.height = '0px'
                         body.style.flex = '1'
-                    }else {
+                    } else {
                         body.style.height = (tableBodyH + tableHeaderH + 1 + xOverflowH) + 'px'
                         body.style.flex = 'unset'
                     }
@@ -359,12 +361,12 @@ export default {
         },
         'table.tableColumn'() {
 
-            this.initCheckedbox();
+            this.initCheckedbox()
             this.copyTableColumn = _.cloneDeep(this.table.tableColumn)
-            this.filterTableColumns();
+            this.filterTableColumns()
         }
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>
