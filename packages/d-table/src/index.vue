@@ -173,9 +173,10 @@ export default {
                 }
             },
         },
-    },
-    beforeCreate() {
-        this.onlyClass = 'table_' + getUuid()
+        onlyClass: {
+            type: String,
+            default: () => ('table_' + getUuid())
+        }
     },
     created() {
         this.table.onlyClass = this.onlyClass
@@ -207,7 +208,6 @@ export default {
     data() {
         return {
             tableColumns: [],
-            onlyClass: '',
             copyTableColumn: [],
             popoverValue: false
         }
