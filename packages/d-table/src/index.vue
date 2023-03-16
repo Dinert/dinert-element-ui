@@ -345,18 +345,11 @@ export default {
 
     },
     watch: {
-        'table.key': {
-            handler() {
-                setTimeout(() => {
-                    this.resize()
-                })
-            },
-            deep: true,
-        },
         'table.data': {
             handler() {
                 setTimeout(() => {
                     this.resize()
+                    this.table.key = !this.table.key
                 })
             },
             deep: true,
@@ -373,60 +366,57 @@ export default {
 
 <style lang="scss" scoped>
 .d-table {
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  box-sizing: border-box;
-
-  .d-table-header {
-    text-align: right;
-    margin-bottom: 12px;
     display: flex;
-    justify-content: space-between;
+    overflow: auto;
+    padding: 0 16px;
+    flex-direction: column;
+    box-sizing: border-box;
 
-    ::v-deep(.el-popover) {
-      .el-popover-classify li .el-checkbox {
-        width: 100%;
-        line-height: 24px;
-        height: 24px;
-      }
+    .d-table-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        text-align: right;
+
+        ::v-deep(.el-popover) {
+            .el-popover-classify li .el-checkbox {
+                width: 100%;
+                line-height: 24px;
+                height: 24px;
+            }
+        }
     }
 
-    .d-table-header-left {
+    .d-table-body {
+        .el-table {
+            ::v-deep(.cell > div) {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
     }
-  }
 
-  .d-table-body {
+    .d-table-footer {
+        display: flex;
+        margin-top: 16px;
 
-
-    .el-table {
-      ::v-deep(.cell > div) {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
+        .el-pagination {
+            display: flex;
+            flex-wrap: wrap;
+        }
     }
-  }
-
-  .d-table-footer {
-    display: flex;
-    margin-top: 16px;
-
-    .el-pagination {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  }
 }
 
-    .el-popover-classify li{
-      line-height: 22px;
-      label{
+.el-popover-classify li {
+    line-height: 22px;
+
+    label {
         display: block;
-      }
-      &:hover{
-        background-color: rgba(#409EFF, .1);
-      }
     }
+
+    &:hover {
+        background-color: rgba(#409eff, .1);
+    }
+}
 </style>
