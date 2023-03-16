@@ -326,8 +326,8 @@ export default {
                 const tableHeaderH = (body && body.querySelector('.el-table__header-wrapper table').offsetHeight) || 0
                 const tableBodyH = (body && body.querySelector('.el-table__body-wrapper table').offsetHeight) || 0
 
-                const isXOverflow = (body && body.querySelector('.el-table__body-wrapper.is-scrolling-left'))
-                const xOverflowH = isXOverflow ? 17 : 0
+                // const isXOverflow = (body && body.querySelector('.el-table__body-wrapper.is-scrolling-left'))
+                // const xOverflowH = isXOverflow ? 17 : 0
 
                 // 当表格头和表格内容大于
                 if (body) {
@@ -335,7 +335,7 @@ export default {
                         body.style.height = '0px'
                         body.style.flex = '1'
                     } else {
-                        body.style.height = (tableBodyH + tableHeaderH + 1 + xOverflowH) + 'px'
+                        body.style.height = (tableBodyH + tableHeaderH + 1) + 'px'
                         body.style.flex = 'unset'
                     }
                 }
@@ -367,7 +367,6 @@ export default {
 <style lang="scss" scoped>
 .d-table {
     display: flex;
-    overflow: auto;
     padding: 0 16px;
     flex-direction: column;
     box-sizing: border-box;

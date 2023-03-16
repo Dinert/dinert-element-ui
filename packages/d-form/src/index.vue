@@ -145,12 +145,12 @@
 </template>
 
 <script>
-import DOverflowTooltip from "@packages/d-overflow-tooltip";
+import DOverflowTooltip from '@packages/d-overflow-tooltip'
 
-import { firstUpperCase, getPropByPath } from "@/utils/tools";
+import {firstUpperCase, getPropByPath} from '@/utils/tools'
 import _ from 'lodash'
 export default {
-    name: "DForm",
+    name: 'DForm',
     props: {
         formItem: {
             type: Object,
@@ -161,7 +161,7 @@ export default {
             default: () => {
                 return {
                     model: {},
-                };
+                }
             },
         },
         row: {
@@ -177,7 +177,7 @@ export default {
                     md: 8, // ≥992px
                     sm: 12, // ≥768px
                     xs: 24, // <768px
-                };
+                }
             },
         },
         isSearch: {
@@ -206,42 +206,43 @@ export default {
             elFormHeight: 60,
             labelDisabled: true,
             valueDisabled: true,
-        };
+        }
     },
     methods: {
         getPropByPath,
         firstUpperCase,
         resize() {
-            const elFormLeft = document.querySelectorAll(".el-form-left > div");
+            const elFormLeft = document.querySelectorAll('.el-form-left > div')
             const firstTop = elFormLeft[0].getBoundingClientRect().top
             const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
             const isHeight = firstTop !== lastTop
             if (isHeight) {
-                this.isArrow = true;
+                this.isArrow = true
             } else {
                 if (!this.packUp) {
-                    this.packUp = true;
+                    this.packUp = true
                 }
-                this.isArrow = false;
+                this.isArrow = false
             }
         },
 
         // 获取显示的tooltip值
+        // eslint-disable-next-line consistent-return
         getTooltipValue(value, item) {
-            const type = item.type;
-            const options = item.options;
-            if (["input"].includes(type)) {
-                return value;
-            } else if (["select"].includes(type)) {
-                if(options && options.options && options.options.length) {
-                    let item = options.options.filter((item) => item.value === value)[0];
-                    return item && item.label;
+            const type = item.type
+            const options = item.options
+            if (['input'].includes(type)) {
+                return value
+            } else if (['select'].includes(type)) {
+                if (options && options.options && options.options.length) {
+                    const item = options.options.filter(item => item.value === value)[0]
+                    return item && item.label
                 }
 
             }
         },
         changeValue(obj, name, value) {
-            obj[name] = Number(value);
+            obj[name] = Number(value)
         },
 
         newKey(key) {
@@ -251,9 +252,9 @@ export default {
         // 展开还是收起状态
         unfold() {
             if (this.packUp) {
-                this.packUp = false;
+                this.packUp = false
             } else {
-                this.packUp = true;
+                this.packUp = true
             }
 
             this.$emit('un-fold', this.packUp)
@@ -264,75 +265,75 @@ export default {
             if (!formItem.options) {
                 formItem.options = {
                     on: {},
-                };
+                }
             }
-            return formItem;
+            return formItem
         },
 
         // 是否显示标签
         labelMouseEnter(e, item) {
-            const el = e.target.parentElement.parentElement;
-            const labelEl = window.getComputedStyle(el, null);
-            const isRequried = item.rules ? 12 : item.beforeWidth || 0;
-            const labelWidth =
-                parseInt(labelEl.getPropertyValue("max-width"))  - isRequried -
-                parseInt(labelEl.getPropertyValue("padding-right"));
-            const tooltipWidth = e.target.previousElementSibling.offsetWidth;
+            const el = e.target.parentElement.parentElement
+            const labelEl = window.getComputedStyle(el, null)
+            const isRequried = item.rules ? 12 : item.beforeWidth || 0
+            const labelWidth
+                = parseInt(labelEl.getPropertyValue('max-width')) - isRequried
+                    - parseInt(labelEl.getPropertyValue('padding-right'))
+            const tooltipWidth = e.target.previousElementSibling.offsetWidth
             if (tooltipWidth >= labelWidth) {
-                this.labelDisabled = false;
+                this.labelDisabled = false
             } else {
-                this.labelDisabled = true;
+                this.labelDisabled = true
             }
         },
 
         // 是否显示值
         valueMouseEnter(e, item, value) {
-            if(!value) {
+            if (!value) {
                 this.valueDisabled = true
                 return
             }
 
-            const el = e.target.parentElement.querySelector(".el-input__inner");
+            const el = e.target.parentElement.querySelector('.el-input__inner')
             const timer = [
-                "datetime",
-                "date",
-                "week",
-                "month",
-                "year",
-                "datetimerange",
-                "daterange",
-                "monthrange",
-                "yearrange",
-            ];
+                'datetime',
+                'date',
+                'week',
+                'month',
+                'year',
+                'datetimerange',
+                'daterange',
+                'monthrange',
+                'yearrange',
+            ]
             if (el && !timer.includes(item.type)) {
-                const inputEl = window.getComputedStyle(el, null);
-                const textWidth =
-                    e.target.offsetWidth -
-                    parseInt(inputEl.getPropertyValue("padding-right")) -
-                    parseInt(inputEl.getPropertyValue("padding-left"));
-                const tooltipWidth = e.target.previousElementSibling.offsetWidth;
+                const inputEl = window.getComputedStyle(el, null)
+                const textWidth
+                    = e.target.offsetWidth
+                        - parseInt(inputEl.getPropertyValue('padding-right'))
+                        - parseInt(inputEl.getPropertyValue('padding-left'))
+                const tooltipWidth = e.target.previousElementSibling.offsetWidth
                 if (tooltipWidth >= textWidth) {
-                    this.valueDisabled = false;
+                    this.valueDisabled = false
                 } else {
-                    this.valueDisabled = true;
+                    this.valueDisabled = true
                 }
             }
         },
 
         // 更改日期组件显示的placeholder
         datePickerPlaceholder(label, item) {
-            const type = item.type;
-            if (["week"].includes(type)) {
-                return "周";
-            } else if (["month", "monthrange"].includes(type)) {
-                return "月份";
-            } else if (["year", "yearrange"].includes(type)) {
-                return "年份";
+            const type = item.type
+            if (['week'].includes(type)) {
+                return '周'
+            } else if (['month', 'monthrange'].includes(type)) {
+                return '月份'
+            } else if (['year', 'yearrange'].includes(type)) {
+                return '年份'
             }
-            return "时间";
+            return '时间'
         },
     },
-};
+}
 </script>
 
 <style lang="scss" scoped>

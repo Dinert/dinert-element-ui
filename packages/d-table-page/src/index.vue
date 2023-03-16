@@ -50,11 +50,11 @@
     </section>
 </template>
 <script>
-import DForm from "@packages/d-form";
-import DTable from "@packages/d-table";
+import DForm from '@packages/d-form'
+import DTable from '@packages/d-table'
 
 export default {
-    name: "DTablePage",
+    name: 'DTablePage',
     props: {
         // form表单的配置
         formItem: {
@@ -117,17 +117,17 @@ export default {
         return {
             formValue: {},
             defaultValue: {},
-        };
+        }
     },
     methods: {
         columnProp(prop) {
-            return "column_" + prop.split('.').join('_');
+            return 'column_' + prop.split('.').join('_')
         },
         sizeChange(value) {
-            this.$emit("size-change", value);
+            this.$emit('size-change', value)
         },
         currentChange(value) {
-            this.$emit("current-change", value);
+            this.$emit('current-change', value)
         },
 
         checkboxChange(checked, column, copyTableColumn) {
@@ -139,14 +139,15 @@ export default {
         },
 
         // 展开收起的回调
-        unFold(value) {
-            let timer = setTimeout(() => {
+        unFold() {
+            const timer = setTimeout(() => {
                 this.$refs.table.resize()
+                this.table.key = !this.table.key
                 clearTimeout(timer)
             }, 300)
         }
     },
-};
+}
 </script>
 
 
