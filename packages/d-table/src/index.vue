@@ -327,7 +327,7 @@ export default {
                 const tableBodyH = (body && body.querySelector('.el-table__body-wrapper table').offsetHeight) || 0
 
 
-                const isXOverflow = (body && body.querySelector('.el-table__body-wrapper.is-scrolling-left'))
+                const isXOverflow = (body && (body.querySelector('.el-table__body-wrapper.is-scrolling-left') || body.querySelector('.el-table__body-wrapper.is-scrolling-right')))
                 const xOverflowH = isXOverflow ? 17 : 0
 
                 // 当表格头和表格内容大于
