@@ -8,7 +8,7 @@
                     v-html="(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))"
                 ></div>
                 <div v-else class="cell-item">
-                    {{ getPropByPath(scope.row, tableColumn.prop) }}
+                    {{[null, undefined, ''].includes(getPropByPath(scope.row, tableColumn.prop)) ? table.errData : getPropByPath(scope.row, tableColumn.prop) }}
                 </div>
             </slot>
         </template>
