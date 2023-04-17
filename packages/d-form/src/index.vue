@@ -87,6 +87,22 @@
                                     v-on="item.on"
                                 />
                             </template>
+                            <template v-else-if="['time'].includes(item.type)">
+                                <el-time-picker
+                                    v-model="form.model[key]"
+                                    clearable
+                                    v-bind="{
+                                        placeholder:
+                                            '请选择' + datePickerPlaceholder(item.label, item),
+                                        startPlaceholder:
+                                            '开始' + datePickerPlaceholder(item.label, item),
+                                        endPlaceholder:
+                                            '结束' + datePickerPlaceholder(item.label, item),
+                                        ...item.options,
+                                    }"
+                                    v-on="item.options && {...item.options.on}"
+                                />
+                            </template>
                             <template
                                 v-else-if="
                                     [
