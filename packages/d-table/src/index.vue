@@ -378,6 +378,14 @@ export default {
         justify-content: space-between;
         margin-bottom: 12px;
         text-align: right;
+        .d-table-header-left{
+            text-align: left;
+        }
+        .d-table-header-right{
+            .el-button-group{
+                display: flex;
+            }
+        }
 
         ::v-deep(.el-popover) {
             .el-popover-classify li .el-checkbox {
