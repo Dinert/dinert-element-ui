@@ -61,3 +61,21 @@ export const getPropByPath = (obj, path) => {
 /**
  *
  */
+
+export const escapeHTML = str => {
+    // eslint-disable-next-line consistent-return
+    return str.replace(/[<>& "]/g, match => {
+        switch (match) {
+            case '<':
+                return '&lt;'
+            case '>':
+                return '&gt;'
+            case '&':
+                return '&amp;'
+            case ' ':
+                return '&nbsp;'
+            case '"':
+                return '&quot;'
+        }
+    })
+}

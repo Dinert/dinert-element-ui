@@ -5,10 +5,10 @@
                 :prop="tableColumn.prop"
             >
                 <div v-if="(tableColumn.formatter && typeof tableColumn.formatter === 'function')" class="cell-item"
-                    v-html="(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))"
+                    v-html="escapeHTML(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))"
                 ></div>
                 <div v-else class="cell-item">
-                    {{[null, undefined, ''].includes(getPropByPath(scope.row, tableColumn.prop)) ? table.errData : getPropByPath(scope.row, tableColumn.prop) }}
+                    {{ [null, undefined, ''].includes(getPropByPath(scope.row, tableColumn.prop)) ? table.errData : getPropByPath(scope.row, tableColumn.prop) }}
                 </div>
             </slot>
         </template>
@@ -58,9 +58,9 @@
 
 <script>
 import _ from 'lodash'
-import {getPropByPath} from '@/utils/tools.js'
+import {getPropByPath, escapeHTML} from '@/utils/tools.js'
 export default {
-    name: "RecuveTableColumn",
+    name: 'RecuveTableColumn',
     props: {
         onlyClass: {
             type: String
@@ -84,22 +84,22 @@ export default {
         return {
             settingValue: false,
             copyTableColumn: []
-        };
+        }
     },
     methods: {
         getPropByPath,
-
+        escapeHTML,
         filterColumn(column) {
-            const obj = {};
+            const obj = {}
             for (const prop in column) {
-                if (prop !== "children") {
-                    obj[prop] = column[prop];
+                if (prop !== 'children') {
+                    obj[prop] = column[prop]
                 }
             }
-            return obj;
+            return obj
         },
-        header(scope){
-            return scope.column.label;
+        header(scope) {
+            return scope.column.label
         },
 
         // 分类选择
@@ -108,7 +108,7 @@ export default {
 
             // 手动触发mouseenter事件
             const dom = document.querySelector('.' + this.onlyClass + ' .ali-icon.operations.icon-setting')
-            dom.dispatchEvent(new Event( 'mouseenter' ));
+            dom.dispatchEvent(new Event('mouseenter'))
         },
 
         // 全选
@@ -126,7 +126,7 @@ export default {
             this.$emit('drag-end', event, this.copyTableColumn)
         }
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>

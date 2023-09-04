@@ -13,7 +13,7 @@
 
   <script>
 export default {
-    name: "DOverflowTooltip",
+    name: 'DOverflowTooltip',
     props: {
         content: {
             type: String,
@@ -32,22 +32,22 @@ export default {
         }
     },
     data() {
-        return {};
+        return {}
     },
     computed: {},
     methods: {
 
         // 超出宽度显示tooltip
         labelMouseEnter(e) {
-            this.$emit("label-mouse-enter", e);
+            this.$emit('label-mouse-enter', e)
         },
 
         getValue(content) {
-            if(this.item.type === 'select') {
+            if (this.item.type === 'select') {
                 const options = this.item.options.options
-                if(options && options.length) {
-                    let index = options.findIndex(item => item.value === content)
-                    if(index !== -1) {
+                if (options && options.length) {
+                    const index = options.findIndex(item => item.value === content)
+                    if (index !== -1) {
                         return options[index].label
                     }
                 }
@@ -56,7 +56,7 @@ export default {
 
         }
     },
-};
+}
   </script>
 
   <style lang="scss" scoped>
