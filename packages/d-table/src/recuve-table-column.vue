@@ -5,7 +5,7 @@
                 :prop="tableColumn.prop"
             >
                 <div v-if="(tableColumn.formatter && typeof tableColumn.formatter === 'function')" class="cell-item"
-                    v-html="escapeHTML(tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop)))"
+                    v-html="escapeHTML((tableColumn.formatter && tableColumn.formatter(scope, tableColumn, getPropByPath(scope.row, tableColumn.prop))))"
                 ></div>
                 <div v-else class="cell-item">
                     {{ [null, undefined, ''].includes(getPropByPath(scope.row, tableColumn.prop)) ? table.errData : getPropByPath(scope.row, tableColumn.prop) }}
