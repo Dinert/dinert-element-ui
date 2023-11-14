@@ -25,7 +25,7 @@
             list-style: none;
         }
 
-        .d-table {
+        .dinert-table {
             padding: 16px !important;
             background-color: #fff;
         }
@@ -41,6 +41,9 @@
         .dinert-table-page {
             height: 100%;
         }
+        .dinert-table-footer{
+            /* margin-bottom: 16px; */
+        }
   </style>
 </head>
 
@@ -53,6 +56,7 @@
         >
         <el-button @click="reset">重置</el-button>
       </template>
+
     </dinert-table-page>
   </div>
 </body>
@@ -69,6 +73,7 @@
   //   size: 'small',
   //   zIndex: 3000
   // }
+console.log(window['dinert-element-ui'], "window['dinert-element-ui']")
 
   const app = new Vue({
     el: '#app',
@@ -142,48 +147,6 @@
             'type-a': 'a3123123',
             'base': {
               name: 'aaaa'
-            },
-            operations: 'fdafdsa'
-          },{
-            'name': 'pppppppppp',
-            'type-a': 'a3123123',
-            'base': {
-              name: 'aaaa'
-            },
-            operations: 'fdafdsa'
-          },{
-            'name': 'pppppppppp',
-            'type-a': 'a3123123',
-            'base': {
-              name: 'aaaa'
-            },
-            operations: 'fdafdsa'
-          },{
-            'name': 'pppppppppp',
-            'type-a': 'a3123123',
-            'base': {
-              name: 'aaaa'
-            },
-            operations: 'fdafdsa'
-          },{
-            'name': 'pppppppppp',
-            'type-a': 'a3123123',
-            'base': {
-              name: 'aaaa'
-            },
-            operations: 'fdafdsa'
-          },{
-            'name': 'pppppppppp',
-            'type-a': 'a3123123',
-            'base': {
-              name: 'aaaa'
-            },
-            operations: 'fdafdsa'
-          },{
-            'name': 'pppppppppp',
-            'type-a': 'a3123123',
-            'base': {
-              name: 'aaaa'
             }
           },{
             'name': 'pppppppppp',
@@ -245,13 +208,15 @@
             'base': {
               name: 'aaaa'
             }
-          },{
-            'name': 'pppppppppp',
-            'type-a': 'a3123123',
-            'base': {
-              name: 'aaaa'
-            }
-          }]
+          },
+        //   {
+        //     'name': 'pppppppppp',
+        //     'type-a': 'a3123123',
+        //     'base': {
+        //       name: 'aaaa'
+        //     }
+        //   }
+        ]
         },
         formItem: {
           'project.name': {
@@ -283,7 +248,7 @@
           },
           department: {
             type: 'input-number',
-            label: '部门',
+            label: '数字 ',
             vif: (data) => data.enable
           },
           enable: {

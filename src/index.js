@@ -6,7 +6,21 @@ import DinertDialog from '@packages/dialog'
 import {filterNullStrUndefind} from '@/utils/tools'
 import {getFormValue} from '@/utils/getValue'
 
-export {
+const components = [
+    DinertTable,
+    DinertForm,
+    DinertOverflowTooltip,
+    DinertTablePage,
+    DinertDialog,
+]
+
+
+export default {
+    install: function install(Vue) {
+        components.forEach(component => {
+            Vue.component(component.name, component)
+        })
+    },
     DinertTable,
     DinertForm,
     DinertOverflowTooltip,

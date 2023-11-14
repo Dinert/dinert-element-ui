@@ -5,7 +5,7 @@
             ...form,
         }"
         :class="{packUp: !packUp}"
-        class="d-form"
+        class="dinert-form"
     >
         <el-row v-bind="{gutter: 20, ...row}" class="el-form-left">
             <template v-for="(item, key) in formItem">
@@ -172,7 +172,7 @@ import DinertOverflowTooltip from '@packages/overflow-tooltip'
 import {firstUpperCase, getPropByPath} from '@/utils/tools'
 import _ from 'lodash'
 export default {
-    name: 'DForm',
+    name: 'DinertForm',
     props: {
         formItem: {
             type: Object,
@@ -453,6 +453,14 @@ export default {
 
     ::v-deep .el-form-item__content {
       flex: 1;
+
+        .el-input-number {
+            width: 100%;
+
+            .el-input__inner {
+                text-align: center;
+            }
+        }
     }
 
     ::v-deep .el-tooltip__trigger {
@@ -495,7 +503,7 @@ export default {
   }
 
   .el-form-item__content {
-    margin-left: 0 !important;
+    margin-left: 0;
   }
 }
 </style>

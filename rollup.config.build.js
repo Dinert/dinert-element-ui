@@ -30,13 +30,15 @@ export default {
             file: pkg.module,
             format: 'esm',
             inlineDynamicImports: true,
-            sourcemap: true
+            sourcemap: true,
+            exports: 'auto'
         },
         {
             file: pkg.main,
             format: 'cjs',
             inlineDynamicImports: true,
-            sourcemap: true
+            sourcemap: true,
+            exports: 'auto'
         }
     ],
     plugins: [

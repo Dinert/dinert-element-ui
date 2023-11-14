@@ -1,7 +1,7 @@
 
 <template>
     <section class="dinert-table-page">
-        <!-- eslint-disable-next-line vue/no-unused-refs -->
+        <!-- eslint-disable-next-line vue/no-unusedinert-refs -->
         <dinert-form v-if="showSearch" ref="searchForm"
             v-bind="{
                 formItem,
@@ -175,10 +175,10 @@ export default {
       }
     }
   }
-  .d-form{
+  .dinert-form{
     max-height: 300px;
   }
-  .d-table {
+  .dinert-table {
     flex: 1;
     height: 0;
   }

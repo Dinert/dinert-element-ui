@@ -1,12 +1,12 @@
 <template>
-    <div class="d-table" :class="onlyClass">
+    <div class="dinert-table" :class="onlyClass">
         <div v-if="showHeader" ref="header"
-            class="d-table-header"
+            class="dinert-table-header"
         >
-            <div class="d-table-header-left">
+            <div v-if="$slots['header-left']" class="dinert-table-header-left">
                 <slot name="header-left"></slot>
             </div>
-            <div v-if="table.children" class="d-table-header-right">
+            <div v-if="table.children" class="dinert-table-header-right">
                 <el-button-group>
                     <el-button :type="isAllData ? 'primary' : 'default'" :disabled="disabled"
                         @click="allShow"
@@ -47,10 +47,10 @@
                 </el-button-group>
             </div>
         </div>
-        <div ref="headerFooter" class="d-table-headerFooter">
+        <div ref="headerFooter" class="dinert-table-headerFooter">
             <slot name="header-footer"></slot>
         </div>
-        <div ref="body" class="d-table-body">
+        <div ref="body" class="dinert-table-body">
             <el-table
                 v-bind="{
                     data: [],
@@ -107,7 +107,7 @@
             </el-table>
         </div>
         <div v-if="showFooter && isTableData" ref="footer"
-            class="d-table-footer"
+            class="dinert-table-footer"
         >
             <el-pagination
                 v-bind="{
@@ -196,7 +196,8 @@ export default {
 
         this.windowResize = _.debounce(() => {
             this.resize()
-        }, 100)
+        }, 300)
+
         window.addEventListener('resize', this.windowResize, true)
 
     },
@@ -304,15 +305,24 @@ export default {
 
 
         // 通过计算去自适应表格的高度
+        // eslint-disable-next-line max-statements
         resize() {
             if (!this.table.height) {
+
                 const body = this.$refs.body
+
+                if (body && body.parentElement && body.parentElement.parentElement) {
+                    body.parentElement.parentElement.style.height = '100%'
+                }
+
+
                 const bodyPPT = (body && parseInt(window.getComputedStyle(body.parentElement, null).paddingTop))
                 const bodyPPB = (body && parseInt(window.getComputedStyle(body.parentElement, null).paddingBottom))
 
                 const header = this.$refs.header
                 const headerH = (header && header.offsetHeight) || 0
                 const headerMT = (header && parseInt(window.getComputedStyle(header, null).marginTop)) || 0
+                const headerBT = (header && parseInt(window.getComputedStyle(header, null).marginBottom)) || 0
 
                 const headerFooter = this.$refs.headerFooter
                 const headerFooterH = (headerFooter && headerFooter.offsetHeight) || 0
@@ -327,17 +337,27 @@ export default {
                 const tableBodyH = (body && body.querySelector('.el-table__body-wrapper table').offsetHeight) || 0
 
 
-                const isXOverflow = (body && (body.querySelector('.el-table__body-wrapper.is-scrolling-left') || body.querySelector('.el-table__body-wrapper.is-scrolling-right') || body.querySelector('.el-table__body-wrapper.is-scrolling-middle')))
+                const isXOverflow = (body && (body.querySelector('.el-table__body-wrapper.is-scrolling-left')
+                    || body.querySelector('.el-table__body-wrapper.is-scrolling-right')
+                    || body.querySelector('.el-table__body-wrapper.is-scrolling-middle')))
                 const xOverflowH = isXOverflow ? 17 : 0
 
                 // 当表格头和表格内容大于
                 if (body) {
-                    if ((tableHeaderH + tableBodyH) > bodyCurrentH || (this.table.data && this.table.data.length === 0) || ((tableHeaderH + tableBodyH) - bodyCurrentH === -12)) {
+                    if ((tableHeaderH + tableBodyH + headerBT) > bodyCurrentH || (this.table.data && this.table.data.length === 0)) {
                         body.style.height = '0px'
                         body.style.flex = '1'
+
+                        if (body.parentElement && body.parentElement.parentElement) {
+                            body.parentElement.parentElement.style.height = '100%'
+                        }
                     } else {
                         body.style.height = (tableBodyH + tableHeaderH + 1 + xOverflowH) + 'px'
                         body.style.flex = 'unset'
+
+                        if (body.parentElement && body.parentElement.parentElement) {
+                            body.parentElement.parentElement.style.height = 'auto'
+                        }
                     }
                 }
             }
@@ -366,22 +386,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.d-table {
+.dinert-table {
     display: flex;
     padding: 0 16px;
     overflow: auto;
     flex-direction: column;
     box-sizing: border-box;
 
-    .d-table-header {
+    .dinert-table-header {
         display: flex;
         justify-content: space-between;
         margin-bottom: 12px;
         text-align: right;
-        .d-table-header-left{
+        .dinert-table-header-left{
             text-align: left;
         }
-        .d-table-header-right{
+        .dinert-table-header-right{
+            margin-left: auto;
             .el-button-group{
                 display: flex;
             }
@@ -396,7 +417,7 @@ export default {
         }
     }
 
-    .d-table-body {
+    .dinert-table-body {
         .el-table {
             ::v-deep(.cell > div) {
                 overflow: hidden;
@@ -406,7 +427,7 @@ export default {
         }
     }
 
-    .d-table-footer {
+    .dinert-table-footer {
         display: flex;
         margin-top: 16px;
 
@@ -425,7 +446,7 @@ export default {
     }
 
     &:hover {
-        background-color: rgba(#409eff, .1);
+        backgroundinert-color: rgba(#409eff, .1);
     }
 }
 </style>
