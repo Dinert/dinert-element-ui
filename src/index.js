@@ -1,19 +1,19 @@
-import DTable from '@packages/d-table'
-import DForm from '@packages/d-form'
-import DOverflowTooltip from '@packages/d-overflow-tooltip'
-import DTablePage from '@packages/d-table-page'
-import DDialog from '@packages/d-dialog'
+import DinertTable from '@packages/table'
+import DinertForm from '@packages/form'
+import DinertOverflowTooltip from '@packages/overflow-tooltip'
+import DinertTablePage from '@packages/table-page'
+import DinertDialog from '@packages/dialog'
 import {filterNullStrUndefind} from '@/utils/tools'
 import {getFormValue} from '@/utils/getValue'
 
 export {
-  DTable,
-  DForm,
-  DOverflowTooltip,
-  DTablePage,
-  getFormValue,
-  DDialog,
-  filterNullStrUndefind
+    DinertTable,
+    DinertForm,
+    DinertOverflowTooltip,
+    DinertTablePage,
+    getFormValue,
+    DinertDialog,
+    filterNullStrUndefind
 }
 
 

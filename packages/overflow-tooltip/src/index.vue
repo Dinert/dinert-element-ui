@@ -13,7 +13,7 @@
 
   <script>
 export default {
-    name: 'DOverflowTooltip',
+    name: 'DinertOverflowTooltip',
     props: {
         content: {
             type: String,

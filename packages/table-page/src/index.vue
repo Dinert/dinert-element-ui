@@ -1,8 +1,8 @@
 
 <template>
-    <section class="d-table-page">
-        <d-form v-if="showSearch"
-            ref="searchForm"
+    <section class="dinert-table-page">
+        <!-- eslint-disable-next-line vue/no-unused-refs -->
+        <dinert-form v-if="showSearch" ref="searchForm"
             v-bind="{
                 formItem,
                 disabled,
@@ -22,8 +22,8 @@
             <template v-for="(item, key) in formItem" #[key]="scope">
                 <slot :name="key" v-bind="scope"></slot>
             </template>
-        </d-form>
-        <d-table
+        </dinert-form>
+        <dinert-table
             ref="table"
             v-bind="{table, pagination, tableSlot: true, disabled, showHeader, showFooter}"
             v-on="{
@@ -46,26 +46,26 @@
                     <slot v-bind="scope"></slot>
                 </template>
             </template>
-        </d-table>
+        </dinert-table>
     </section>
 </template>
 <script>
-import DForm from '@packages/d-form'
-import DTable from '@packages/d-table'
+import DinertForm from '@packages/form'
+import DinertTable from '@packages/table'
 
 export default {
-    name: 'DTablePage',
+    name: 'DinertTablePage',
     props: {
         // form表单的配置
         formItem: {
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
 
         // 表格的数据
         table: {
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
 
         tableSlot: {
@@ -75,19 +75,19 @@ export default {
         // 分页
         pagination: {
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
 
         // form表单
         form: {
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
 
         // form表单
         colLayout: {
             type: Object,
-            default: () => {},
+            default: () => ({}),
         },
 
         disabled: {
@@ -110,8 +110,8 @@ export default {
         }
     },
     components: {
-        DForm,
-        DTable,
+        DinertForm,
+        DinertTable,
     },
     data() {
         return {
@@ -152,7 +152,7 @@ export default {
 
 
 <style lang="scss" scoped>
-.d-table-page {
+.dinert-table-page {
   display: flex;
   flex-direction: column;
   &.near{

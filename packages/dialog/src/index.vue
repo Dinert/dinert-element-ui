@@ -11,14 +11,14 @@
 
 <script>
 export default {
-    name: "DDialog",
+    name: 'DinertDialog',
     props: {
         dialog: {
             type: Object,
-            default: () => {},
+            default: () => ({})
         },
     },
-};
+}
 </script>
 
 <style lang="scss" scoped>

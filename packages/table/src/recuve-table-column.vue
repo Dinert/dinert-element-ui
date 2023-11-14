@@ -60,7 +60,7 @@
 import _ from 'lodash'
 import {getPropByPath, escapeHTML} from '@/utils/tools.js'
 export default {
-    name: 'RecuveTableColumn',
+    name: 'DinertRecuveTableColumn',
     props: {
         onlyClass: {
             type: String

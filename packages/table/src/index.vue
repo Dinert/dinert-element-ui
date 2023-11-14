@@ -135,7 +135,7 @@ import {getUuid} from '@/utils/tools.js'
 import _ from 'lodash'
 
 export default {
-    name: 'DTable',
+    name: 'DinertTable',
     props: {
         // 表格头控制栏
         showHeader: {
