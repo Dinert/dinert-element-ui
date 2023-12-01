@@ -1,6 +1,6 @@
 {
   "name": "@dinert/element-ui",
-  "version": "1.0.4-82",
+  "version": "1.0.4-83",
   "description": "基于vue2封装的element-ui包",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
@@ -15,7 +15,9 @@
     "@dinert"
   ],
   "files": [
-    "dist"
+    "dist",
+    "packages",
+    "src"
   ],
   "author": "dinert",
   "license": "MIT",
