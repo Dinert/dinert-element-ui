@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "noImplicitAny": false,
+      "baseUrl": ".",
+      "jsx": "preserve",
+      "strict": true,
+      "target": "ES2015",
+      "module": "ESNext",
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "moduleResolution": "Node",
+      "lib": ["esnext", "dom"],
+      "paths": {
+         "@/*": ["src/*"],
+         "@packages/*": ["packages/*"]
+      },
+    },
+    "exclude": ["node_modules"],
+    "include": ["packages/*", "packages/**/*.vue", "packages/**/*.tsx", "packages/**/*.jsx", "packages/**/*.ts", "packages/**/*.js",
+        "src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts", "src/**/*.js"],
+  }

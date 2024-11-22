@@ -39,7 +39,7 @@
                                 :item="item"
                                 @label-mouse-enter="valueMouseEnter($event, item, String(form.model[key] || ''))"
                             >
-                                <slot :name="newKey(key)" :formItem="{options: item, key: key}">
+                                <slot :name="newKey(key)" :form-item="{options: item, key: key}">
                                     <template v-if="['input', 'textarea'].includes(item.type)">
                                         <el-input
                                             v-model="form.model[key]"
@@ -218,7 +218,7 @@ export default {
         window.addEventListener('resize', this.windowResize, true)
     },
 
-    destroyed() {
+    unmounted() {
         window.removeEventListener('resize', this.windowResize, true)
     },
     data() {
@@ -366,144 +366,148 @@ export default {
 
 <style lang="scss" scoped>
 .el-form {
-  padding: 16px 16px 0;
-  background-color: #fff;
-  border-radius: 4px;
-  display: flex;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  min-height: 50px;
-  box-sizing: content-box;
+    display: flex;
+    overflow: hidden;
+    padding: 16px 16px 0;
+    min-height: 50px;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    box-sizing: content-box;
 
+    &.packUp {
+        max-height: 50px;
+    }
 
-  &.packUp {
-    max-height: 50px;
-  }
+    &.near {
+        .el-form-left {
+            flex: unset;
 
-  &.near {
+            .el-col {
+                width: auto;
+            }
+        }
+
+        .el-form-right {
+            min-width: auto;
+        }
+    }
+
     .el-form-left {
-      flex: unset;
-      .el-col {
-        width: auto;
-      }
-    }
-    .el-form-right {
-      min-width: auto;
-    }
-  }
+        flex: 1;
 
-  .el-form-left {
-    flex: 1;
+        .el-col {
+            &.datetimerange {
+                min-width: 450px;
+            }
 
-    .el-col {
-      &.datetimerange {
-        min-width: 450px;
-      }
+            &.date {
+                min-width: 210px;
+            }
 
-      &.date {
-        min-width: 210px;
-      }
-      &.year {
-        min-width: 160px;
-      }
+            &.year {
+                min-width: 160px;
+            }
 
-      &.month {
-        min-width: 190px;
-      }
+            &.month {
+                min-width: 190px;
+            }
 
-      &.select {
-        min-width: 230px;
-      }
+            &.select {
+                min-width: 230px;
+            }
 
-      &.input {
-        min-width: 230px;
-      }
-    }
-  }
-
-  .el-form-right {
-    margin-left: 20px;
-    min-width: 150px;
-    display: flex;
-    justify-content: flex-end;
-
-    .el-form-right-operation {
-      &.el-button.is-text {
-        background-color: unset;
-        padding-right: 0;
-      }
-    }
-    ::v-deep .el-button {
-      height: 40px;
-    }
-  }
-
-  .el-form-item {
-    width: 100%;
-    margin-bottom: 18px;
-    display: flex;
-    position: relative;
-
-    ::v-deep .el-input-number {
-      width: 100%;
-      .el-input__inner {
-        text-align: left;
-      }
-    }
-
-    ::v-deep .el-form-item__content {
-      flex: 1;
-
-        .el-input-number {
-            width: 100%;
-
-            .el-input__inner {
-                text-align: center;
+            &.input {
+                min-width: 230px;
             }
         }
     }
 
-    ::v-deep .el-tooltip__trigger {
-      width: 100%;
-    }
+    .el-form-right {
+        display: flex;
+        justify-content: flex-end;
+        margin-left: 20px;
+        min-width: 150px;
 
-    ::v-deep .el-date-editor {
-      width: 100%;
-
-      .el-input__wrapper {
-        width: 100%;
-        box-sizing: border-box;
-      }
-    }
-
-    ::v-deep .el-input__inner {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    ::v-deep .el-form-item__label {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      max-width: 80px;
-
-      .el-tooltip {
-        display: inline;
-
-        .label-text {
-          display: inline;
+        .el-form-right-operation {
+            &.el-button.is-text {
+                padding-right: 0;
+                background-color: unset;
+            }
         }
-      }
+
+        ::v-deep .el-button {
+            height: 40px;
+        }
     }
-  }
 
-  .el-select {
-    width: 100%;
-  }
+    .el-form-item {
+        position: relative;
+        display: flex;
+        margin-bottom: 18px;
+        width: 100%;
 
-  .el-form-item__content {
-    margin-left: 0;
-  }
+        ::v-deep .el-input-number {
+            width: 100%;
+
+            .el-input__inner {
+                text-align: left;
+            }
+        }
+
+        ::v-deep .el-form-item__content {
+            flex: 1;
+
+            .el-input-number {
+                width: 100%;
+
+                .el-input__inner {
+                    text-align: center;
+                }
+            }
+        }
+
+        ::v-deep .el-tooltip__trigger {
+            width: 100%;
+        }
+
+        ::v-deep .el-date-editor {
+            width: 100%;
+
+            .el-input__wrapper {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        ::v-deep .el-input__inner {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        ::v-deep .el-form-item__label {
+            overflow: hidden;
+            max-width: 80px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            .el-tooltip {
+                display: inline;
+
+                .label-text {
+                    display: inline;
+                }
+            }
+        }
+    }
+
+    .el-select {
+        width: 100%;
+    }
+
+    .el-form-item__content {
+        margin-left: 0;
+    }
 }
 </style>

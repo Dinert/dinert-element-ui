@@ -3,7 +3,8 @@ name: Publish Package to npmjs
 on:
   push:
     branches: [ main ]
-    
+    paths:
+        - 'package.json'
 jobs:
   build:
     runs-on: ubuntu-latest

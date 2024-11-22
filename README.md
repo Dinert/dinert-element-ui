@@ -1,227 +1,149 @@
-# 基于Vue二次封装的element-ui组件
+# 自适应时间轴播放器
+
+## 前言
+- 这是一个从0到1实现的时间轴播放器，除了时间格式化用了第三库
+- 支持TypeScript
+- 有两种主题，默认是dark。class设置为light为白色风格
+
+## 效果
+![image](/src/assets/gif/time-player.gif)
+
+## 预览地址
+[https://dinert.github.io/dinert-time-player/](https://dinert.github.io/dinert-time-player/)
 
 ## 技术栈
 <a href="https://github.com/vuejs/vue/tree/v2.6.14">
   <img src="https://img.shields.io/badge/vue-2.16.4-brightgreen" alt="vue">
 </a>
-<a href="https://element.eleme.io/#/zh-CN/component/installation">
-  <img src="https://img.shields.io/badge/element--ui-2.15.8-blue" alt="vue">
+<a href="https://dayjs.gitee.io/zh-CN/">
+  <img src="https://img.shields.io/badge/dayjs-1.11.3-brightgreen" alt="vue">
 </a>
 
-## 目录
+## 如何安装
+* 如果你使用npm
+```shell
+npm i @dienrt/time-player dayjs --save
+```
+* 或者使用yarn
+```shell
+yarn add @dinert/time-player dayjs
 ```
 
-│  .babelrc
-│  .gitignore
-│  index.html
-│  package-lock.json
-│  package.json
-│  README.md
-│  rollup.config.build.js
-│  rollup.config.dev.js
-│  yarn-error.log
-│  yarn.lock
-│
-├─packages
-│  ├─d-form
-│  │  │  index.js
-│  │  │
-│  │  └─src
-│  │          index.vue
-│  │
-│  ├─d-overflow-tooltip
-│  │  │  index.js
-│  │  │
-│  │  └─src
-│  │          index.vue
-│  │
-│  ├─d-table
-│  │  │  index.js
-│  │  │
-│  │  └─src
-│  │          index.vue
-│  │          recuve-table-column.vue
-│  │
-│  └─d-table-page
-│      │  index.js
-│      │
-│      └─src
-│              index.vue
-│
-└─src
-    │  index.js
-    │
-    └─utils
-            getValue.js
-            tools.js
-```
-## 安装
-* 使用npm
-```shell
-npm i @dinert/element-ui --save
-```
-* 使用yarn
-```shell
-yarn add @dinert/element-ui
-```
-## 简述
-* 基于Vue二次封装的element-ui组件库，打包成esm、umd、cjs可供浏览器外链、vue的import、node的required的使用形式
-* 在封装时保留原有UI框架的属性和方法，可以较好的扩展自定义属性
-## 使用
+## 全局引入
 
-### d-form组件
-#### [form-item](https://element.eleme.io/#/zh-CN/component/form#form-item-attributes) 属性 — Object
-* `form-item`属性，如下代码第一层为对象，type和name代表的是element-ui框架中`form-item`属性的prop。第二层也是对象，对象中type代表的是组件类型，对象中其它属性为element-ui框架中的[form-item]的属性，第三层为options对象，这个对象下的属性代表的是每个组件中的属性。
-* 第二层对象中的属性是[form-item]，那么方法就在第二层属性加上一个on对象，on对象指的就是当前组件属性的方法
-* 那么第三层对象中组件的方法该怎么去绑定呢，比如下面的type为[el-select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)的组件，options代表[el-select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)组件中所有的属性，options.on就是绑定了[el-select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)e组件的所有方法，当[el-select](https://element.eleme.io/#/zh-CN/component/select#select-attributes)变化时会触发change事件。
 ```js
-formItem: {
-  type: {
-    type: 'select',
-    label: '窗口类型',
-    options: {
-      on: {
-        change() {
+import Vue from 'vue'
+import App from './App.vue'
+import DinerTimePlayer from '@dinert/time-player'
+import '@dinert/time-player/style'
+Vue.use(DinerTimePlayer)
 
-        },
-      },
-      options: [
-        { value: '一口受理', label: '一口受理'
-        },
-        { value: '综合窗口', label: '综合窗口'
-        },
-        { value: '企业帮办', label: '企业帮办'
-        },
-        { value: '专窗', label: '专窗'
-        },
-        { value: '咨询台', label: '咨询台'
-        },
-      ],
+new Vue({
+    render: h => h(App)
+}).$mount('#app')
+
+```
+
+### 按需导入
+```js
+  import {DinertTimePlayer} from '@dinert/time-player'
+  import '@dinert/time-player/style'
+  export default {
+    components: {
+      DinertTimePlayer
     }
-  },
-  name: {
-    type: 'input',
-    label: '姓名',
-    options: {}
   }
-}
+
 ```
 
-#### [form](https://element.eleme.io/#/zh-CN/component/form#form-attributes) 属性 — Object
-* form属性指的是element-ui中form的属性
-* form的方法指的是form.on对象中的方法
-#### [row](https://element.eleme.io/#/zh-CN/component/layout#row-attributes) 属性 — Object
-* row属性指的是element-ui中row的属性
-#### [colLayout](https://element.eleme.io/#/zh-CN/component/layout#col-attributes) 属性 — Object
-* colLayout属性指的是element-ui中row的属性
-#### isSearch 属性 — Boolean
-* 判断是否显示右边搜索栏，默认为true
+### 使用
+```html
+<template>
+    <div class="app">
+        <dinert-time-player ref="timePlayerRef" :current-time="currentTime"
+            @animate-before="animateBefore"
+            @animate-after="animateAfter"
+        />
+        <div class="button">
+            <button type="button" @click="$refs.timePlayerRef.startPlay()">开始播放</button>
+            <button type="button" @click="$refs.timePlayerRef.stopPlay()">停止播放</button>
+        </div>
+    </div>
+</template>
 
-### d-table组件
-
-#### showHeader 属性 — Boolean
-* 是否显示表格上方的过滤选项，默认为true
-#### showFooter 属性 — Boolean
-* 是否显示表格下方的分页，默认为true
-#### [table](https://element.eleme.io/#/zh-CN/component/table#table-attributes) 属性 — Object
-* table下的属性为[el-table](https://element.eleme.io/#/zh-CN/component/table#table-attributes)中所有的属性
-* table.on为[el-table](https://element.eleme.io/#/zh-CN/component/table#table-events)的方法和事件
-* table.tableColumn为[el-table-column](https://element.eleme.io/#/zh-CN/component/table#table-column-attributes)的所有属性
-* table.checkbox为[el-checkbox](https://element.eleme.io/#/zh-CN/component/checkbox#checkbox-attributes)的所有属性
-* table.checkbox.on为[el-checkbox事件](https://element.eleme.io/#/zh-CN/component/checkbox#checkbox-events)的所有属性
-```js      
-table: {
-  tableColumn: [
-    {
-      type: 'selection',
-      width: 55,
-      align: 'center',
-      label: '选择'
+<script>
+  import {DinertTimePlayer} from '@dinert/time-player'
+import '@dinert/time-player/style'
+export default {
+    name: 'Home',
+    components: {
+        DinertTimePlayer
     },
-    {
-      prop: 'type',
-      label: '窗口类型',
-      children: [
-        {
-          prop: 'type1',
-          label: '类型A',
-          children: [
-            {
-              prop: 'type-a',
-              label: '类型AB'
-            },
-            {
-              prop: 'type4',
-              label: '类型AC'
-            },
-          ]
-        },
-        {
-          prop: 'type2',
-          label: '类型B'
+    data() {
+        return {
+            currentTime: new Date(),
         }
-      ]
     },
-    {
-      prop: 'name',
-      label: '姓名',
-    },
-    {
-      prop: 'code',
-      label: '工号'
-    },
-    {
-      prop: 'department',
-      label: '部门'
-    },
-    {
-      prop: 'enable',
-      label: '大屏显示'
-    },
-    {
-      prop: 'operations',
-      label: '操作'
+    methods: {
+        animateBefore(config) {
+            console.log(config, 'animateBefore')
+        },
+        animateAfter(config) {
+            console.log(config, 'animateAfter')
+        }
     }
-  ],
-  data: [
-    {
-    'name': 'pppppppppp',
-    'type-a': 'a3123123'
-    },
-    {
-    'name': 'pppppppppp',
-    'type-a': 'a3123123'
-    }
-  ]
 }
+</script>
+
+<style lang="scss" scoped>
+
+.app {
+    margin-top: 80px;
+}
+
+.button {
+    margin: 20px auto;
+    text-align: center;
+
+    button {
+        margin-left: 20px;
+    }
+}
+</style>
+
 ```
 
-#### disabled 属性 — Boolean
-* 是否禁用所有的操作，默认为false
+## 属性
+| 参数          | 说明              | 类型   | 可选值 | 默认值              |
+| ------------- | ----------------- | ------ | ------ | ------------------- |
+| startTime     | 开始时间          | Date   | 一     | 当前时间的前两天    |
+| endTime       | 结束时间          | Date   | 一     | 当前时间的后两天    |
+| currentTime   | 当前时间          | Date   | 一     | new Date()          |
+| stopTime      | 时间轴停止的时间  | Date   | 一     | new Date()          |
+| formatFooter  | 底部时间格式化    | String | 一     | YYYY年MM月DD日      |
+| formatTooltip | tooltip时间格式化 | String | 一     | YYYY年MM月DD日 HH时 |
+| interval      | 24小时时间的间隔  | Number | 一     | 3                   |
+| delay         | 播放时间的间隔    | Number | 一     | 2000                |
+## 方法
+| 参数      | 说明                                       | 类型     |
+| --------- | ------------------------------------------ | -------- |
+| startPlay | 开始播放，请求数据完成，开始播放           | Function |
+| stopPlay  | 停止播放，后台请求数据的时间就可以停止播放 | Function |
 
-#### [pagination](https://element.eleme.io/#/zh-CN/component/pagination#attributes) 属性 — Object
-* pagination下的属性为[el-pagination](https://element.eleme.io/#/zh-CN/component/pagination#attributes)中所有的属性
-* pagination.on对象为[el-pagination](https://element.eleme.io/#/zh-CN/component/pagination#events)的方法和事件
 
-#### tableSlot 属性 — Boolean
-* tableSlot是表格插槽属性，默认为false
-* 如果为true则不能用#column_type的名称去渲染表格中的数据，这样插槽的名称为#default。
-* tableSlot为true时适用于二次封装表格
+## 事件
+| 参数           | 说明                       | 参数                           | 类型     |
+| -------------- | -------------------------- | ------------------------------ | -------- |
+| animate-before | 当点击时间轴触发           | [看下表](./README.md#参数名称) | Function |
+| animate-after  | 当点击时间轴动画完成后触发 | [看下表](./README.md#参数名称) | Function |
 
-### d-table-page组件
-#### d-table-page其实是d-form和d-table的结合体，抽取常用属性在这个组件中，属性配置请参考d-form和d-table，属性如下
+## 参数名称
+| 名称      | 说明                           | 类型   |
+| --------- | ------------------------------ | ------ |
+| time      | 当前时间                       | String |
+| width     | 宽度                           | number |
+| percent   | 当前时间所占整体时间条的百分比 | number |
+| timestamp | 当前时间的时间戳               | number |
 
-#### [form-item](https://element.eleme.io/#/zh-CN/component/form#form-item-attributes) 属性 — Object
-#### [form](https://element.eleme.io/#/zh-CN/component/form#form-attributes) 属性 — Object
-#### [table](https://element.eleme.io/#/zh-CN/component/table#table-attributes) 属性 — Object
-#### tableSlot 属性 — Boolean
-#### [pagination](https://element.eleme.io/#/zh-CN/component/pagination#attributes) 属性 — Object
-#### [colLayout](https://element.eleme.io/#/zh-CN/component/layout#col-attributes) 属性 — Object
-#### disabled 属性 — Boolean
-#### showHeader 属性 — Boolean
-#### showSearch 属性 — Boolean
 
-### d-dialog组件
-#### [dialog](https://element.eleme.io/#/zh-CN/component/dialog#attributes) 属性 — Object
-* dialog下的属性为[el-dialog](https://element.eleme.io/#/zh-CN/component/dialog#attributes)中所有的属性
-* dialog.on对象为[el-dialog](https://element.eleme.io/#/zh-CN/component/dialog#events)的方法和事件
+
