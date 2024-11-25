@@ -51,7 +51,7 @@ module.exports = {
                     'error',
                     {
                         multiline: {
-                            delimiter: 'semi',
+                            delimiter: 'none',
                             requireLast: true,
                         },
                         singleline: {

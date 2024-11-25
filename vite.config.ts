@@ -56,9 +56,7 @@ export default defineConfig(({mode}) => {
             createVuePlugin({
                 vueTemplateOptions: {},
                 jsx: true,
-                jsxOptions: {
-                    compositionAPI: false,
-                }
+
             }),
 
             dts({

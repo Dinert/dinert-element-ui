@@ -1,149 +1,49 @@
-# 自适应时间轴播放器
+# Vue2 components based on ElementUI secondary encapsulation
 
-## 前言
-- 这是一个从0到1实现的时间轴播放器，除了时间格式化用了第三库
-- 支持TypeScript
-- 有两种主题，默认是dark。class设置为light为白色风格
-
-## 效果
-![image](/src/assets/gif/time-player.gif)
-
-## 预览地址
-[https://dinert.github.io/dinert-time-player/](https://dinert.github.io/dinert-time-player/)
-
-## 技术栈
-<a href="https://github.com/vuejs/vue/tree/v2.6.14">
-  <img src="https://img.shields.io/badge/vue-2.16.4-brightgreen" alt="vue">
+## Tech Stack
+<a href="https://cn.vitejs.dev/">
+    <img src="https://img.shields.io/badge/vite-4.5.0-brightgreen" alt="vite">
+<a href="https://unpkg.com/vue@3.3.8/dist/vue.global.js">
+    <img src="https://img.shields.io/badge/vue-3.3.8-brightgreen" alt="vue">
 </a>
-<a href="https://dayjs.gitee.io/zh-CN/">
-  <img src="https://img.shields.io/badge/dayjs-1.11.3-brightgreen" alt="vue">
+</a>
+<a href="https://element-plus.org/zh-CN/">
+    <img src="https://img.shields.io/badge/ElementPlus-2.3.9-brightgreen" alt="ElementPlus">
+</a>
+<a href="https://lodash.com/docs/4.17.21">
+    <img src="https://img.shields.io/badge/lodash-4.17.21-brightgreen" alt="lodash">
 </a>
 
-## 如何安装
-* 如果你使用npm
+## Getting Started
+https://dinert.github.io/dinert-element-plus/
+
+## Installation
+
+#### Using npm:
 ```shell
-npm i @dienrt/time-player dayjs --save
-```
-* 或者使用yarn
-```shell
-yarn add @dinert/time-player dayjs
+$ npm i lodash element-plus @dinert/element-plus
+$ yarn add lodash element-plus @dinert/element-plus
 ```
 
-## 全局引入
-
-```js
-import Vue from 'vue'
-import App from './App.vue'
-import DinerTimePlayer from '@dinert/time-player'
-import '@dinert/time-player/style'
-Vue.use(DinerTimePlayer)
-
-new Vue({
-    render: h => h(App)
-}).$mount('#app')
-
-```
-
-### 按需导入
-```js
-  import {DinertTimePlayer} from '@dinert/time-player'
-  import '@dinert/time-player/style'
-  export default {
-    components: {
-      DinertTimePlayer
-    }
-  }
-
-```
-
-### 使用
+#### In a browser：
 ```html
-<template>
-    <div class="app">
-        <dinert-time-player ref="timePlayerRef" :current-time="currentTime"
-            @animate-before="animateBefore"
-            @animate-after="animateAfter"
-        />
-        <div class="button">
-            <button type="button" @click="$refs.timePlayerRef.startPlay()">开始播放</button>
-            <button type="button" @click="$refs.timePlayerRef.stopPlay()">停止播放</button>
-        </div>
-    </div>
-</template>
 
-<script>
-  import {DinertTimePlayer} from '@dinert/time-player'
-import '@dinert/time-player/style'
-export default {
-    name: 'Home',
-    components: {
-        DinertTimePlayer
-    },
-    data() {
-        return {
-            currentTime: new Date(),
-        }
-    },
-    methods: {
-        animateBefore(config) {
-            console.log(config, 'animateBefore')
-        },
-        animateAfter(config) {
-            console.log(config, 'animateAfter')
-        }
-    }
-}
-</script>
+<script src="https://unpkg.com/vue@3.3.8/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 
-<style lang="scss" scoped>
-
-.app {
-    margin-top: 80px;
-}
-
-.button {
-    margin: 20px auto;
-    text-align: center;
-
-    button {
-        margin-left: 20px;
-    }
-}
-</style>
-
+<link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
+<script src="https://unpkg.com/element-plus/lib/index.js"></script>
+<script src="./dist/element-plus.umd.js"></script>
 ```
 
-## 属性
-| 参数          | 说明              | 类型   | 可选值 | 默认值              |
-| ------------- | ----------------- | ------ | ------ | ------------------- |
-| startTime     | 开始时间          | Date   | 一     | 当前时间的前两天    |
-| endTime       | 结束时间          | Date   | 一     | 当前时间的后两天    |
-| currentTime   | 当前时间          | Date   | 一     | new Date()          |
-| stopTime      | 时间轴停止的时间  | Date   | 一     | new Date()          |
-| formatFooter  | 底部时间格式化    | String | 一     | YYYY年MM月DD日      |
-| formatTooltip | tooltip时间格式化 | String | 一     | YYYY年MM月DD日 HH时 |
-| interval      | 24小时时间的间隔  | Number | 一     | 3                   |
-| delay         | 播放时间的间隔    | Number | 一     | 2000                |
-## 方法
-| 参数      | 说明                                       | 类型     |
-| --------- | ------------------------------------------ | -------- |
-| startPlay | 开始播放，请求数据完成，开始播放           | Function |
-| stopPlay  | 停止播放，后台请求数据的时间就可以停止播放 | Function |
+#### In a Esm
+```js
+import Dinert from '@dinert/element-plus'
+import '@dinert/element-plus/style'
 
+app.use(Dinert)
+```
 
-## 事件
-| 参数           | 说明                       | 参数                           | 类型     |
-| -------------- | -------------------------- | ------------------------------ | -------- |
-| animate-before | 当点击时间轴触发           | [看下表](./README.md#参数名称) | Function |
-| animate-after  | 当点击时间轴动画完成后触发 | [看下表](./README.md#参数名称) | Function |
+### 交流
 
-## 参数名称
-| 名称      | 说明                           | 类型   |
-| --------- | ------------------------------ | ------ |
-| time      | 当前时间                       | String |
-| width     | 宽度                           | number |
-| percent   | 当前时间所占整体时间条的百分比 | number |
-| timestamp | 当前时间的时间戳               | number |
-
-
-
+- [点击链接加入群聊【dinert-element-plus交流群】：698069400](https://qm.qq.com/q/EPvdDeeVjM)

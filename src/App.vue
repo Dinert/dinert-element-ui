@@ -22,7 +22,7 @@
                 <button type="button" @click="$refs.timePlayerRef2.stopPlay()">停止播放</button>
             </div>
         </div> -->
-        <dinert-form/>
+        <dinert-form :form="form"/>
         <!-- <el-form>
             <el-input/>
         </el-form> -->
@@ -36,6 +36,15 @@ export default {
     data() {
         return {
             currentTime: new Date(),
+            form: {
+                formItem: {
+                    name: {
+                        type: 'input',
+                        label: '姓名',
+                        options: {}
+                    }
+                }
+            }
         }
     },
     methods: {
