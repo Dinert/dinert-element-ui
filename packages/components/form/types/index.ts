@@ -1,5 +1,5 @@
 
-import {Form, FormItem, Button, Col, Row, Tree} from 'element-ui'
+import {Form, FormItem, Button, Col, Row} from 'element-ui'
 
 import {
     RewriteInputProps, RewriteSelectProps, RewriteTextareaProps,
@@ -72,10 +72,6 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     tempValueDisabled?: boolean
     required?: boolean
     colLayout?: RewriteColProps
-    on: {
-        resetField: FormItemProps['resetField']
-        clearValidate: FormItemProps['clearValidate']
-    }
 }
 
 type ToModelItem<D, FI> = D extends FI ? D : FI
@@ -85,7 +81,7 @@ type FormItemMap<D, FI> = {
     [P in keyof ToModelItem<D, FI>]: FI extends any ? FormItemPropsCommon<D, FI> : CustomFormItemProps<D, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;
 }
 
-export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<InstanceType<typeof Form>>, 'model'> {
+export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormProps>, 'model'> {
     model: Partial<MergeProp<D, ToString<FI>>>
     vif?: boolean | ((model: D) => boolean)
     formItem: Partial<FormItemMap<D, FI>>

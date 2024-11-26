@@ -37,6 +37,7 @@ export default {
         return {
             currentTime: new Date(),
             form: {
+                model: {},
                 formItem: {
                     name: {
                         type: 'input',

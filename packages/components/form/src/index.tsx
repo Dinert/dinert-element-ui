@@ -1,7 +1,9 @@
 import {defineComponent, PropType} from '@vue/composition-api'
 import {CustomFormItemProps, RewriteFormProps} from '../types'
-import {getUuid} from '@packages/utils/tools'
-import {customPlaceholder} from '../utils'
+import {dataTransformRod, getUuid} from '@packages/utils/tools'
+import {customPlaceholder, formItemSlot, getSpanValue, getTooltipValue, renderSlot, valueMouseEnter} from '../utils'
+
+import CustomInput from './input'
 
 export default defineComponent({
     name: 'DinertForm',
@@ -39,9 +41,8 @@ export default defineComponent({
     },
     render() {
 
-
         return (
-            <el-form {...{
+            <el-form attrs={{
                 inline: true,
                 ...this.form
             }}
@@ -49,11 +50,11 @@ export default defineComponent({
             key={this.form.key}
             >
                 <el-row
-                    {...this.form.row}
+                    attrs={{...this.form.row}}
                     class="el-form-left"
                 >
                     {
-                        this.formItemMap.map((item: CustomFormItemProps, index: number) => {
+                        this.formItemMap.map((item: CustomFormItemProps) => {
                             const style: any = {}
                             let vif = typeof item.vif === 'function' ? item.vif(this.form.model) : item.vif
                             vif = vif === undefined ? typeof this.form.vif === 'function' ? this.form.vif(this.form.model) : vif : vif
@@ -85,17 +86,15 @@ export default defineComponent({
                                     style= {style}
                                     class={[item.type, item.key]}
                                     key={item.key}
-                                    {
-                                        ...{
-                                            // xl: 3, // ≥1920px
-                                            // lg: 4, // ≥1200px
-                                            // md: 8, // ≥992px
-                                            // sm: 12, // ≥768px
-                                            // xs: 24, // <768px
-                                            ...this.form.colLayout,
-                                            ...item.colLayout
-                                        }
-                                    }
+                                    attrs={{
+                                        // xl: 3, // ≥1920px
+                                        // lg: 4, // ≥1200px
+                                        // md: 8, // ≥992px
+                                        // sm: 12, // ≥768px
+                                        // xs: 24, // <768px
+                                        ...this.form.colLayout,
+                                        ...item.colLayout
+                                    }}
                                 >
                                     <el-form-item
                                         key={item.key}
@@ -106,11 +105,97 @@ export default defineComponent({
                                             label: typeof item.label === 'function' ? item.label(this.form.model) : item.label,
                                             rules: rules
                                         }}
-                                        on={item.on}
                                     >
-                                        <div slot="label">
-                                            1213123
-                                        </div>
+                                        <dinert-tooltip key={item.key}
+                                            content={String(getTooltipValue(this.form.model[item.key], item))}
+                                            disabled={valDisabled}
+                                            item={item}
+                                            onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this)}
+                                            scopedSlots={{
+                                                default: () => {
+
+                                                    const scopedSlots: any = {}
+                                                    let componentResult = <span>{dataTransformRod(getSpanValue(this.form.model[item.key], item))}</span>
+
+                                                    if (this.$slots[formItemSlot(item.key)]) {
+                                                        componentResult = (this.$scopedSlots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
+                                                    } else if (itemShowLabel || (formShowLabel && [true, undefined].includes(itemShowLabel))) {
+                                                        return componentResult
+                                                    } else if (['input', 'textarea'].includes(item.type)) {
+                                                        // renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, scopedSlots, item)
+                                                        componentResult = (<CustomInput a={'11'}></CustomInput>)
+                                                    }
+                                                    // else if (['input-number'].includes(item.type)) {
+                                                    //     renderSlot(['decrease-icon', 'increase-icon'], this, slots, item)
+                                                    //     componentResult = (<CustomInputNumber form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputNumber>)
+                                                    // } else if (['input-autocomplete'].includes(item.type)) {
+                                                    //     renderSlot(['prefix', 'suffix', 'prepend', 'append', 'loading'], this, slots, item)
+                                                    //     componentResult = (<CustomInputAutocomplete form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputAutocomplete>)
+                                                    // } else if (['select'].includes(item.type)) {
+                                                    //     renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
+                                                    //     componentResult = (<CustomSelect form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelect>)
+                                                    // } else if (['select-v2'].includes(item.type)) {
+                                                    //     renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
+                                                    //     componentResult = (<CustomSelectV2 form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectV2>)
+                                                    // } else if (['switch'].includes(item.type)) {
+                                                    //     renderSlot(['active-action', 'inactive-action'], this, slots, item)
+                                                    //     componentResult = (<CustomSwitch form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomSwitch>)
+                                                    // } else if ([
+                                                    //     'datetime',
+                                                    //     'date',
+                                                    //     'dates',
+                                                    //     'week',
+                                                    //     'month',
+                                                    //     'year',
+                                                    //     'years',
+                                                    //     'datetimerange',
+                                                    //     'daterange',
+                                                    //     'monthrange',
+                                                    //     'yearrange',
+                                                    // ].includes(item.type)) {
+                                                    //     renderSlot(['range-separator', 'prev-month', 'next-month', 'prev-year', 'next-year'], this, slots, item)
+                                                    //     componentResult = (<CustomDate form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomDate>)
+                                                    // } else if (['radio', 'radio-button'].includes(item.type)) {
+                                                    //     componentResult = (<CustomRadio form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomRadio>)
+                                                    // } else if (['tree-select'].includes(item.type)) {
+                                                    //     renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
+                                                    //     componentResult = (<CustomSelectTree form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectTree>)
+                                                    // } else if (['rate'].includes(item.type)) {
+                                                    //     componentResult = (<CustomRate form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomRate>)
+                                                    // } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
+                                                    //     componentResult = (<CustomCheckbox form={this.form} formItem={item} v-slots={slots}
+                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomCheckbox>)
+                                                    // } else if (['cascader'].includes(item.type)) {
+                                                    //     renderSlot(['empty'], this, slots, item)
+                                                    //     componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
+                                                    //         form={this.form} formItem={item} v-slots={slots}></CustomCascader>)
+                                                    // } else if (['slider'].includes(item.type)) {
+                                                    //     componentResult = (<CustomSlider ref={el => this.setFormTypeRefs(item.key, el)}
+                                                    //         form={this.form} formItem={item} v-slots={slots}></CustomSlider>)
+                                                    // } else if (['time-picker'].includes(item.type)) {
+                                                    //     componentResult = (<CustomTimePicker ref={el => this.setFormTypeRefs(item.key, el)}
+                                                    //         form={this.form} formItem={item} v-slots={slots}></CustomTimePicker>)
+                                                    // } else if (['time-select'].includes(item.type)) {
+                                                    //     componentResult = (<CustomTimeSelect ref={el => this.setFormTypeRefs(item.key, el)}
+                                                    //         form={this.form} formItem={item} v-slots={slots}></CustomTimeSelect>)
+                                                    // }
+
+                                                    return componentResult
+                                                }
+                                            }}
+                                        >
+
+                                        </dinert-tooltip>
+
                                     </el-form-item>
                                 </el-col>
                             )
