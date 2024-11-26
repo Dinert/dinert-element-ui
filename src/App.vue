@@ -22,7 +22,12 @@
                 <button type="button" @click="$refs.timePlayerRef2.stopPlay()">停止播放</button>
             </div>
         </div> -->
-        <dinert-form :form="form"/>
+        <dinert-form :form="form">
+            <template #formItem_name_append="formItem">
+                {{ formItem.label }}
+            </template>
+
+        </dinert-form>
         <!-- <el-form>
             <el-input/>
         </el-form> -->
@@ -30,7 +35,6 @@
 </template>
 
 <script>
-
 export default {
     name: 'Home',
     data() {

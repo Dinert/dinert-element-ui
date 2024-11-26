@@ -3,7 +3,7 @@ import {CustomFormItemProps, RewriteFormProps} from '../types'
 import {dataTransformRod, getUuid} from '@packages/utils/tools'
 import {customPlaceholder, formItemSlot, getSpanValue, getTooltipValue, renderSlot, valueMouseEnter} from '../utils'
 
-import CustomInput from './input'
+const CustomInput = () => import('./input')
 
 export default defineComponent({
     name: 'DinertForm',
@@ -113,7 +113,6 @@ export default defineComponent({
                                             onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this)}
                                             scopedSlots={{
                                                 default: () => {
-
                                                     const scopedSlots: any = {}
                                                     let componentResult = <span>{dataTransformRod(getSpanValue(this.form.model[item.key], item))}</span>
 
@@ -122,8 +121,8 @@ export default defineComponent({
                                                     } else if (itemShowLabel || (formShowLabel && [true, undefined].includes(itemShowLabel))) {
                                                         return componentResult
                                                     } else if (['input', 'textarea'].includes(item.type)) {
-                                                        // renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, scopedSlots, item)
-                                                        componentResult = (<CustomInput a={'11'}></CustomInput>)
+                                                        renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, scopedSlots, item)
+                                                        componentResult = (<CustomInput form={this.form} formItem={item} scopedSlots={scopedSlots}></CustomInput>)
                                                     }
                                                     // else if (['input-number'].includes(item.type)) {
                                                     //     renderSlot(['decrease-icon', 'increase-icon'], this, slots, item)
@@ -193,7 +192,7 @@ export default defineComponent({
                                                 }
                                             }}
                                         >
-
+                                            <CustomInput aaa={'aa'}/>
                                         </dinert-tooltip>
 
                                     </el-form-item>
