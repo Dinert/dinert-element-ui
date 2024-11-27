@@ -20,23 +20,23 @@ const getValue = (content?: string, _this?: any) => {
 
 export default defineComponent({
     name: 'DinertTooltip',
-    emits: ['LabelMouseEnter'],
+    data() {
+        return {
+        }
+    },
+
     render() {
-        console.log(this.$attrs)
-        console.log(this.$slots)
-        console.log(this.$scopedSlots)
         const scopedSlots = this.$scopedSlots
         const attrs = this.$attrs
         return (
-            <el-tooltip
-                key={this.disabled}
-                content={this.content}
-                disabled={this.disabled}
+            <el-tooltip key={this.$attrs.disabled}
+                disabled={this.$attrs.disabled}
+                content={this.$attrs.content}
                 attrs={{...this.$attrs}}
             >
                 <span class="dinert-tooltip">
                     <span class="text-tooltip">{ getValue(attrs.content as string, this) }</span>
-                    <span class="label-text" onMouseenter={(e: MouseEvent) => this.$emit('LabelMouseEnter', e)}>
+                    <span class="label-text" onMouseenter={(e: MouseEvent) => {this.$emit('LabelMouseEnter', e)}}>
                         {scopedSlots.defaultBefore && scopedSlots.defaultBefore(attrs)}
                         {scopedSlots.default ? scopedSlots.default(attrs) : getValue(attrs.content as string, this)}
                         {scopedSlots.defaultAfter && scopedSlots.defaultAfter(attrs)}

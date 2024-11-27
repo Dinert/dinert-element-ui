@@ -3,6 +3,7 @@ import {createVuePlugin} from 'vite-plugin-vue2'
 import path from 'path'
 import dts from 'vite-plugin-dts'
 
+
 export default defineConfig(({mode}) => {
     const config: any = {
         build: {
@@ -11,8 +12,8 @@ export default defineConfig(({mode}) => {
 
             sourcemap: true, // 是否打包map文件
             rollupOptions: {
-                external: ['vue', 'dayjs'],
-                input: ['./src/index.ts'],
+                external: ['vue', 'dayjs', 'element-ui'],
+                input: ['./packages/index.ts'],
                 output: [
                     {
                         format: 'es',
@@ -43,7 +44,8 @@ export default defineConfig(({mode}) => {
                         name: 'dinert-element-ui',
                         globals: {
                             'vue': 'Vue',
-                            'dayjs': 'dayjs'
+                            'dayjs': 'dayjs',
+                            'element-ui': 'ElementUI'
                         },
                     }
                 ]
@@ -56,11 +58,13 @@ export default defineConfig(({mode}) => {
             createVuePlugin({
                 vueTemplateOptions: {},
                 jsx: true,
-
+                jsxOptions: {
+                    compositionAPI: false,
+                }
             }),
 
             dts({
-                entryRoot: './src/components',
+                entryRoot: './packages',
 
                 outDir: ['./es/src', './lib/src'],
 

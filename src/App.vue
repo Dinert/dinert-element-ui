@@ -23,9 +23,7 @@
             </div>
         </div> -->
         <dinert-form :form="form">
-            <template #formItem_name_append="formItem">
-                {{ formItem.label }}
-            </template>
+
 
         </dinert-form>
         <!-- <el-form>

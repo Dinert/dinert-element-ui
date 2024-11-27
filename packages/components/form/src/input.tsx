@@ -1,7 +1,6 @@
 import {defineComponent, PropType} from '@vue/composition-api'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
-import {Input} from 'element-ui'
 
 export default defineComponent({
     name: 'dinert-input',
@@ -17,11 +16,11 @@ export default defineComponent({
     },
     data() {
         return {
-            inputRef: null as InstanceType<typeof Input> | null
+            inputRef: null
         }
     },
     mounted() {
-        this.inputRef = this.$refs.inputRef as InstanceType<typeof Input>
+        this.inputRef = this.$refs.inputRef as any
     },
     computed: {
         options() {
@@ -38,14 +37,13 @@ export default defineComponent({
                 clearable
                 show-word-limit={this.options.showWordLimit === undefined ? true : this.options.showWordLimit}
                 onBlur={e => {this.form.model[this.formItem.key] = e.target.value.trim()}}
-                attrs={{...this.options}}
+                attrs={this.options}
+                on={this.options.on}
             >
                 {this.$scopedSlots.prefix && (<template slot="prefix">{this.$scopedSlots.prefix(this.formItem)}</template>)}
                 {this.$scopedSlots.suffix && (<template slot="suffix">{this.$scopedSlots.suffix(this.formItem)}</template>)}
                 {this.$scopedSlots.prepend && (<template slot="prepend">{this.$scopedSlots.prepend(this.formItem)}</template>)}
                 {this.$scopedSlots.append && (<template slot="append">{this.$scopedSlots.append(this.formItem)}</template>)}
-
-
             </el-input>
         )
     }

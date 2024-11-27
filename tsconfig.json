@@ -16,6 +16,5 @@
       },
     },
     "exclude": ["node_modules"],
-    "include": ["packages/*", "packages/**/*.vue", "packages/**/*.tsx", "packages/**/*.jsx", "packages/**/*.ts", "packages/**/*.js",
-        "src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts", "src/**/*.js"],
+    "include": ["packages/*", "packages/**/*.vue", "packages/**/*.tsx", "packages/**/*.jsx", "packages/**/*.ts", "packages/**/*.js"],
   }

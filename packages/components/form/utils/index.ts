@@ -129,10 +129,8 @@ export const getSpanValue = (value: any, item: any): any => {
 
 export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => {
     const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select', 'select-v2']
-
     if (!value || item.showLabel || !showCom.includes(item.type)) {
-        _this.form.formItem[item.key].tempValueDisabled = true
-
+        _this.$set(_this.form.formItem[item.key], 'tempValueDisabled', true)
         return
     }
     let el: HTMLElement | null = null
@@ -142,7 +140,6 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
         el = el || (e.target as any).parentElement.querySelector('.el-select__selection') as HTMLElement
     }
-
     if (el) {
         const inputEl = window.getComputedStyle(el, null)
         const textWidth
@@ -153,13 +150,14 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
         const tooltipWidth = tooltipEl.offsetWidth
 
         if (tooltipWidth >= textWidth) {
-            _this.form.formItem[item.key].tempValueDisabled = false
+        _this.$set(_this.form.formItem[item.key], 'tempValueDisabled', false)
+
         } else {
-            _this.form.formItem[item.key].tempValueDisabled = true
+        _this.$set(_this.form.formItem[item.key], 'tempValueDisabled', true)
 
         }
     } else {
-        _this.form.formItem[item.key].tempValueDisabled = false
+        _this.$set(_this.form.formItem[item.key], 'tempValueDisabled', false)
     }
 
 }

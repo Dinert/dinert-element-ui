@@ -1,11 +1,13 @@
 import _Tooltip from './src'
+import Plugin from '@vue/composition-api'
 
-import type {App} from '@vue/composition-api'
-const withInstall = (comp: any) => {
-    comp.install = (app: App) => {
-        const name = comp.name
+type SFCWithInstall<T> = T & typeof Plugin
+
+const withInstall = <T>(comp: T) => {
+    (comp as SFCWithInstall<T>).install = (app: any) => {
+        const name = (comp as any).name
         // 注册组件
-        app.component(name, comp)
+        app.component(name, comp as SFCWithInstall<T>)
     }
     return comp
 }
