@@ -25,8 +25,11 @@ export default defineComponent({
         return (
             <el-select
                 v-model={this.form.model[this.formItem.key]}
-                clearable
-                attrs={this.options}
+                attrs={{
+                    filterable: true,
+                    clearable: true,
+                    ...this.options
+                }}
                 on={this.options.on}
                 ref={'selectRef'}
             >

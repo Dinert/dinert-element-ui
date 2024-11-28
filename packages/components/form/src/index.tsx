@@ -11,6 +11,12 @@ import CustomDate from './date'
 import CustomRadio from './radio'
 import CustomRate from './rate'
 import CustomCheckbox from './checkbox'
+import CustomCascader from './cascader'
+import CustomSlider from './slider'
+import CustomTimePicker from './time-picker'
+import '@packages/assets/scss/dinert-form.scss'
+
+import lodash from 'lodash'
 
 export default defineComponent({
     name: 'DinertForm',
@@ -19,15 +25,32 @@ export default defineComponent({
             type: Object as PropType<RewriteFormProps>,
             default: () => ({})
         },
+        search: {
+            type: Boolean,
+            default: true
+        }
     },
     created() {
         this.packUp = this.form.packUp === undefined ? true : this.form.packUp
     },
+    mounted() {
+        this.resizeForm()
+        this.windowResize = lodash.debounce(() => {
+            this.resizeForm()
+        })
+        window.addEventListener('resize', this.windowResize, true)
+    },
+
+    unmounted() {
+        window.removeEventListener('resize', this.windowResize, true)
+    },
 
     data() {
         return {
+            windowResize: () => ({}),
             formClass: 'form_' + getUuid(),
-            packUp: false,
+            packUp: this.form.packUp === undefined,
+            isArrow: false
         }
     },
     computed: {
@@ -45,6 +68,36 @@ export default defineComponent({
                 return (a.sort || Infinity) - (b.sort || Infinity)
             })
             return result
+        }
+    },
+    methods: {
+        resizeForm() {
+            let elFormLeft = document.querySelectorAll(`.${this.formClass} .el-form-left > div`) as any
+            if (elFormLeft[0]) {
+                this.isArrow = false
+                const firstTop = elFormLeft[0].getBoundingClientRect().top
+                const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
+                const isHeight = firstTop !== lastTop
+                if (isHeight) {
+                    this.isArrow = true
+                } else {
+                    if (!this.packUp) {
+                        this.packUp = true
+                    }
+                    this.isArrow = false
+                }
+                elFormLeft = null
+
+            }
+        },
+        unfold() {
+            if (this.packUp) {
+                this.packUp = false
+            } else {
+                this.packUp = true
+            }
+
+            this.$emit('un-fold', this.packUp)
         }
     },
     render() {
@@ -163,21 +216,13 @@ export default defineComponent({
                                                         componentResult = (<CustomRate ref={item.key + '_' + item.type} form={this.form} formItem={item} ></CustomRate>)
                                                     } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
                                                         componentResult = (<CustomCheckbox ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomCheckbox>)
+                                                    } else if (['cascader'].includes(item.type)) {
+                                                        componentResult = (<CustomCascader ref={item.key + '_' + item.type} form={this.form} formItem={item} ></CustomCascader>)
+                                                    } else if (['slider'].includes(item.type)) {
+                                                        componentResult = (<CustomSlider ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomSlider>)
+                                                    } else if (['time-picker'].includes(item.type)) {
+                                                        componentResult = (<CustomTimePicker ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomTimePicker>)
                                                     }
-                                                    // } else if (['cascader'].includes(item.type)) {
-                                                    //     renderSlot(['empty'], this, slots, item)
-                                                    //     componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    //         form={this.form} formItem={item} v-slots={slots}></CustomCascader>)
-                                                    // } else if (['slider'].includes(item.type)) {
-                                                    //     componentResult = (<CustomSlider ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    //         form={this.form} formItem={item} v-slots={slots}></CustomSlider>)
-                                                    // } else if (['time-picker'].includes(item.type)) {
-                                                    //     componentResult = (<CustomTimePicker ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    //         form={this.form} formItem={item} v-slots={slots}></CustomTimePicker>)
-                                                    // } else if (['time-select'].includes(item.type)) {
-                                                    //     componentResult = (<CustomTimeSelect ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    //         form={this.form} formItem={item} v-slots={slots}></CustomTimeSelect>)
-                                                    // }
 
                                                     return componentResult
                                                 }
@@ -192,6 +237,30 @@ export default defineComponent({
                         })
                     }
                 </el-row>
+                {
+                    this.search && <el-row class={['el-form-right', this.isArrow ? 'isArrow' : '']}>
+                        {this.isArrow && <el-button class="el-form-right-operation" type="text" icon={this.packUp ? 'el-icon-arrow-up' : 'el-icon-arrow-down'}
+                            onClick={this.unfold}>
+                            {this.packUp ? '收起' : '展开'}
+                        </el-button>}
+                        {(this.$scopedSlots.form_search && this.$scopedSlots.form_search('search'))
+                            || <el-button type="primary"
+                                attrs={{...this.form.searchButton}}
+                                on={{click: () => this.$emit('search-fn')}}>
+                                {'搜索'}</el-button>
+                        }
+                        {
+                            (this.$scopedSlots.form_search && this.$scopedSlots.form_search('search'))
+                                         || <el-button type="primary" plain
+                                             attrs={{...this.form.resetButton}}
+                                             on={{click: () => this.$emit('reset-fn')}}
+                                         >{'重置'}</el-button>
+                        }
+                    </el-row>
+                }
+                {
+                    this.$scopedSlots.form_search_operations && <el-row class={'el-form-right-after'}>{this.$scopedSlots.form_search_operations('search_operations')}</el-row>
+                }
             </el-form>
         )
     }

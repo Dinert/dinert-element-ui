@@ -91,8 +91,8 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     required?: boolean
     key?: any
     packUp?: boolean
-    searchButton?: Partial<InstanceType<typeof Button>>
-    resetButton?: Partial<InstanceType<typeof Button>>
+    searchButton?: Partial<InstanceType<typeof Button> & {message?: string}>
+    resetButton?: Partial<InstanceType<typeof Button> & {message?: string}>
 }
 
 export interface DinertFormProps<D = any, FI = any>{

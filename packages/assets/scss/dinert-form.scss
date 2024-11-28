@@ -4,7 +4,6 @@
     padding: 0;
     min-height: 50px;
     border-radius: 4px;
-    background-color: var(--el-bg-color);
     transition: all .3s cubic-bezier(.645, .045, .355, 1);
     box-sizing: content-box;
 
@@ -14,6 +13,8 @@
 
     &.near {
         .el-form-left {
+            transition: all .3s cubic-bezier(.645, .045, .355, 1);
+
             .el-col {
                 display: flex;
                 align-items: center;
@@ -28,6 +29,10 @@
             &.isArrow {
                 width: 230px;
                 flex: 0 0 230px;
+            }
+
+            .el-button {
+                max-height: 40px;
             }
         }
     }
