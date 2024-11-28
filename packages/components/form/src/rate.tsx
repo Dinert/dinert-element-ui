@@ -4,7 +4,7 @@ import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/f
 
 
 export default defineComponent({
-    name: 'dinert-input-number',
+    name: 'dinert-rate',
     props: {
         form: {
             type: Object as PropType<RewriteFormProps>,
@@ -22,16 +22,14 @@ export default defineComponent({
         }
     },
     render() {
-
         return (
-            <el-input-number
+            <el-rate
                 v-model={this.form.model[this.formItem.key]}
-                clearable
-                attr={this.options}
+                attrs={this.options}
                 on={this.options.on}
-                ref={'inputNumberRef'}
+                ref={'rateRef'}
             >
-            </el-input-number>
+            </el-rate>
         )
     }
 })

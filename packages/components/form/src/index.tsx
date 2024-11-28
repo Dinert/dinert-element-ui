@@ -6,6 +6,11 @@ import {customPlaceholder, formItemSlot, getSpanValue, getTooltipValue, renderSl
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
 import CustomSelect from './select'
+import CustomSwitch from './switch'
+import CustomDate from './date'
+import CustomRadio from './radio'
+import CustomRate from './rate'
+import CustomCheckbox from './checkbox'
 
 export default defineComponent({
     name: 'DinertForm',
@@ -128,50 +133,37 @@ export default defineComponent({
                                                         return componentResult
                                                     } else if (['input', 'textarea'].includes(item.type)) {
                                                         renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, scopedSlots, item)
-                                                        componentResult = (<CustomInput ref={item.key + 'Input'} form={this.form} formItem={item} scopedSlots={scopedSlots}></CustomInput>)
-                                                    }else if (['input-number'].includes(item.type)) {
-                                                        componentResult = (<CustomInputNumber ref={item.key + 'InputNumber'} form={this.form} formItem={item}></CustomInputNumber>)
-                                                    }else if (['select'].includes(item.type)) {
-                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, scopedSlots, item)
-                                                        componentResult = (<CustomSelect ref={item.key + 'Select'} form={this.form} formItem={item}></CustomSelect>)
+                                                        componentResult = (<CustomInput ref={item.key + '_' + item.type} form={this.form} formItem={item} scopedSlots={scopedSlots}></CustomInput>)
+                                                    } else if (['input-number'].includes(item.type)) {
+                                                        componentResult = (<CustomInputNumber ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomInputNumber>)
+                                                    } else if (['select'].includes(item.type)) {
+                                                        renderSlot(['prefix', 'empty'], this, scopedSlots, item)
+                                                        componentResult = (<CustomSelect ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomSelect>)
+                                                    } else if (['switch'].includes(item.type)) {
+                                                        componentResult = (<CustomSwitch ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomSwitch>)
+                                                    } else if ([
+                                                        'datetime',
+                                                        'date',
+                                                        'dates',
+                                                        'week',
+                                                        'month',
+                                                        'months',
+                                                        'year',
+                                                        'years',
+                                                        'datetimerange',
+                                                        'daterange',
+                                                        'monthrange',
+                                                        'yearrange',
+                                                    ].includes(item.type)) {
+                                                        renderSlot(['range-separator'], this, scopedSlots, item)
+                                                        componentResult = (<CustomDate ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomDate>)
+                                                    } else if (['radio', 'radio-button'].includes(item.type)) {
+                                                        componentResult = (<CustomRadio ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomRadio>)
+                                                    } else if (['rate'].includes(item.type)) {
+                                                        componentResult = (<CustomRate ref={item.key + '_' + item.type} form={this.form} formItem={item} ></CustomRate>)
+                                                    } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
+                                                        componentResult = (<CustomCheckbox ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomCheckbox>)
                                                     }
-                                                    // else if (['select-v2'].includes(item.type)) {
-                                                    //     renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
-                                                    //     componentResult = (<CustomSelectV2 form={this.form} formItem={item} v-slots={slots}
-                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectV2>)
-                                                    // } else if (['switch'].includes(item.type)) {
-                                                    //     renderSlot(['active-action', 'inactive-action'], this, slots, item)
-                                                    //     componentResult = (<CustomSwitch form={this.form} formItem={item} v-slots={slots}
-                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomSwitch>)
-                                                    // } else if ([
-                                                    //     'datetime',
-                                                    //     'date',
-                                                    //     'dates',
-                                                    //     'week',
-                                                    //     'month',
-                                                    //     'year',
-                                                    //     'years',
-                                                    //     'datetimerange',
-                                                    //     'daterange',
-                                                    //     'monthrange',
-                                                    //     'yearrange',
-                                                    // ].includes(item.type)) {
-                                                    //     renderSlot(['range-separator', 'prev-month', 'next-month', 'prev-year', 'next-year'], this, slots, item)
-                                                    //     componentResult = (<CustomDate form={this.form} formItem={item} v-slots={slots}
-                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomDate>)
-                                                    // } else if (['radio', 'radio-button'].includes(item.type)) {
-                                                    //     componentResult = (<CustomRadio form={this.form} formItem={item} v-slots={slots}
-                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomRadio>)
-                                                    // } else if (['tree-select'].includes(item.type)) {
-                                                    //     renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
-                                                    //     componentResult = (<CustomSelectTree form={this.form} formItem={item} v-slots={slots}
-                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectTree>)
-                                                    // } else if (['rate'].includes(item.type)) {
-                                                    //     componentResult = (<CustomRate form={this.form} formItem={item} v-slots={slots}
-                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomRate>)
-                                                    // } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
-                                                    //     componentResult = (<CustomCheckbox form={this.form} formItem={item} v-slots={slots}
-                                                    //         ref={el => this.setFormTypeRefs(item.key, el)}></CustomCheckbox>)
                                                     // } else if (['cascader'].includes(item.type)) {
                                                     //     renderSlot(['empty'], this, slots, item)
                                                     //     componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
@@ -191,7 +183,6 @@ export default defineComponent({
                                                 }
                                             }}
                                         >
-                                            <CustomInput aaa={'aa'}/>
                                         </dinert-tooltip>
 
                                     </el-form-item>

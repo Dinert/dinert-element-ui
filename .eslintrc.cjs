@@ -539,7 +539,7 @@ module.exports = {
         'vue/component-definition-name-casing': 'off',
         'vue/component-name-in-template-casing': [
             'error',
-            'PascalCase' | 'kebab-case',
+            'kebab-case',
             {
                 registeredComponentsOnly: true,
                 ignores: [],

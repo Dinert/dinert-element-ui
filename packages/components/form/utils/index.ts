@@ -134,9 +134,9 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
         return
     }
     let el: HTMLElement | null = null
-    if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
+    if (['input', 'select', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
-    } else if (['select', 'tree-select', 'select-v2'].includes(item.type)) {
+    } else if (['tree-select', 'select-v2'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
         el = el || (e.target as any).parentElement.querySelector('.el-select__selection') as HTMLElement
     }
@@ -150,10 +150,10 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
         const tooltipWidth = tooltipEl.offsetWidth
 
         if (tooltipWidth >= textWidth) {
-        _this.$set(_this.form.formItem[item.key], 'tempValueDisabled', false)
+            _this.$set(_this.form.formItem[item.key], 'tempValueDisabled', false)
 
         } else {
-        _this.$set(_this.form.formItem[item.key], 'tempValueDisabled', true)
+            _this.$set(_this.form.formItem[item.key], 'tempValueDisabled', true)
 
         }
     } else {

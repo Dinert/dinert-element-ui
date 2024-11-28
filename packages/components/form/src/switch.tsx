@@ -1,10 +1,11 @@
 import {defineComponent, PropType} from '@vue/composition-api'
 
+
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 
 
 export default defineComponent({
-    name: 'dinert-input-number',
+    name: 'dinert-switch',
     props: {
         form: {
             type: Object as PropType<RewriteFormProps>,
@@ -21,17 +22,16 @@ export default defineComponent({
             return options
         }
     },
-    render() {
 
+    render() {
         return (
-            <el-input-number
+            <el-switch
                 v-model={this.form.model[this.formItem.key]}
-                clearable
-                attr={this.options}
+                attrs={this.options}
                 on={this.options.on}
-                ref={'inputNumberRef'}
+                ref={'switchRef'}
             >
-            </el-input-number>
+            </el-switch>
         )
     }
 })

@@ -43,9 +43,8 @@ export default defineComponent({
                         </el-option>)
                     })
                 }
-                {/* {this.$scopedSlots.empty && (<template slot="empty">{this.$scopedSlots.empty(this.formItem)}</template>)} */}
-                {/* {this.$scopedSlots.suffix && (<template slot="suffix">{this.$scopedSlots.suffix(this.formItem)}</template>)} */}
-
+                {this.$scopedSlots.empty && (<template slot="empty">{this.$scopedSlots.empty(this.formItem)}</template>)}
+                {this.$scopedSlots.suffix && (<template slot="suffix">{this.$scopedSlots.suffix(this.formItem)}</template>)}
             </el-select>
         )
     }
