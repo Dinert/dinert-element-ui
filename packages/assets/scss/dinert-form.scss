@@ -22,6 +22,13 @@
                 width: auto;
                 max-width: unset;
                 flex: unset;
+
+                &.rate {
+                    .label-text {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
             }
         }
 

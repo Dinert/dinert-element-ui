@@ -22,10 +22,7 @@
                 <button type="button" @click="$refs.timePlayerRef2.stopPlay()">停止播放</button>
             </div>
         </div> -->
-        <dinert-form :form="form">
-
-
-        </dinert-form>
+        <dinert-form :form="form"/>
         <!-- <el-form>
             <el-input/>
         </el-form> -->
