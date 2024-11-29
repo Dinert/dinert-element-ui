@@ -34,6 +34,7 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<InstanceType<
     operations?: Record<string, OperationsProps<T>>
     sort?: number
     children?: Array<RewriteTableColumnCtx<T>>
+    on?: Record<string, (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, cellValue: any, index: number, errData?: string) => void>
 }
 
 
@@ -56,6 +57,7 @@ export interface RewriteTableProps<T = any> extends InstanceType<typeof Table> {
     rowSelection?: RewriteTableColumnCtx<T>
     class?: string
     pagination: RewritePaginationProps
+    on?: Record<string, () => void>
 }
 
 export type RewritePaginationProps = Partial<InstanceType<typeof Pagination>>

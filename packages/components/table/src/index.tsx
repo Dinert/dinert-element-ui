@@ -149,7 +149,7 @@ export default defineComponent({
                             >全部显示
                             </el-button>
                             <el-popover teleported={false}
-                                v-slots={
+                                scopedSlots={
                                     {
                                         default: () => (
                                             <ul class="el-popover-classify">
@@ -172,14 +172,14 @@ export default defineComponent({
                                                         nodeDragEnd(currentNode, targetNode, this.selectTableRef)
                                                     }
                                                     }
-                                                    v-slots={
+                                                    scopedSlots={
                                                         {
                                                             default: ({data}: {data: Node}) => (
                                                                 <div class="text-dot tree-item">
                                                                     <el-tooltip content={data.label}
                                                                         placement={'top'}
                                                                         disabled={data.label && data.label.length < 8}
-                                                                        v-slots={
+                                                                        scopedSlots={
                                                                             {
                                                                                 default: () => (<span>{ data.label }</span>)
                                                                             }
@@ -227,48 +227,62 @@ export default defineComponent({
                         }}
                         ref={'tableRef'}
                         row-key={this.table?.rowKey}
-                        v-slots={{
+                        scopedSlots={{
                             empty: slots['table-empty'] ? (() => slots['table-empty']?.('table-empty')) : null,
                             append: slots['table-append'] ? (() => slots['table-append']?.('table-append')) : null
                         }}
                         on={this.table.on}
                     >
                         {
-                            this.table?.rowSelection && <el-table-column width="60" align="center" type="selection" {...this.table.rowSelection}></el-table-column>
+                            this.table?.rowSelection && <el-table-column width="60" align="center" type="selection" attrs={this.table.rowSelection} scopedSlots={{
+                                default: slots.column_rowSelection ? scope => slots.column_rowSelection?.(scope) : null,
+                                header: slots.column_header_rowSelection ? scope => slots.column_header_rowSelection?.(scope) : null,
+                            }}></el-table-column>
                         }
                         {
-                            this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}></el-table-column>
+                            this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" attrs={this.table.rowIndex} scopedSlots={{
+                                default: slots.column_rowIndex ? scope => slots.column_rowIndex?.(scope) : null,
+                                header: slots.column_header_rowIndex ? scope => slots.column_header_rowIndex?.(scope) : null,
+                            }}>
+                            </el-table-column>
                         }
-                        <DinertRecuveTableColumn
-                            table={this.table}
-                            table-columns={this.table.tableColumns}
-                            only-class={this.onlyClass}
-                            popover-value={this.popoverValue}
-                            defaultCheckedKeys={this.defaultCheckedKeys}
-                            // onCheckedChange={(data: Node, checked: boolean, childChecked: boolean) => this.$emit('CheckedChange', data, checked, childChecked)}
-                            scopedSlots={slots}
+                        {
+                            this.table.tableColumns.map(tableColumn => {
+                                return (<DinertRecuveTableColumn
+                                    table={this.table}
+                                    table-column={tableColumn}
+                                    only-class={this.onlyClass}
+                                    popover-value={this.popoverValue}
+                                    defaultCheckedKeys={this.defaultCheckedKeys}
+                                    // onCheckedChange={(data: Node, checked: boolean, childChecked: boolean) => this.$emit('CheckedChange', data, checked, childChecked)}
+                                    scopedSlots={slots}
+                                >
+                                </DinertRecuveTableColumn>)
+                            })
+                        }
 
-                        >
-                        </DinertRecuveTableColumn>
                     </el-table>
                 </div>
 
-                {/* {this.isFooter && this.table?.data && this.table?.data.length !== 0 && <div class="dinert-table-footer" ref={el => {this.footerRef = el}} >
+                {this.isFooter && this.table?.data && this.table?.data.length !== 0 && <div class="dinert-table-footer">
                     <el-pagination
-                        model:current-page={1}
-                        model:page-size={15}
+                        current-page={1}
+                        page-size={15}
                         pageSizes={[15, 30, 50, 70, 100]}
                         default-page-size={15}
                         layout={'total, sizes, prev, pager, next, jumper'}
                         total={100}
                         attrs={{...this.table.pagination}}
-                        onSizeChange={(val: number) => this.$emit('SizeChange', val)}
-                        onCurrentChange={(val: number) => this.$emit('CurrentChange', val)}
+                        on={{
+                            'size-change': (val: number) => this.$emit('size-change', val),
+                            'current-change': (val: number) => this.$emit('current-change', val),
+                            ...this.table.pagination.on
+                        }}
                     >
 
                     </el-pagination>
                 </div>
-                } */}
+                }
             </section>
         )
     }
