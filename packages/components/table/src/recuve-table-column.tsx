@@ -1,19 +1,10 @@
 import {defineComponent, PropType} from '@vue/composition-api'
 
 import {getPropByPath, dataTransformRod} from '@packages/utils/tools'
-import {RecuveTableColumnProps, RewriteTableColumnCtx, RewriteTableProps} from '../types'
+import {RewriteTableColumnCtx, RewriteTableProps} from '../types'
 import {MessageBox} from 'element-ui'
+import {allowDrop, allShow, checkTree, nodeDragEnd, treeProps} from '../utils'
 
-
-const filterColumn = (column: any) => {
-    const obj: any = {}
-    for (const prop in column) {
-        if (prop !== 'children') {
-            obj[prop] = column[prop]
-        }
-    }
-    return obj
-}
 
 const mapWidth: Record<string, any> = {
     index: 60,
@@ -40,10 +31,6 @@ export default defineComponent({
             type: Object as PropType<RewriteTableColumnCtx>,
             default: () => ({})
         },
-        defaultCheckedKeys: {
-            type: Array,
-            default: () => ([])
-        }
     },
     computed: {
         getTableColumn() {
@@ -58,7 +45,6 @@ export default defineComponent({
             let align = item.prop === 'operations' && item.align === undefined ? 'center' : item.align
             let width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
             width = width === undefined && mapWidth[item.type || ''] ? mapWidth[item.type || ''] : width
-            const noChildItem = filterColumn(item)
             const propLowerCase = item.prop?.toLocaleLowerCase()
             if (propLowerCase?.includes('time') || propLowerCase?.includes('date')) {
                 width = width ? width : 170
@@ -76,7 +62,6 @@ export default defineComponent({
                 className,
                 align,
                 width,
-                noChildItem,
                 propLowerCase,
             }
         },
@@ -170,6 +155,7 @@ export default defineComponent({
                     <el-popover
                         placement="bottom"
                         trigger="hover"
+                        class={'more-operations-span'}
                         width={'auto'}
                         popper-class="more-operations"
                         scopedSlots={{
@@ -216,75 +202,80 @@ export default defineComponent({
         const scopedSlots = this.$scopedSlots
         const defaultSlot = scopedSlots.default
         const headerSlot = scopedSlots.header
-        const tableColumn = this.getTableColumn
-        if (!tableColumn.show && !tableColumn.checked) {
-            return null
-        }
-        return (
-            <el-table-column
-                attrs={{...this.tableColumn}}
-                key={tableColumn.prop}
-                fixed={tableColumn.fixed}
-                show-overflow-tooltip={tableColumn.showOverflowTooltip}
-                className={tableColumn.className}
-                width={tableColumn.width}
-                align={tableColumn.align}
-                on={tableColumn.on}
-                scopedSlots={{
-                    default: (scope: any) => {
-                        const deepValue = getPropByPath(scope.row, tableColumn.prop || '')
-                        const value = dataTransformRod(deepValue, this.table?.errData)
+        const {children, ...tableColumn} = this.getTableColumn
+        if (tableColumn.show && tableColumn.checked) {
+            return (
+                <el-table-column
+                    attrs={tableColumn}
+                    fixed={tableColumn.fixed}
+                    key={Math.random()}
+                    show-overflow-tooltip={tableColumn.showOverflowTooltip}
+                    className={tableColumn.className}
+                    width={tableColumn.width}
+                    align={tableColumn.align}
+                    on={tableColumn.on}
+                    scopedSlots={{
+                        default: (scope: any) => {
 
-                        const slotValue = defaultSlot?.({...scope, prop: tableColumn.prop})
-                        if (slotValue) {
-                            return (<div class="cell-item">{ defaultSlot?.({...scope, prop: tableColumn.prop})}</div>)
-                        } else if (typeof tableColumn.formatter === 'function') {
-                            const htmlValue = tableColumn.formatter(scope, (tableColumn as any), deepValue, scope.$index, this.table?.errData)
-                            return (<div class="cell-item" domPropsInnerHTML={htmlValue}></div>)
+                            const deepValue = getPropByPath(scope.row, tableColumn.prop || '')
+                            const value = dataTransformRod(deepValue, this.table?.errData)
+
+                            const slotValue = defaultSlot?.({...scope, prop: tableColumn.prop})
+                            if (slotValue) {
+                                return (<div class="cell-item">{ defaultSlot?.({...scope, prop: tableColumn.prop})}</div>)
+                            } else if (typeof tableColumn.formatter === 'function') {
+                                const htmlValue = tableColumn.formatter(scope, (tableColumn as any), deepValue, scope.$index, this.table?.errData)
+                                return (<div class="cell-item" domPropsInnerHTML={htmlValue}></div>)
+                            }
+
+                            const columnOperations = this.getColumnOperations(tableColumn as any, this, {
+                                scope,
+                            }) as any
+                            let maxOperations = tableColumn.maxOperations || 3
+                            const operationsLen = columnOperations.length
+                            maxOperations = operationsLen > maxOperations ? maxOperations - 1 : maxOperations
+                            const defaultFunctions = columnOperations.slice(0, maxOperations)
+
+                            const getDefaultOperations = this.getDefaultOperations(defaultFunctions, tableColumn, scope)
+                            const seniorFunctions = columnOperations.slice(maxOperations, columnOperations.length)
+                            const getSeniorFunctions = this.getSeniorFunctions(seniorFunctions, tableColumn, scope, operationsLen, maxOperations)
+                            const operationsArr = [...getDefaultOperations, ...getSeniorFunctions]
+                            if (operationsLen) {
+                                return (operationsArr)
+                            }
+
+
+                            return (<div class="cell-item"><div class="cell-item-text">{value}</div></div>)
+                        },
+                        header: (scope: any) => {
+                            const slotValue = headerSlot?.({...scope, data: tableColumn, prop: tableColumn.prop})
+                            if (headerSlot) {
+                                return ([
+                                    <span>{slotValue ? headerSlot?.({...scope, data: tableColumn, prop: tableColumn.prop}) : scope.column.label}</span>,
+                                ])
+                            } else {
+                                return ([
+                                    <span>{scope.column.label}</span>,
+                                ])
+                            }
                         }
-
-                        const columnOperations = this.getColumnOperations(tableColumn as any, this, {
-                            scope,
-                        }) as any
-                        let maxOperations = tableColumn.maxOperations || 3
-                        const operationsLen = columnOperations.length
-                        maxOperations = operationsLen > maxOperations ? maxOperations - 1 : maxOperations
-                        const defaultFunctions = columnOperations.slice(0, maxOperations)
-
-                        const getDefaultOperations = this.getDefaultOperations(defaultFunctions, tableColumn, scope)
-                        const seniorFunctions = columnOperations.slice(maxOperations, columnOperations.length)
-                        const getSeniorFunctions = this.getSeniorFunctions(seniorFunctions, tableColumn, scope, operationsLen, maxOperations)
-                        const operationsArr = [...getDefaultOperations, ...getSeniorFunctions]
-                        if (operationsLen) {
-                            return (operationsArr)
-                        }
-
-
-                        return (<div class="cell-item"><div class="cell-item-text">{value}</div></div>)
-                    },
-                    header: (scope: any) => {
-                        const slotValue = headerSlot?.({...scope, data: tableColumn, prop: tableColumn.prop})
-                        if (headerSlot) {
-                            return ([<span>{slotValue ? headerSlot?.({...scope, data: tableColumn, prop: tableColumn.prop}) : scope.column.label}</span>])
-                        } else {
-                            return ([<span>{scope.column.label}</span>])
-                        }
+                    }}
+                >
+                    {
+                        children && children.length && children.map((item: any) => {
+                            return (<dinert-recuve-table-column
+                                table={this.table}
+                                tableColumn={item}
+                                only-class={this.onlyClass}
+                                scopedSlots={scopedSlots}
+                            >
+                            </dinert-recuve-table-column>)
+                        })
                     }
-                }}
-            >
-                {
-                    tableColumn.children && tableColumn.children.map(item => {
-                        return (<dinert-recuve-table-column table={this.table}
-                            key={item.prop}
-                            tableColumn={item}
-                            popover-value={this.popoverValue}
-                            only-class={this.onlyClass}
-                            scopedSlots={scopedSlots}
-                        >
-                        </dinert-recuve-table-column>)
-                    })
-                }
-            </el-table-column>
-        )
+                </el-table-column>
+            )
+        }
+
+        return null
     }
 })

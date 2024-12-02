@@ -12,7 +12,7 @@ export default defineConfig(({mode}) => {
 
             sourcemap: true, // 是否打包map文件
             rollupOptions: {
-                external: ['vue', 'dayjs', 'element-ui'],
+                external: ['vue', 'dayjs', 'element-ui', 'lodash'],
                 input: ['./packages/index.ts'],
                 output: [
                     {

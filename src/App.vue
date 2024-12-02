@@ -22,7 +22,8 @@
                 <button type="button" @click="$refs.timePlayerRef2.stopPlay()">停止播放</button>
             </div>
         </div> -->
-        <dinert-form :form="form"/>
+        <!-- <dinert-form :form="form"/> -->
+        <d-table/>
         <!-- <el-form>
             <el-input/>
         </el-form> -->
@@ -30,8 +31,12 @@
 </template>
 
 <script>
+import DTable from './DTable.vue'
 export default {
     name: 'Home',
+    components: {
+        DTable
+    },
     data() {
         return {
             currentTime: new Date(),
@@ -69,9 +74,9 @@ export default {
         text-align: center;
     }
 
-    & > div {
-        margin-top: 120px;
-    }
+    // & > div {
+    //     margin-top: 120px;
+    // }
 }
 
 .button {

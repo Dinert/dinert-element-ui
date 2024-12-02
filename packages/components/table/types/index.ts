@@ -56,7 +56,7 @@ export interface RewriteTableProps<T = any> extends InstanceType<typeof Table> {
     rowIndex?: RewriteTableColumnCtx<T>
     rowSelection?: RewriteTableColumnCtx<T>
     class?: string
-    pagination: RewritePaginationProps
+    pagination: RewritePaginationProps & {on?: Record<string, () => void>}
     on?: Record<string, () => void>
 }
 

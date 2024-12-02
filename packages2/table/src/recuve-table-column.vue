@@ -12,17 +12,19 @@
                 </div>
             </slot>
         </template>
-        <template slot="header" slot-scope="scope">
+        <template v-slot:header="scope">
             <span>{{ header(scope) }}</span>
             <span v-if="showSetting(tableColumn.setting)">
                 <el-popover placement="bottom-end" :value="popoverValue">
-                    <svg slot="reference" class="ali-icon operations icon-setting"
-                        aria-hidden="true"
-                    >
-                        <use
-                            :xlink:href="`#icon-setting`"
-                        />
-                    </svg>
+                    <template v-slot:reference>
+                        <svg class="ali-icon operations icon-setting"
+                            aria-hidden="true"
+                        >
+                            <use
+                                :xlink:href="`#icon-setting`"
+                            />
+                        </svg>
+                    </template>
                     <ul class="el-popover-classify">
                         <li><el-link class="allSelect" :underline="false"
                             type="primary" @click="allShow"
@@ -47,7 +49,7 @@
         <template v-if="tableColumn.children && tableColumn.children.length">
             <template v-for="item in tableColumn.children">
                 <recuve-table-column :key="item.prop" :table-column="item">
-                    <template slot-scope="scope">
+                    <template v-slot="scope">
                         <slot v-bind="scope"></slot>
                     </template>
                 </recuve-table-column>
@@ -130,33 +132,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.icon-setting{
-  position: absolute;
-  right: 19px;
-  top: 4px;
-  cursor: pointer;
+.icon-setting {
+    position: absolute;
+    top: 4px;
+    right: 19px;
+    cursor: pointer;
 }
-.allSelect{
-  display: block;
-  border-bottom: 1px solid #dee0e7;
-  line-height: 31px;
-  margin-bottom: 8px;
+
+.allSelect {
+    display: block;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #dee0e7;
+    line-height: 31px;
 }
-.el-popover-classify{
-  min-width: 120px;
-  li{
+
+.el-popover-classify {
+    min-width: 120px;
+
+    li {
         line-height: 22px;
-        &:first-child{
-          &:hover{
-            background-color: unset;
-          }
+
+        &:first-child {
+            &:hover {
+                background-color: unset;
+            }
         }
-        label{
-          display: block;
+
+        label {
+            display: block;
         }
-        &:hover{
-          background-color: rgba(#409EFF, .1);
+
+        &:hover {
+            background-color: rgba(#409eff, .1);
         }
-  }
+    }
 }
 </style>
