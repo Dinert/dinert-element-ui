@@ -1,7 +1,7 @@
 import {defineComponent, PropType} from '@vue/composition-api'
 import type {HeaderListProps, RewriteTableProps, TablePageProps} from '@packages/components/table/types/index'
 import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@packages/components/table/utils'
+import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode, allShow} from '@packages/components/table/utils'
 
 import DinertRecuveTableColumn from './recuve-table-column'
 import lodash from 'lodash'
@@ -118,7 +118,7 @@ export default defineComponent({
             return result
         },
         getSetting() {
-            return getTreeNode(this.tableColumns, 'setting', [true], 'setting').length === 0
+            return (getTreeNode(this.tableColumns, 'setting', [true], 'setting').length === 0 || true)
             && this.table?.setting !== false
         },
         tableColumns() {
@@ -242,6 +242,7 @@ export default defineComponent({
                     && <div class={'dinert-table-header-right'}>
                         <el-button-group>
                             <el-button type={this.isAllData ? 'primary' : 'default'}
+                                onClick={async () => {allShow(this.$refs.selectTableRef, this.table?.tableColumns || [])}}
                             >全部显示
                             </el-button>
                             <el-popover teleported={false}

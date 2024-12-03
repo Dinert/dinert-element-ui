@@ -29,7 +29,7 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<InstanceType<
     checked?: boolean
     show?: boolean | ((column: RewriteTableColumnCtx<T>) => boolean)
     formatter?: (scope: ScopeProps<T>, column: InstanceType<typeof TableColumn>, cellValue: any, index: number, errData?: string) => any
-    setting?: boolean
+    // setting?: boolean
     maxOperations?: number
     operations?: Record<string, OperationsProps<T>>
     sort?: number
@@ -48,16 +48,17 @@ export interface RecuveTableColumnProps<T = any>{
 
 // type TableFnProps = Partial<Pick<InstanceType<typeof Table>, 'onSelect' | 'onExpand-change' | 'onCurrent-change' | 'onSelect-all' | 'onSelection-change' | 'onCell-mouse-enter' | 'onCell-mouse-leave' | 'onCell-contextmenu' | 'onCell-click' | 'onCell-dblclick' | 'onRow-click' | 'onRow-contextmenu' | 'onRow-dblclick' | 'onHeader-click' | 'onHeader-contextmenu' | 'onSort-change' | 'onFilter-change' | 'onHeader-dragend'>>
 
-export interface RewriteTableProps<T = any> extends InstanceType<typeof Table> {
+export interface RewriteTableProps<T = any> extends Omit<InstanceType<typeof Table>, 'rowKey'> {
     tableColumns: Array<RewriteTableColumnCtx<T>>
     errData?: string
     setting?: boolean
     key?: any
+    rowKey?: InstanceType<typeof Table>['rowKey'] | string
     rowIndex?: RewriteTableColumnCtx<T>
     rowSelection?: RewriteTableColumnCtx<T>
     class?: string
     pagination: RewritePaginationProps & {on?: Record<string, () => void>}
-    on?: Record<string, () => void>
+    on?: Record<string, (data: any) => void>
 }
 
 export type RewritePaginationProps = Partial<InstanceType<typeof Pagination>>

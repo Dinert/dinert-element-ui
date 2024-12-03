@@ -180,7 +180,6 @@ export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): an
         if (!slotName) {
             return
         }
-        console.log(arr, slotName, 'slotName')
         if (arr.includes(slotName)) {
             slotFn = _this.$scopedSlots[prop]?.(item)
             // eslint-disable-next-line consistent-return

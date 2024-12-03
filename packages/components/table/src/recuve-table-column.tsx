@@ -3,8 +3,6 @@ import {defineComponent, PropType} from '@vue/composition-api'
 import {getPropByPath, dataTransformRod} from '@packages/utils/tools'
 import {RewriteTableColumnCtx, RewriteTableProps} from '../types'
 import {MessageBox} from 'element-ui'
-import {allowDrop, allShow, checkTree, nodeDragEnd, treeProps} from '../utils'
-
 
 const mapWidth: Record<string, any> = {
     index: 60,

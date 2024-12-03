@@ -23,7 +23,7 @@
             </div>
         </div> -->
         <!-- <dinert-form :form="form"/> -->
-        <d-table/>
+        <table-page/>
         <!-- <el-form>
             <el-input/>
         </el-form> -->
@@ -32,10 +32,12 @@
 
 <script>
 import DTable from './DTable.vue'
+import TablePage from './TablePage.vue'
 export default {
     name: 'Home',
     components: {
-        DTable
+        DTable,
+        TablePage
     },
     data() {
         return {
