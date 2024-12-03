@@ -23,21 +23,24 @@
             </div>
         </div> -->
         <!-- <dinert-form :form="form"/> -->
-        <table-page/>
+        <!-- <table-page/> -->
+        <d-dialog-vue>
         <!-- <el-form>
             <el-input/>
         </el-form> -->
-    </div>
+        </d-dialog-vue></ddialogvue></div>
 </template>
 
 <script>
+import DDialogVue from './DDialog.vue'
 import DTable from './DTable.vue'
 import TablePage from './TablePage.vue'
 export default {
     name: 'Home',
     components: {
         DTable,
-        TablePage
+        TablePage,
+        DDialogVue
     },
     data() {
         return {

@@ -6,3 +6,6 @@ export * from './table'
 export * from './table/types'
 
 export * from './table-page'
+
+export * from './dialog'
+export * from './dialog/types'

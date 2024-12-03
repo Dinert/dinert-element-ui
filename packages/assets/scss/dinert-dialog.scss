@@ -1,5 +1,5 @@
 
-.el-overlay {
+.el-dialog__wrapper {
     &.autoHeight {
         .el-dialog {
             height: 80%;
@@ -26,45 +26,6 @@
         &.is-fullscreen {
             top: unset;
             max-height: unset;
-        }
-
-        &__headerbtn {
-            right: 0;
-            width: 40px;
-            height: 100%;
-            color: var(--el-color-info);
-        }
-
-        .full {
-            position: absolute;
-            top: -1.5px;
-            right: 34px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 100%;
-            font-size: var(--el-message-close-size, 16px);
-            border: none;
-            color: var(--el-color-info);
-            background: transparent;
-            outline: none;
-            cursor: pointer;
-
-            &:hover {
-                .icon {
-                    fill: var(--el-color-primary);
-                    color: var(--el-color-primary);
-                }
-            }
-
-            .icon {
-                overflow: hidden;
-                width: 14px;
-                height: 14px;
-                vertical-align: -.15em;
-                fill: var(--el-color-info);
-            }
         }
 
         &__header {
