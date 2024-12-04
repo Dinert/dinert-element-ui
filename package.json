@@ -1,6 +1,6 @@
 {
   "name": "@dinert/element-ui",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "type": "module",
   "main": "lib/index.js",
   "module": "es/packages/index.js",
@@ -71,11 +71,10 @@
     ]
   },
   "keywords": [
-    "time-player",
-    "时间轴",
-    "时间播放器",
+    "element-ui",
+    "element-ui二次封装",
     "@dinert",
-    "@dinert/time-player"
+    "@dinert/element-ui"
   ],
   "files": [
     "dist",
@@ -84,10 +83,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dinert/dinert-time-player.git"
+    "url": "https://github.com/Dinert/dinert-element-ui.git"
   },
   "license": "MIT",
-  "homepage": "https://github.com/Dinert/dinert-time-player#readme",
+  "homepage": "https://github.com/Dinert/dinert-element-ui#readme",
   "dependencies": {
 
   }
