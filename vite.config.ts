@@ -45,7 +45,8 @@ export default defineConfig(({mode}) => {
                         globals: {
                             'vue': 'Vue',
                             'dayjs': 'dayjs',
-                            'element-ui': 'ElementUI'
+                            'element-ui': 'ElementUI',
+                            'lodash': 'lodash'
                         },
                     }
                 ]
