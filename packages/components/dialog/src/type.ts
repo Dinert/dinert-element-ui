@@ -13,6 +13,6 @@ export interface RewriteDialogProps extends Partial<InstanceType<typeof Dialog>>
 }
 
 export interface GETWH {
-    width?: RewriteDialogProps['width']
-    height?: RewriteDialogProps['height']
+    width?: RewriteDialogProps['width'] | number
+    height?: RewriteDialogProps['height'] | number
 }

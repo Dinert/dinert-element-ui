@@ -1,7 +1,7 @@
 import {defineComponent} from '@vue/composition-api'
 import {getUuid} from '@packages/utils/tools'
 import lodash from 'lodash'
-import type {RewriteDialogProps, GETWH} from '../types'
+import type {RewriteDialogProps, GETWH} from './type'
 import '@packages/assets/scss/dinert-dialog.scss'
 import '@packages/assets/fonts/iconfont.js'
 

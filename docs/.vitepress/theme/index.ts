@@ -6,7 +6,8 @@ import 'prismjs/themes/prism.css'
 import '../assets/globals.scss'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-// import DinertElementUI from '../../../packages/index'
+// import DinertElementUI from '../../../es/packages/index'
+import {DinertForm} from '../../../packages/components'
 import globals from '../globals'
 
 export default {
@@ -23,6 +24,7 @@ export default {
         for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
             app.component(key, component)
         }
+
     },
     extends: file => {
         // 检查文件扩展名是否为.vue，并返回相应的配置

@@ -28,5 +28,7 @@
     "build": "vitepress build",
     "preview": "vitepress preview "
   },
-  "dependencies": {}
+  "dependencies": {
+    "@vueuse/core": "^12.3.0"
+  }
 }

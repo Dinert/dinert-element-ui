@@ -12,7 +12,7 @@ export default defineConfig(({mode}) => {
 
             sourcemap: true, // 是否打包map文件
             rollupOptions: {
-                external: ['vue', 'dayjs', 'element-ui', 'lodash'],
+                // external: ['vue', 'dayjs', 'element-ui', 'lodash'],
                 input: ['./packages/index.ts'],
                 output: [
                     {
@@ -43,10 +43,10 @@ export default defineConfig(({mode}) => {
                         dir: 'dist',
                         name: 'dinert-element-ui',
                         globals: {
-                            'vue': 'Vue',
-                            'dayjs': 'dayjs',
-                            'element-ui': 'ElementUI',
-                            'lodash': 'lodash'
+                            // 'vue': 'Vue',
+                            // 'dayjs': 'dayjs',
+                            // 'element-ui': 'ElementUI',
+                            // 'lodash': 'lodash'
                         },
                     }
                 ]

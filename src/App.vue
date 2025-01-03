@@ -28,7 +28,8 @@
         <!-- <el-form>
             <el-input/>
         </el-form> -->
-        </d-dialog-vue></ddialogvue></div>
+        </d-dialog-vue>
+    </div>
 </template>
 
 <script>
