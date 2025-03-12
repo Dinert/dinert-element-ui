@@ -1,6 +1,6 @@
 <template>
     <div class="basic">
-        <dinert-form :form="form"/>
+        <dinert-form :form="form" class="near"/>
     </div>
 </template>
 

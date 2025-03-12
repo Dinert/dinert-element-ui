@@ -45,7 +45,7 @@ export default defineConfig({
         "/components/": [
             {
                 title: '表单',
-                path: '/components/form',
+                collapsable: true,
                 children: [
                     {
                         title: '基本使用',
