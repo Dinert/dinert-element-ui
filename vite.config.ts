@@ -77,7 +77,8 @@ export default defineConfig(({mode}) => {
         resolve: {
             alias: {
                 '@': path.resolve(__dirname, './src'),
-                '@packages': path.resolve(__dirname, './packages')
+                '@packages': path.resolve(__dirname, './packages'),
+                '@vuepress': path.resolve(__dirname, './vuepress'),
             },
             extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
         },

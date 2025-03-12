@@ -8,8 +8,11 @@
     "build": "vuepress build docs"
   },
   "devDependencies": {
-    "@vuepress/bundler-vite": "^2.0.0-rc.20",
-    "@vuepress/theme-default": "^2.0.0-rc.84",
-    "vuepress": "^2.0.0-rc.20"
+    "dayjs": "^1.11.13",
+    "element-ui": "^2.15.14",
+    "lodash": "^4.17.21",
+    "vuepress": "^1.9.10",
+    "vuepress-plugin-demo-container": "^0.2.0",
+    "vuepress-plugin-typescript": "^0.3.1"
   }
 }
