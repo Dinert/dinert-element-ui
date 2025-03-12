@@ -17,5 +17,6 @@
     },
     "exclude": ["node_modules"],
     "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts", "src/**/*.js",
-      "packages/*", "packages/**/*.vue", "packages/**/*.tsx", "packages/**/*.jsx", "packages/**/*.ts", "packages/**/*.js"],
+      "packages/*", "packages/**/*.vue", "packages/**/*.tsx", "packages/**/*.jsx", "packages/**/*.ts", "packages/**/*.js",
+    "vuepress/*", "vuepress/**/*.vue", "vuepress/**/*.tsx", "vuepress/**/*.jsx", "vuepress/**/*.ts", "vuepress/**/*.js"],
   }

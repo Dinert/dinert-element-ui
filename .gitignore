@@ -7,9 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-docs/.vuepress/.temp
-docs/.vuepress/.cache
-docs/.vitepress/cache
+vuepress/docs/.vuepress/.temp
+vuepress/docs/.vuepress/.cache
+vuepress/docs/.vitepress/cache
 
 node_modules
 dist
@@ -17,6 +17,7 @@ es
 lib
 dist-ssr
 *.local
+
 
 # Editor directories and files
 .idea
