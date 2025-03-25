@@ -25,5 +25,4 @@
     "include": [
         "packages/*", "packages/**/*.vue", "packages/**/*.tsx", "packages/**/*.jsx", "packages/**/*.ts", "packages/**/*.js",
     ],
-
   }

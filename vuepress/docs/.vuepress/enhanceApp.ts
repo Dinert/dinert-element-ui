@@ -11,6 +11,8 @@ export default ({
     isServer // 当前应用配置是处于 服务端渲染 或 客户端
   }) => {
 
-    Vue.use(ElementUI)
+    Vue.use(ElementUI, {
+      size: 'medium',
+    })
     Vue.use(Packages)
   }

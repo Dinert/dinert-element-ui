@@ -5,19 +5,21 @@ import { defineConfig } from "vuepress/config";
 function _resolve(dir: string) {
     return path.resolve(__dirname, dir)
 }
+
 export default defineConfig({
+  base: '/vuepress/docs/',
   title: 'dinert-element-ui',
   description: 'VuePress搭建基于Element的组件库二次封装的文档教程示例代码',
   port: 3113,
   plugins: [
-    'demo-container' as any,
     [
         "vuepress-plugin-typescript",
         {
             tsLoaderOptions: {
             }
         }
-    ]
+    ],
+    'demo-container' as any,
   ],
   themeConfig: {
     repo: "https://github.com/Dinert/dinert-element-ui",
@@ -28,7 +30,7 @@ export default defineConfig({
       },
       {
         text: '组件',
-        link: '/components/form/basic'
+        link: '/examples/form/basic'
       },
     ],
     sidebar: {
@@ -42,14 +44,14 @@ export default defineConfig({
                 path: '/guide/quickstart'
             },
         ],
-        "/components/": [
+        "/examples/": [
             {
                 title: '表单',
                 collapsable: true,
                 children: [
                     {
                         title: '基本使用',
-                        path: '/components/form/basic',
+                        path: '/examples/form/basic',
                     }
                 ]
             },
@@ -64,6 +66,6 @@ export default defineConfig({
       },
       extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
     }
-  }
+  },
 
 })
