@@ -1,6 +1,6 @@
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import Packages from '../../../lib/index'
+import {DinertForm, DinertTooltip} from '../../../lib/index'
 import '../../../es/style.css'
 
 export default ({
@@ -14,5 +14,7 @@ export default ({
     Vue.use(ElementUI, {
       size: 'medium',
     })
-    Vue.use(Packages)
+
+    Vue.component(DinertForm.name, DinertForm)
+    Vue.component(DinertTooltip.name, DinertTooltip)
   }
