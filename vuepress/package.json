@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
-
   },
   "devDependencies": {
     "chalk": "^5.4.1",
