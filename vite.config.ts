@@ -43,10 +43,10 @@ export default defineConfig(({mode}) => {
                         dir: 'dist',
                         name: 'dinert-element-ui',
                         globals: {
-                            // 'vue': 'Vue',
-                            // 'dayjs': 'dayjs',
-                            // 'element-ui': 'ElementUI',
-                            // 'lodash': 'lodash'
+                            'vue': 'Vue',
+                            'dayjs': 'dayjs',
+                            'element-ui': 'ElementUI',
+                            'lodash': 'lodash'
                         },
                     }
                 ]

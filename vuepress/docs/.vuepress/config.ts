@@ -65,7 +65,11 @@ export default defineConfig({
         '@vuepress': _resolve('../../../vuepress'),
       },
       extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
-    }
+    },
   },
-
+  chainWebpack: (config) => {
+    config.performance.maxEntrypointSize(1024 * 1024 * 2)
+    config.performance.maxAssetSize(1024 * 1024 * 2)
+    config.performance.hints(false)
+  }
 })
