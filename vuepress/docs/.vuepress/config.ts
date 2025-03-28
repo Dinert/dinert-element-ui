@@ -20,6 +20,19 @@ export default defineConfig({
         }
     ],
     'demo-container' as any,
+//     ['vuepress-plugin-container', {
+//         type: 'tip',
+//         defaultTitle: '提示22',
+//         before: (info: string) => {
+//             console.log(info, 'incoo')
+//             return `<
+// `;
+//         },
+//         after: () => {
+//             return `
+//             </div>`;
+//         }
+//     }]
   ],
   themeConfig: {
     repo: "https://github.com/Dinert/dinert-element-ui",
@@ -68,14 +81,5 @@ export default defineConfig({
     },
   },
   chainWebpack: (config) => {
-    // 性能优化配置
-    config.performance
-      .maxEntrypointSize(1024 * 1024 * 10) // 10MB
-      .maxAssetSize(1024 * 1024 * 10)      // 10MB
-      .hints('error')                     // 体积超标时报错
-      .assetFilter(assetFilename => {
-        return /\.(js|css|png)$/.test(assetFilename);
-      });
-
   }
 })
