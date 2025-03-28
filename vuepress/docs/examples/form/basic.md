@@ -8,10 +8,9 @@
 ```html
 <template>
     <div class="basic">
-        <dinert-form :form="form" class="near"/>
+        <dinert-form :form="form" class="near" @search-fn="search" @reset-fn="reset"/>
     </div>
 </template>
-
 <script>
 export default {
     data() {
@@ -21,6 +20,16 @@ export default {
                     name: {
                         label: '名称',
                         type: 'input',
+                    },
+                    status: {
+                        label: '状态',
+                        type: 'select',
+                        options: {
+                            options: [
+                                {label: '显示当我的长度过长长长长长长', value: true},
+                                {label: '隐藏', value: false},
+                            ]
+                        }
                     }
                 },
                 model: {
@@ -29,13 +38,14 @@ export default {
             },
         }
     },
-    computed: {
-
-    },
     methods: {
-
-    },
-
+        search() {
+            console.log('search', this.form.model)
+        },
+        reset() {
+            console.log('reset')
+        }
+    }
 }
 </script>
 ```

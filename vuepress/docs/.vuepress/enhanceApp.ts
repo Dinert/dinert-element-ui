@@ -2,6 +2,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import {DinertForm, DinertTooltip} from '../../../lib/index'
 import '../../../lib/style.css'
+import './public/css/index.css'
 
 export default ({
     Vue, // VuePress 正在使用的 Vue 构造函数
