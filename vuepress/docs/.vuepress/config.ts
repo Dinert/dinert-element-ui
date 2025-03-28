@@ -7,6 +7,7 @@ function _resolve(dir: string) {
 }
 
 export default defineConfig({
+  base: '/' as any,
   title: 'dinert-element-ui',
   description: 'VuePress搭建基于Element的组件库二次封装的文档教程示例代码',
   port: 3113,
