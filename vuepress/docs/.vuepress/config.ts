@@ -68,8 +68,14 @@ export default defineConfig({
     },
   },
   chainWebpack: (config) => {
-    config.performance.maxEntrypointSize(1024 * 1024 * 2)
-    config.performance.maxAssetSize(1024 * 1024 * 2)
-    config.performance.hints(false)
+    // 性能优化配置
+    config.performance
+      .maxEntrypointSize(1024 * 1024 * 10) // 10MB
+      .maxAssetSize(1024 * 1024 * 10)      // 10MB
+      .hints('error')                     // 体积超标时报错
+      .assetFilter(assetFilename => {
+        return /\.(js|css|png)$/.test(assetFilename);
+      });
+
   }
 })

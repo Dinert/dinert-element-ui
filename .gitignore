@@ -12,7 +12,7 @@ vuepress/docs/.vuepress/.cache
 vuepress/docs/.vitepress/cache
 
 node_modules
-dist
+/dist
 es
 lib
 dist-ssr
