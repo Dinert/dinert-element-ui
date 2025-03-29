@@ -60,6 +60,22 @@ export default defineConfig({
                     {
                         title: '基本使用',
                         path: '/examples/form/basic',
+                    },
+                    {
+                        title: 'input 输入框',
+                        path: '/examples/form/input',
+                    },
+                    {
+                        title: 'input-number 数字输入框',
+                        path: '/examples/form/input-number',
+                    },
+                    {
+                        title: 'select 选择器',
+                        path: '/examples/form/select',
+                    },
+                    {
+                        title: '表单属性',
+                        path: '/examples/form/explain',
                     }
                 ]
             },
@@ -76,13 +92,6 @@ export default defineConfig({
     },
   },
   chainWebpack: (config) => {
-       // 性能优化配置
-       config.performance
-       .maxEntrypointSize(1024 * 1024 * 10) // 10MB
-       .maxAssetSize(1024 * 1024 * 10)      // 10MB
-       .hints('error')                     // 体积超标时报错
-       .assetFilter(assetFilename => {
-         return /\.(js|css|png)$/.test(assetFilename);
-       });
+
   }
 })

@@ -22,7 +22,13 @@
                 <button type="button" @click="$refs.timePlayerRef2.stopPlay()">停止播放</button>
             </div>
         </div> -->
-        <dinert-form :form="form"/>
+        <dinert-form :form="form">
+            <template #formItem_name_prefix>
+                <div>
+                    空内容
+                </div>
+            </template>
+        </dinert-form>
         <!-- <table-page/> -->
         <!-- <d-dialog-vue> -->
         <!-- <el-form>
@@ -50,7 +56,7 @@ export default {
                 model: {},
                 formItem: {
                     name: {
-                        type: 'input',
+                        type: 'select',
                         label: '姓名',
                         options: {}
                     }

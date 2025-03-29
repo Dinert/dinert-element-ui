@@ -22,6 +22,7 @@ export default defineComponent({
     },
     render() {
         const options = this.options.options || []
+
         return (
             <el-select
                 v-model={this.form.model[this.formItem.key]}
@@ -40,14 +41,15 @@ export default defineComponent({
                             attrs={{
                                 ...item,
                                 label: item[(this.options.label || 'label')],
-                                value: this.options.value === 'object' ? item : item[(this.options.value || 'value')]
+                                value: item[(this.options.value || 'value')]
                             }}
                         >
                         </el-option>)
                     })
                 }
+
                 {this.$scopedSlots.empty && (<template slot="empty">{this.$scopedSlots.empty(this.formItem)}</template>)}
-                {this.$scopedSlots.suffix && (<template slot="suffix">{this.$scopedSlots.suffix(this.formItem)}</template>)}
+                {this.$scopedSlots.prefix && (<template slot="prefix">{this.$scopedSlots.prefix(this.formItem)}</template>)}
             </el-select>
         )
     }

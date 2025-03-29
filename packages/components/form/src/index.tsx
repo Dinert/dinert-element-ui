@@ -180,6 +180,7 @@ export default defineComponent({
                                                     const scopedSlots: any = {}
                                                     let componentResult = <span>{dataTransformRod(getSpanValue(this.form.model[item.key], item))}</span>
 
+
                                                     if (this.$scopedSlots[formItemSlot(item.key)]) {
                                                         componentResult = (this.$scopedSlots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
                                                     } else if (itemShowLabel || (formShowLabel && [true, undefined].includes(itemShowLabel))) {
@@ -191,7 +192,7 @@ export default defineComponent({
                                                         componentResult = (<CustomInputNumber ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomInputNumber>)
                                                     } else if (['select'].includes(item.type)) {
                                                         renderSlot(['prefix', 'empty'], this, scopedSlots, item)
-                                                        componentResult = (<CustomSelect ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomSelect>)
+                                                        componentResult = (<CustomSelect ref={item.key + '_' + item.type} form={this.form} formItem={item} scopedSlots={scopedSlots}></CustomSelect>)
                                                     } else if (['switch'].includes(item.type)) {
                                                         componentResult = (<CustomSwitch ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomSwitch>)
                                                     } else if ([
@@ -209,7 +210,7 @@ export default defineComponent({
                                                         'yearrange',
                                                     ].includes(item.type)) {
                                                         renderSlot(['range-separator'], this, scopedSlots, item)
-                                                        componentResult = (<CustomDate ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomDate>)
+                                                        componentResult = (<CustomDate ref={item.key + '_' + item.type} form={this.form} formItem={item} scopedSlots={scopedSlots}></CustomDate>)
                                                     } else if (['radio', 'radio-button'].includes(item.type)) {
                                                         componentResult = (<CustomRadio ref={item.key + '_' + item.type} form={this.form} formItem={item}></CustomRadio>)
                                                     } else if (['rate'].includes(item.type)) {
