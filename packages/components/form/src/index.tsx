@@ -56,7 +56,7 @@ export default defineComponent({
     computed: {
         formItemMap() {
             const result: CustomFormItemProps[] = []
-            Object.keys(this.form.formItem).forEach(key => {
+            Object.keys(this.form.formItem || {}).forEach(key => {
                 const value = this.form.formItem[key] as CustomFormItemProps
                 result.push({
                     ...value,
@@ -180,7 +180,7 @@ export default defineComponent({
                                                     const scopedSlots: any = {}
                                                     let componentResult = <span>{dataTransformRod(getSpanValue(this.form.model[item.key], item))}</span>
 
-                                                    if (this.$slots[formItemSlot(item.key)]) {
+                                                    if (this.$scopedSlots[formItemSlot(item.key)]) {
                                                         componentResult = (this.$scopedSlots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
                                                     } else if (itemShowLabel || (formShowLabel && [true, undefined].includes(itemShowLabel))) {
                                                         return componentResult
@@ -225,7 +225,9 @@ export default defineComponent({
                                                     }
 
                                                     return componentResult
-                                                }
+                                                },
+                                                defaultAfter: () => this.$scopedSlots[formItemSlot('after_' + item.key)]?.({...item, model: this.form.model}),
+                                                defaultBefore: () => this.$scopedSlots[formItemSlot('before_' + item.key)]?.({...item, model: this.form.model}),
                                             }}
                                         >
                                         </dinert-tooltip>
