@@ -538,7 +538,7 @@ export default {
     },
     methods: {
         formItemFn(formItem) {
-            console.log('自定义组件',formItem)
+            // console.log('自定义组件',formItem)
         }
     }
 }

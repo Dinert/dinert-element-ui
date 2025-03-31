@@ -74,6 +74,22 @@ export default defineConfig({
                         path: '/examples/form/select',
                     },
                     {
+                        title: 'switch 开关',
+                        path: '/examples/form/switch',
+                    },
+                    {
+                        title: 'date 日期选择器（时、日、周、月、年）',
+                        path: '/examples/form/date',
+                    },
+                    {
+                        title: 'radio 单选框',
+                        path: '/examples/form/radio',
+                    },
+                    {
+                        title: 'checkbox 多选框',
+                        path: '/examples/form/checkbox',
+                    },
+                    {
                         title: '表单属性',
                         path: '/examples/form/explain',
                     }

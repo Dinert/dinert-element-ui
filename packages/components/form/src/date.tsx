@@ -62,8 +62,8 @@ export default defineComponent({
                 unlink-panels={true}
                 value-format={customValuFormat(this.options)}
                 format={this.options.type === 'week' ? 'yyyy第WW周' : this.options.format}
-                attrs={this.options}
-                on={this.options.on}
+                attrs={{...this.options}}
+                on={{...this.options.on}}
                 ref={'datePickerRef'}
             >
                 {this.$scopedSlots['range-separator'] && (<template slot="range-separator">{this.$scopedSlots['range-separator'](this.formItem)}</template>)}

@@ -25,22 +25,23 @@ export default defineComponent({
 
         return (
             <el-radio-group v-model={this.form.model[this.formItem.key]}
-                attrs ={this.options}
-                on={this.options.on}
+                attrs ={{...this.options}}
+                on={{...this.options.on}}
             >
                 {
                     options.map(item => {
                         if (this.formItem.type === 'radio-button') {
                             return (<el-radio-button
                                 attrs={item}
-                                value={item[this.options.value || 'value']}
+                                label={item[this.options.value || 'value']}
                             >
                                 {item[this.options.label || 'label']}
                             </el-radio-button>)
                         }
                         return (<el-radio
                             attrs={item}
-                            value={item[this.options.value || 'value']}
+                            border={item.border === undefined ? this.options.border : item.border}
+                            label={item[this.options.value || 'value']}
                         >
                             {item[this.options.label || 'label']}
                         </el-radio>)

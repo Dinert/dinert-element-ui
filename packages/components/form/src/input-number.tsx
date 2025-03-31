@@ -27,8 +27,8 @@ export default defineComponent({
             <el-input-number
                 v-model={this.form.model[this.formItem.key]}
                 clearable
-                attrs={this.options}
-                on={this.options.on}
+                attrs={{...this.options}}
+                on={{...this.options.on}}
                 ref={'inputNumberRef'}
             >
             </el-input-number>

@@ -168,6 +168,7 @@ export default defineComponent({
                                             rules: rules
                                         }}
                                     >
+
                                         <dinert-tooltip key={item.key}
                                             content={String(getTooltipValue(this.form.model[item.key], item))}
                                             disabled={valDisabled}
