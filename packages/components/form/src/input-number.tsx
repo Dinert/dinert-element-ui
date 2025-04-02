@@ -15,6 +15,11 @@ export default defineComponent({
             default: () => ({})
         },
     },
+    created() {
+        if (typeof this.form.model[this.formItem.key] === 'undefined') {
+            this.$set(this.form.model, this.formItem.key, null)
+        }
+    },
     computed: {
         options() {
             const options = this.formItem.options || {}

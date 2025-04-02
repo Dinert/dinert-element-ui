@@ -90,6 +90,22 @@ export default defineConfig({
                         path: '/examples/form/checkbox',
                     },
                     {
+                        title: 'rate 评分',
+                        path: '/examples/form/rate',
+                    },
+                    {
+                        title: 'cascader 级联选择器',
+                        path: '/examples/form/cascader',
+                    },
+                    {
+                        title: 'slider 滑块',
+                        path: '/examples/form/slider',
+                    },
+                    {
+                        title: 'time-picker 时间选择器',
+                        path: '/examples/form/time-picker',
+                    },
+                    {
                         title: '表单属性',
                         path: '/examples/form/explain',
                     }

@@ -27,7 +27,7 @@ export default defineComponent({
             <el-slider
                 v-model={this.form.model[this.formItem.key]}
                 attrs={{...this.options}}
-                on={this.options.on}
+                on={{...this.options.on}}
             >
             </el-slider>
         )

@@ -25,8 +25,8 @@ export default defineComponent({
         return (
             <el-rate
                 v-model={this.form.model[this.formItem.key]}
-                attrs={this.options}
-                on={this.options.on}
+                attrs={{...this.options}}
+                on={{...this.options.on}}
                 ref={'rateRef'}
             >
             </el-rate>

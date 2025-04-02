@@ -63,8 +63,19 @@
                             padding-left: 12px;
 
                             .el-input-number {
-                                width: auto;
+                                margin-right: 12px;
+                                width: 130px;
                             }
+                        }
+                    }
+                }
+
+                &.rate {
+                    .label-text {
+                        .el-rate {
+                            display: flex;
+                            align-items: center;
+                            height: 100%;
                         }
                     }
                 }

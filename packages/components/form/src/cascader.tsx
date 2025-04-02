@@ -41,8 +41,7 @@ export default defineComponent({
                             ...this.options.props
                         }
                     }}
-                    on={this.options.on}
-                    key={this.formItem.key}
+                    on={{...this.options.on}}
                     ref={'cascaderRef'}
                 >
                 </el-cascader>
