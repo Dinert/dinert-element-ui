@@ -49,10 +49,10 @@
 | vif          | 是否渲染所有表单组件，优先formItem下的vif                                              | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing>  | 一     |
 | required     | 是否验证每个表单组件是否必填                                                           | boolean                                                                                        | 一     |
 | packUp       | 第一次加载是否默认展开超出的组件                                                       | boolean                                                                                        | true   |
-| enterSearch  | 是否开启回车搜索，仅支持input的组件                                                                       | boolean                                                                                        | true   |
-| searchButton | 自定义搜索按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributes)          | 一     |
-| resetButton  | 自定义重置按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributÏes)         | 一     |
-| ......       | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一     |
+| enterSearch  | 是否开启回车搜索，仅支持input的组件                                                    | boolean                                                                                        | true   |
+| searchButton | 自定义搜索按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element.eleme.io/#/en-US/component/button#attributes)          | 一     |
+| resetButton  | 自定义重置按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element.eleme.io/#/en-US/component/button#attributes)         | 一     |
+| ......       | [更多配置，请参考](https://element.eleme.io/#/en-US/component/form#form-attributes) | 一                                                                                             | 一     |
 
 ## formItem 属性
 | 属性名    | 说明                                                                                       | 类型                                                                                          | 默认值 |
@@ -66,7 +66,7 @@
 | showLabel | 是否直接显示当前表单组件的值                                                               | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
 | colLayout | 当前表单组件列表布局                                                                       | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing>                    | \{  \} |
 | required  | 是否必填                                                                                   | Boolean                                                                                       | 一     |
-| ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#formitem-attributes) | 一                                                                                            | 一     |
+| ......    | [更多配置，请参考](https://element.eleme.io/#/en-US/component/form#form-item-attributes) | 一                                                                                            | 一     |
 
 ## 事件
 | 事件名    | 说明           | 类型                                                                   |
