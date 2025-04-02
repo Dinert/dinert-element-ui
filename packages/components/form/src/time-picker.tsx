@@ -40,7 +40,7 @@ export default defineComponent({
             <el-time-select
                 v-model={this.form.model[this.formItem.key]}
                 attrs={{...this.options}}
-                on={this.options.on}
+                on={{...this.options.on}}
                 ref={'timePickerRef'}
             >
             </el-time-select>
