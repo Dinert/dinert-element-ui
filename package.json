@@ -1,6 +1,6 @@
 {
   "name": "@dinert/element-ui",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "type": "module",
   "main": "lib/index.js",
   "module": "es/packages/index.js",
@@ -47,6 +47,7 @@
     "sass": "1.69.5",
     "stylelint": "15.11.0",
     "stylelint-config-recommended-vue": "1.5.0",
+    "stylelint-config-recommended": "9.0.0",
     "stylelint-config-standard": "34.0.0",
     "stylelint-order": "6.0.3",
     "stylelint-scss": "5.3.1",
@@ -58,6 +59,13 @@
     "vue-eslint-parser": "^9.4.2",
     "vue-property-decorator": "^9.1.2",
     "vue-template-compiler": "2.6.14"
+  },
+  "overrides": {
+    "stylelint-config-recommended": "9.0.0"
+  },
+
+  "resolutions": {
+    "stylelint-config-recommended": "9.0.0"
   },
   "lint-staged": {
     "*.{tsx, ts}": [

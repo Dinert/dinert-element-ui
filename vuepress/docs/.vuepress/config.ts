@@ -111,6 +111,20 @@ export default defineConfig({
                     }
                 ]
             },
+            {
+                title: '表格',
+                collapsable: true,
+                children: [
+                    {
+                        title: '基本使用',
+                        path: '/examples/table/basic',
+                    },
+                    // {
+                    //     title: '表格属性',
+                    //     path: '/examples/table/explain',
+                    // }
+                ]
+            }
         ]
     }
   },

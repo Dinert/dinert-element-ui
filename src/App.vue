@@ -23,7 +23,7 @@
             </div>
         </div> -->
         <dinert-form :form="form"/>
-        <!-- <table-page/> -->
+        <!-- <table-page/>
         <!-- <d-dialog-vue> -->
         <!-- <el-form>
             <el-input/>
