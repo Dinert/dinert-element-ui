@@ -60,13 +60,6 @@
     "vue-property-decorator": "^9.1.2",
     "vue-template-compiler": "2.6.14"
   },
-  "overrides": {
-    "stylelint-config-recommended": "9.0.0"
-  },
-
-  "resolutions": {
-    "stylelint-config-recommended": "9.0.0"
-  },
   "lint-staged": {
     "*.{tsx, ts}": [
       "eslint --fix",
