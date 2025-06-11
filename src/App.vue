@@ -24,7 +24,7 @@
         </div> -->
         <dinert-form :form="form"/>
         <!-- <table-page/>
-        <!-- <d-dialog-vue> -->
+        <d-dialog-vue> -->
         <!-- <el-form>
             <el-input/>
         </el-form> -->

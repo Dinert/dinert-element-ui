@@ -21,8 +21,7 @@
     "build:test": "vite build --mode test",
     "preview": "vite preview",
     "docs:dev": "cd vuepress && yarn dev",
-    "docs:build": "cd vuepress && yarn build",
-    "docs:preview": "cd vuepress && yarn preview"
+    "docs:build": "cd vuepress && yarn build"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
