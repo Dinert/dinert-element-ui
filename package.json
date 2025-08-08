@@ -20,6 +20,7 @@
     "build": "vite build",
     "build:test": "vite build --mode test",
     "preview": "vite preview",
+    "preview2": "vite preview",
     "docs:dev": "cd vuepress && yarn dev",
     "docs:build": "cd vuepress && yarn build"
   },
