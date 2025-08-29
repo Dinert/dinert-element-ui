@@ -55,6 +55,9 @@ export default defineConfig(({mode}) => {
                 entry: './index.ts',
             }
         },
+        define: {
+            'process.env.NODE_ENV': '"production"' // 直接替换 process.env.NODE_ENV
+        },
         plugins: [
             createVuePlugin({
                 vueTemplateOptions: {},
