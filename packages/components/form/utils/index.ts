@@ -171,6 +171,7 @@ export const customPlaceholder = (customName: any, type: string = 'input', name:
 export const formItemSlot = (customName: any, name: string = 'formItem_') => {
     if (typeof window.__UMD_BUILD__ !== 'undefined' && window.__UMD_BUILD__) {
         name = 'formitem_'
+        customName = customName.toLowerCase()
     }
     return name + (customName || '')
 }
