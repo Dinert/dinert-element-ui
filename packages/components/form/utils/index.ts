@@ -169,13 +169,20 @@ export const customPlaceholder = (customName: any, type: string = 'input', name:
 }
 
 export const formItemSlot = (customName: any, name: string = 'formItem_') => {
+    if (typeof window.__UMD_BUILD__ !== 'undefined' && window.__UMD_BUILD__) {
+        name = 'formitem_'
+    }
     return name + (customName || '')
 }
 
 
 export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): any => {
+    let name = 'formItem_'
+    if (typeof window.__UMD_BUILD__ !== 'undefined' && window.__UMD_BUILD__) {
+        name = 'formitem_'
+    }
     for (const prop in _this.$scopedSlots) {
-        const slotName = prop.split('formItem_').join('').split('_')[1]
+        const slotName = prop.split(name).join('').split('_')[1]
         let slotFn: any = null
         if (!slotName) {
             return

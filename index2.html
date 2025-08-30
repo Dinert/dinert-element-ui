@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/style.css">
+    <link rel="stylesheet" href="./element-ui.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <dinert-form :form="form" :search="false" class="dialog">
+            <template #formitem_detail>
+                <div style="margin: 0 auto;width: 100px;">
+                    <el-button type="primary" @click="submitForm('form')">查询</el-button>
+                </div>
+            </template>
+        </dinert-form>
+    </div>
+
+</body>
+
+<script src="./vue@2.6.14.js"></script>
+<script src="./element-ui@2.15.4.js"></script>
+<script src="./dist//element-ui.umd.cjs"></script>
+<script>
+    Vue.component('dinert-tooltip', window['dinert-element-ui'].DinertTooltip) // 单独注册
+    Vue.component('dinert-form', window['dinert-element-ui'].DinertForm) // 单独注册
+    Vue.component('dinert-table', window['dinert-element-ui'].DinertTable) // 单独注册
+    Vue.component('dinert-table-page', window['dinert-element-ui'].DinertTablePage) // 单独注册
+</script>
+
+<script>
+
+    let app = new Vue({
+        el: "#app",
+        data() {
+            return {
+                form: {
+                    model: {
+
+                    },
+                    required: true,
+                    formItem: {
+                        bookId: {
+                            type: 'input',
+                            label: 'id',
+                            show: false,
+                            options: {
+                                name: 'bookId'
+                            }
+                        },
+                        bookName: {
+                            type: 'input',
+                            label: '书籍名称',
+                            options: {
+                                name: 'bookName'
+                            }
+                        },
+                        bookCounts: {
+                            type: 'input-number',
+                            label: '书籍数量',
+                            options: {
+                                name: 'bookCounts'
+                            }
+                        },
+                        detail: {
+                            type: 'textarea',
+                            label: '书籍描述',
+                            options: {
+                                name: 'detail'
+                            }
+                        },
+
+                    }
+                },
+            }
+        },
+        methods: {
+        }
+    })
+</script>
+
+</html>

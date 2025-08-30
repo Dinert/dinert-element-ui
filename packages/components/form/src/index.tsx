@@ -180,8 +180,6 @@ export default defineComponent({
                                                 default: () => {
                                                     const scopedSlots: any = {}
                                                     let componentResult = <span>{dataTransformRod(getSpanValue(this.form.model[item.key], item))}</span>
-
-
                                                     if (this.$scopedSlots[formItemSlot(item.key)]) {
                                                         componentResult = (this.$scopedSlots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
                                                     } else if (itemShowLabel || (formShowLabel && [true, undefined].includes(itemShowLabel))) {
