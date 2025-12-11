@@ -133,6 +133,7 @@ export default defineConfig({
       alias: {
         '@packages': _resolve('../../../packages'),
         '@vuepress': _resolve('../../../vuepress'),
+        'vue': path.resolve(__dirname, '../../node_modules/vue')
       },
       extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
     },
