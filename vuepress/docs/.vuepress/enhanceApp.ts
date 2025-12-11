@@ -12,6 +12,7 @@ export default ({
     isServer // 当前应用配置是处于 服务端渲染 或 客户端
   }) => {
 
+    if (typeof window === 'undefined') return
     Vue.use(ElementUI, {
       size: 'medium',
     })
