@@ -22,9 +22,9 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: '20.0.0'
-      - run: npm install # 安装依赖
-      - run: npm run build # 打包
-      - run: cd vuepress && npm install # 安装依赖
+    #   - run: npm install # 安装依赖
+    #   - run: npm run build # 打包
+      - run: cd vuepress && yarn install # 安装依赖
       - run: yarn docs:build # 打包
 
       # 部署到 GitHub pages
