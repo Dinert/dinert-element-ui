@@ -131,13 +131,35 @@ export default defineConfig({
   configureWebpack: {
     resolve: {
       alias: {
-        '@packages': _resolve('../../../packages'),
         '@vuepress': _resolve('../../../vuepress'),
-        'vue': path.resolve(__dirname, '../../node_modules/vue')
+        '@packages': _resolve('../../../packages'),
+        'vue': _resolve('../../node_modules/vue')
+
       },
       extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
     },
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  '@babel/preset-env',
+                  '@babel/preset-typescript',
+                  '@vue/babel-preset-jsx' // 处理 Vue 2 TSX
+                ]
+              }
+            }
+          ]
+        },
+      ]
+    }
   },
+
   chainWebpack: (config) => {
 
   }
