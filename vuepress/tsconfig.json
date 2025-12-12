@@ -10,5 +10,6 @@
     "skipLibCheck": true,
     "noImplicitAny": false,
   },
-  "include": ["docs/.vuepress/**/*"]
+  "include": ["docs/.vuepress/**/*", "../packages/**/*.ts", "../packages/**/*.tsx"],
+  "exclude": ["node_modules"]
 }
