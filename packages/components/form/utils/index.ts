@@ -1,4 +1,4 @@
-import {isSlotsValue} from '@packages/utils/tools'
+
 
 export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
     const el = (e.target as any).parentElement.parentElement
@@ -169,19 +169,14 @@ export const customPlaceholder = (customName: any, type: string = 'input', name:
 }
 
 export const formItemSlot = (customName: any, name: string = 'formItem_') => {
-    if (typeof window.__UMD_BUILD__ !== 'undefined' && window.__UMD_BUILD__) {
-        name = name.toLowerCase()
-        customName = customName.toLowerCase()
-    }
+
     return name + (customName || '')
 }
 
 
 export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): any => {
-    let name = 'formItem_'
-    if (typeof window.__UMD_BUILD__ !== 'undefined' && window.__UMD_BUILD__) {
-        name = name.toLowerCase()
-    }
+    const name = 'formItem_'
+
     for (const prop in _this.$scopedSlots) {
         const slotName = prop.split(name).join('').split('_')[1]
         let slotFn: any = null

@@ -38,11 +38,15 @@ export default defineComponent({
         this.windowResize = lodash.debounce(() => {
             this.resizeForm()
         })
-        window.addEventListener('resize', this.windowResize, true)
+        if (typeof window !== 'undefined'){
+            window.addEventListener('resize', this.windowResize, true)
+        }
     },
 
     unmounted() {
-        window.removeEventListener('resize', this.windowResize, true)
+        if (typeof window !== 'undefined'){
+         window.removeEventListener('resize', this.windowResize, true)
+        }
     },
 
     data() {

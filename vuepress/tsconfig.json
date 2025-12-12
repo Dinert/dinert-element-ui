@@ -9,7 +9,8 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "noImplicitAny": false,
+    "declaration": false
   },
-  "include": ["docs/.vuepress/**/*", "../packages/**/*.ts", "../packages/**/*.tsx"],
+  "include": ["docs/.vuepress/**/*"],
   "exclude": ["node_modules"]
 }

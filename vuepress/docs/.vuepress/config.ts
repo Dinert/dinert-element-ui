@@ -2,12 +2,14 @@
 import path from "path";
 import { defineConfig } from "vuepress/config";
 
+
 function _resolve(dir: string) {
     return path.resolve(__dirname, dir)
 }
 
 export default defineConfig({
   base: process.env.NODE_ENV === 'production' ? '/dinert-element-ui/' : '/' as any,
+//   base: '/' as any,
   title: 'dinert-element-ui',
   description: 'VuePress搭建基于Element的组件库二次封装的文档教程示例代码',
   port: 3113,
@@ -24,6 +26,7 @@ export default defineConfig({
         "vuepress-plugin-typescript",
         {
             tsLoaderOptions: {
+                transpileOnly: true,  // ✔ 不校验类型
             }
         }
     ],
@@ -136,8 +139,13 @@ export default defineConfig({
         'vue': _resolve('../../node_modules/vue')
 
       },
-      extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
+      extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
     },
+    plugins: [
+
+    ],
+
+
     module: {
       rules: [
         {

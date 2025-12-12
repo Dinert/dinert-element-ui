@@ -1,5 +1,6 @@
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueCompositionAPI from '@vue/composition-api'
 import DinertElementUI from '@packages'
 // import {DinertForm, DinertTooltip} from '@packages'
 import './public/css/index.css'
@@ -12,7 +13,9 @@ export default ({
     isServer // 当前应用配置是处于 服务端渲染 或 客户端
   }) => {
 
-    if (typeof window === 'undefined') return
+    // if (typeof window === 'undefined') return
+
+    Vue.use(VueCompositionAPI)
     Vue.use(ElementUI, {
       size: 'medium',
     })
